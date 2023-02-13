@@ -5,12 +5,21 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import modele.Labyrinth;
 
 public class Menu extends JFrame {
 
 	private JPanel contentPane;
+	private JMenuBar jmb;
+	
+	private Labyrinth laby;
+
 
 	/**
 	 * Launch the application.
@@ -37,19 +46,30 @@ public class Menu extends JFrame {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		
 		contentPane = new LabyrinthGraphique(5);
+		
+		jmb = new JMenuBar();
 
 		ImageIcon logo = new ImageIcon(getClass().getResource("/images/logo.png"));
 		
+		JButton quitter = new JButton("Quitter");
+		jmb.add(quitter);
+
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(screenSize);
 		
 //		setBounds(100, 100, 450, 300);
 //		contentPane = new JPanel();
 //		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
+		setJMenuBar(jmb);
+		jmb.setVisible(false);
+		
 		setIconImage(logo.getImage());
 		setTitle("Trouve La Voie | G.R.A.A.L");
 		setContentPane(contentPane);
+		setResizable(false);
+		pack();
+		setLocationRelativeTo(null);
 	}
 
 }

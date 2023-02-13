@@ -1,6 +1,7 @@
 package vue;
 
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -15,9 +16,10 @@ public class CaseGraphique extends JPanel {
 	 */
 	public CaseGraphique() {
 		
-		setSize(100, 100);
+		
+		setPreferredSize(new Dimension(100, 100));
 		setBackground(new Color(145, 137, 135));
-		setBorder(lineBorder);
+		setBorder(lineBorder); //pas utile pour la suite
 
 	}
 
