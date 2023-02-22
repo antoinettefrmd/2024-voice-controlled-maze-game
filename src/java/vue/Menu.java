@@ -204,6 +204,8 @@ public class Menu extends JFrame {
 
 		
 		ImageIcon logo = new ImageIcon(getClass().getResource("/images/logo.png"));
+		//ImageIcon logo = new ImageIcon("../../images/logo.png");
+		
 
 //		setBounds(100, 100, 450, 300);
 //		contentPane = new JPanel();

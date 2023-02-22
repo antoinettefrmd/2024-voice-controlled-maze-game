@@ -129,6 +129,10 @@ public class Labyrinth {
 		public Case() { //Crée une case avec un mur par défaut
 			mur = true;
 		}
+
+		// public Case getCase() {
+		// 	return this;
+		// }
 		
 		public Case(boolean i) { //Crée une case avec l'orientation du mur en argument 
 			mur = i;
