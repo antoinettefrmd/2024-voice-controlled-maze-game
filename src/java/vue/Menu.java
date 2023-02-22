@@ -49,7 +49,7 @@ public class Menu extends JFrame {
 		
 		jmb = new JMenuBar();
 
-		ImageIcon logo = new ImageIcon(getClass().getResource("/images/logo.png"));
+		ImageIcon logo = new ImageIcon("../../images/logo.png");
 		
 		JButton quitter = new JButton("Quitter");
 		jmb.add(quitter);
