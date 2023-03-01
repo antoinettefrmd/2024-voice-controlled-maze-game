@@ -10,4 +10,8 @@ public class Pion {
     public getCouleur () {
         return this.couleur;
     }
+
+    public String toString() {
+        return couleur[0].toUpperCase();
+    }
 }

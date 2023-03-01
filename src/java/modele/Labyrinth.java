@@ -6,6 +6,7 @@ public class Labyrinth {
 	protected Case[][] labyrinth;
 	private int[][]tab_val;//entier entre -1 et 4, -1 représentant la première case, 0 les cases non visitées 1-4 représentent d'ou vient l'ancienne case visitée
 	//1 = gauche, 2 = bas, 3 = droite, 4 = haut
+	private int [][]
 	protected int l; // taille du labyrinth
 	private int x; // utile seulement pour la génération
 	private int y; // idem
