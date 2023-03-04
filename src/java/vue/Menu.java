@@ -21,6 +21,7 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
@@ -198,6 +199,7 @@ public class Menu extends JFrame {
 		jmb = new JMenuBar();
 		
 		JButton quitterjeu = new JButton("Quitter");
+		
 		jmb.add(quitterjeu);
 		
 		//####################################################
@@ -245,8 +247,9 @@ public class Menu extends JFrame {
 		menuPanel.updateUI();
 	}
 	
-	public void lancerjeu() { //permet de lancer le jeu depuis parametresPartie
-		LabyrinthGraphique lg = new LabyrinthGraphique(11);
+	//permet de lancer le jeu depuis parametresPartie
+	public void lancerjeu(boolean georges, boolean ronen, boolean antoinette, boolean alec, boolean lea) {
+		LabyrinthGraphique lg = new LabyrinthGraphique(this, 11, georges, ronen, antoinette, alec, lea);
 		jmb.setVisible(true);
 		getContentPane().removeAll();
 		contentPane = lg;
@@ -264,6 +267,10 @@ public class Menu extends JFrame {
 	
 	public Font getMinecraft() {
 		return minecraft;
+	}
+	
+	public Font getDayDream() {
+		return DayDream;
 	}
 	
 	public BufferedImage getImage() {
