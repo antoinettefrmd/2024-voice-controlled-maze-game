@@ -22,6 +22,7 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
@@ -63,8 +64,8 @@ public class Menu extends JFrame {
 		public MenuPanel() {
 			
 			try {
-				// image = ImageIO.read(new File("./src/ressources/images/gregory-ligman-brickwall.jpeg"));	
-				image = ImageIO.read(new File("./src/ressources/images/mur2.jpg"));	
+				image = ImageIO.read(new File("./src/ressources/images/gregory-ligman-brickwall.jpeg"));	
+				// image = ImageIO.read(new File("./src/ressources/images/mur2.jpg"));	
 			}
 			catch (IOException e) {
 				e.printStackTrace();
@@ -200,6 +201,7 @@ public class Menu extends JFrame {
 		jmb = new JMenuBar();
 		
 		JButton quitterjeu = new JButton("Quitter");
+		
 		jmb.add(quitterjeu);
 		
 		//####################################################
@@ -247,8 +249,9 @@ public class Menu extends JFrame {
 		menuPanel.updateUI();
 	}
 	
-	public void lancerjeu() { //permet de lancer le jeu depuis parametresPartie
-		LabyrinthGraphique lg = new LabyrinthGraphique(15);
+	//permet de lancer le jeu depuis parametresPartie
+	public void lancerjeu(boolean georges, boolean ronen, boolean antoinette, boolean alec, boolean lea) {
+		LabyrinthGraphique lg = new LabyrinthGraphique(this, 11, georges, ronen, antoinette, alec, lea);
 		jmb.setVisible(true);
 		getContentPane().removeAll();
 		contentPane = lg;
@@ -266,6 +269,10 @@ public class Menu extends JFrame {
 	
 	public Font getMinecraft() {
 		return minecraft;
+	}
+	
+	public Font getDayDream() {
+		return DayDream;
 	}
 	
 	public BufferedImage getImage() {
