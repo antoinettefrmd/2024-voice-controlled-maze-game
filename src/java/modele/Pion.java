@@ -7,11 +7,11 @@ public class Pion {
         this.couleur = couleur;
     }
 
-    public getCouleur () {
+    public String getCouleur () {
         return this.couleur;
     }
 
     public String toString() {
-        return couleur[0].toUpperCase();
+        return Character.toUpperCase(this.couleur.charAt(0)) + "";
     }
 }
