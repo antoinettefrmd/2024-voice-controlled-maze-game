@@ -124,12 +124,16 @@ public class Labyrinth {
 		return res;
 	}
 	
-	private class Case {
+	public class Case {
 		private boolean mur; // définie si une case est un mur ou non
 		
 		public Case() { //Crée une case avec un mur par défaut
 			mur = true;
 		}
+
+		// public Case getCase() {
+		// 	return this;
+		// }
 		
 		public Case(boolean i) { //Crée une case avec l'orientation du mur en argument 
 			mur = i;
