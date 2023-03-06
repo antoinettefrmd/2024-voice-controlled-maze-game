@@ -1,5 +1,6 @@
 package vue;
 
+import java.lang.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -62,7 +63,8 @@ public class Menu extends JFrame {
 		public MenuPanel() {
 			
 			try {
-				image = ImageIO.read(new File("./src/ressources/images/gregory-ligman-brickwall.jpeg"));
+				// image = ImageIO.read(new File("./src/ressources/images/gregory-ligman-brickwall.jpeg"));	
+				image = ImageIO.read(new File("./src/ressources/images/mur2.jpg"));	
 			}
 			catch (IOException e) {
 				e.printStackTrace();
@@ -75,7 +77,8 @@ public class Menu extends JFrame {
 			titre.setHorizontalAlignment(SwingConstants.CENTER);
 			titre.setBorder(new EmptyBorder(150, 0, 0, 0));
 			//titre.setForeground(new Color(220, 226, 195));
-			titre.setForeground(new Color(33, 54, 79));
+			titre.setForeground(new Color(34, 120, 15));
+			titre.setForeground(new Color(250, 250, 175));
 			titre.setFont(DayDream);
 			
 			
@@ -99,7 +102,7 @@ public class Menu extends JFrame {
 			jouer.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			
 			
-			JButton credit = new JButton("Credit");
+			JButton credit = new JButton("Credits");
 			credit.setPreferredSize(dimButton);
 			credit.setFont(minecraft);
 			credit.setForeground(Color.white);
@@ -144,7 +147,6 @@ public class Menu extends JFrame {
 				contentPane = pp;
 				getContentPane().add(contentPane);
 				contentPane.updateUI();
-
 			});
 			
 			credit.addActionListener((ActionEvent event) -> {
@@ -246,7 +248,7 @@ public class Menu extends JFrame {
 	}
 	
 	public void lancerjeu() { //permet de lancer le jeu depuis parametresPartie
-		LabyrinthGraphique lg = new LabyrinthGraphique(11);
+		LabyrinthGraphique lg = new LabyrinthGraphique(15);
 		jmb.setVisible(true);
 		getContentPane().removeAll();
 		contentPane = lg;
