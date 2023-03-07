@@ -1,6 +1,7 @@
 package modele;
 
 import vue.LabyrinthGraphique;
+import vue.Menu;
 
 public class Jeu {
 	
@@ -16,6 +17,12 @@ public class Jeu {
 		joueursfinito = new ListeDeJoueurs();
 		etage = 0;
 		courant = joueurs.getCourant();
+	public Jeu(Menu m, ListeDeJoueurs ldj) {
+		
+	}
+	
+	public void jouer() {
+		
 	}
 	
 	

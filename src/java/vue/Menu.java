@@ -31,6 +31,9 @@ import javax.swing.OverlayLayout;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import modele.Jeu;
+import modele.ListeDeJoueurs;
+
 public class Menu extends JFrame {
 
 	private JPanel contentPane;
@@ -250,8 +253,11 @@ public class Menu extends JFrame {
 	}
 	
 	//permet de lancer le jeu depuis parametresPartie
-	public void lancerjeu(boolean georges, boolean ronen, boolean antoinette, boolean alec, boolean lea) {
-		LabyrinthGraphique lg = new LabyrinthGraphique(this, 11, georges, ronen, antoinette, alec, lea);
+	public void lancerjeu(ListeDeJoueurs ldj) {
+		
+		Jeu j = new Jeu(this, ldj);
+		
+		LabyrinthGraphique lg = new LabyrinthGraphique(this, 11);
 		jmb.setVisible(true);
 		getContentPane().removeAll();
 		contentPane = lg;
