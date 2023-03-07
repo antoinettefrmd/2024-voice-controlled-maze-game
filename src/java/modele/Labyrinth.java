@@ -1,5 +1,8 @@
 package modele;
 
+import java.awt.Color;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -23,10 +26,14 @@ public class Labyrinth {
 		}
 		x = 0;
 		y = 0;
-		labyrinth[l][l].addPion(new Joueur("bleu"));
+		labyrinth[l][l].addPion(new Joueur(Color.BLUE));
+		labyrinth[l][l].addPion(new Joueur(Color.RED));
+		labyrinth[l][l].addPion(new Joueur(Color.PINK));
 		tab_val[x][y] = -1;
 		generate();
 	}
+	
+	
 	
 	public Case[][] getLabyrinth(){ //On aura besoin d'avoir accès au labyrinthe
 		return this.labyrinth;
@@ -175,4 +182,5 @@ public class Labyrinth {
 		System.out.println(test);
 		System.out.println(test.labyrinth[20][20].mur);
 	}
+
 }

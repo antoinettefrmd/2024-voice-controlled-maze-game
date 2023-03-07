@@ -1,17 +1,21 @@
 package modele;
 
-public class Joueur {
-    private String couleur;
+import java.awt.Color;
 
-    public Joueur (String couleur) {
+public class Joueur {
+ 
+    private Color couleur;
+    
+
+    public Joueur (Color couleur) {
         this.couleur = couleur;
     }
 
-    public String getCouleur () {
+    public Color getCouleur () {
         return this.couleur;
     }
 
     public String toString() {
-        return Character.toUpperCase(this.couleur.charAt(0)) + "";
+        return "B";
     }
 }

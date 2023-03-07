@@ -35,9 +35,9 @@ public class CaseGraphique extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		if (!c.estVide()) {
-			g.setColor(Color.RED);
-			g.fillOval(0, 0, 24, 24);
+		for (int i = 0; i < c.getPions().size(); i++) {
+			g.setColor(c.getPions().get(i).getCouleur());
+			g.fillOval(i * 40 / c.getPions().size(), 0, 40/c.getPions().size(), 40/c.getPions().size());
 		}
 	}
 

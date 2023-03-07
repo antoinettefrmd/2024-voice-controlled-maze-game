@@ -13,12 +13,16 @@ import java.awt.Image;
 import java.awt.LayoutManager;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
 import javax.imageio.ImageIO;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -29,6 +33,8 @@ import javax.swing.JPanel;
 import javax.swing.OverlayLayout;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
+import modele.Clavier;
 
 public class Menu extends JFrame {
 
@@ -199,6 +205,7 @@ public class Menu extends JFrame {
 		jmb = new JMenuBar();
 		
 		JButton quitterjeu = new JButton("Quitter");
+		quitterjeu.setFocusable(false);
 		
 		jmb.add(quitterjeu);
 		
@@ -276,5 +283,6 @@ public class Menu extends JFrame {
 	public BufferedImage getImage() {
 		return image;
 	}
+	
 	
 }

@@ -2,19 +2,25 @@ package vue;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.LinkedList;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import modele.Labyrinth;
 
-public class LabyrinthGraphique extends JPanel {
+public class LabyrinthGraphique extends JPanel{
 	
 	private JPanel[][] labyrinthG;
 	private Labyrinth labyrinthD;
@@ -30,13 +36,14 @@ public class LabyrinthGraphique extends JPanel {
 	public LabyrinthGraphique(Menu m, int n, boolean georges, boolean ronen, boolean antoinette, boolean alec, boolean lea) {
 		
 		this.labyrinthD = new Labyrinth(n);
+		this.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "right");
+		this.getActionMap().put("right", right);
 		setLayout(new GridLayout(2*n+1, 2*n+1));
 		labyrinthG = new JPanel[2*n +1][2*n +1];
 		
 		JMenuBar jmb = m.getJMenuBar();
 		
 		listj = new LinkedList<>();
-		
 		JLabel jactu = new JLabel("Joueur(s) / Joueuse(s) : ");
 		jactu.setBorder(new EmptyBorder(0, 10, 0, 0));
 		
@@ -95,6 +102,18 @@ public class LabyrinthGraphique extends JPanel {
 			}
 		}
 		
+		setFocusable(true);
+		requestFocus();
+		
 	}
+	
+	private Action right = new AbstractAction() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("right");
+			
+		}
+	};
 
 }
