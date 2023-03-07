@@ -67,16 +67,11 @@ public class ParametresPartie extends JPanel {
 
 		
 		JLabel titre = new JLabel("Choisir les joueurs participant a la quete :");
-		titre.setBorder(new EmptyBorder(50, 0, 0, 0));
-		titre.setHorizontalAlignment(SwingConstants.CENTER);
+		titre.setBorder(new EmptyBorder(50, 0, 0, 0)); //on crée un espace au-dessus du titre
+		titre.setHorizontalAlignment(SwingConstants.CENTER); //permet de centrer le texte
 		titre.setFont(DayDream);
 		
-		//titre.setFont(new Font("Arial Black", ABORT, 20));
-		
 		topBox.add(retour, BorderLayout.WEST);
-		//topBox.add(titre, BorderLayout.CENTER);
-		
-		
 		
 		
 		JPanel centerBox = new JPanel();
@@ -95,7 +90,7 @@ public class ParametresPartie extends JPanel {
 		JCheckBox j1 = new JCheckBox("Georges");
 		j1.setFont(mincecarftcheckbox);
 		j1.setOpaque(false);
-		j1.setFocusPainted(false);
+		j1.setFocusPainted(false); //permet de ne pas afficher le fait que le bouton soit selectionné
 		
 		JCheckBox j2 = new JCheckBox("Ronen");
 		j2.setFont(mincecarftcheckbox);
@@ -132,8 +127,6 @@ public class ParametresPartie extends JPanel {
 		southBox.setOpaque(false);
 		setBorder(new EmptyBorder(0, 0, 100, 0));
 		
-		//JButton lancer = new JButton("Lancer");
-		//JButton lancer = new JButton("Lancer");
 		JButton lancer = new GenericRoundedButton("Lancer");
 		lancer.setFocusPainted(false);
 		lancer.setFont(minecraft);
@@ -156,6 +149,7 @@ public class ParametresPartie extends JPanel {
 		});
 		
 		lancer.addActionListener((ActionEvent event) -> {
+			//on verifie s'il y a au moins une personne qui participe au jeu, si c'est le cas on lance la partie
 			if(j1.isSelected() || j2.isSelected() || j3.isSelected() || j4.isSelected() || j5.isSelected()) {
 				m.lancerjeu(j1.isSelected(), j2.isSelected(), j3.isSelected(), j4.isSelected(), j5.isSelected());
 			}
@@ -165,8 +159,8 @@ public class ParametresPartie extends JPanel {
 
 	}
 	
-	public void paintComponent(Graphics g) {
-		g.drawImage(image, 0, 0, null);
+	public void paintComponent(Graphics g) { //on redéfinit la méthode paintComponent de JPanel pour mettre une image en fond
+		g.drawImage(image, 0, 0, null); //permet de dessiner une image sur le fond de notre JPanel
 	}
 	
 	

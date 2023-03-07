@@ -12,8 +12,6 @@ import modele.Labyrinth;
 
 public class CaseGraphique extends JPanel {
 	
-	private Border lineBorder = BorderFactory.createLineBorder(Color.black, 4);
-
 	/**
 	 * Create the panel.
 	 */
