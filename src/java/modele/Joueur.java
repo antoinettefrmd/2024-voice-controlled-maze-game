@@ -1,9 +1,9 @@
 package modele;
 
-public class Pion {
+public class Joueur {
     private String couleur;
 
-    public Pion (String couleur) {
+    public Joueur (String couleur) {
         this.couleur = couleur;
     }
 
