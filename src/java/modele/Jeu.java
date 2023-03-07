@@ -7,15 +7,15 @@ public class Jeu {
 	public static LabyrinthGraphique labyrinth;
 	public static ListeDeJoueurs joueurs;
 	public static ListeDeJoueurs joueursfinito;
-	public static Joueur courant;
+	public static CellJoueur courant;
 	public int etage;
 	
-	public Jeu() {
-		
-	}
-	
-	public void jouer() {
-		
+	public Jeu(ListeDeJoueurs j) {
+		//labyrinth = new Labyrinth();
+		joueurs = j;
+		joueursfinito = new ListeDeJoueurs();
+		etage = 0;
+		courant = joueurs.getCourant();
 	}
 	
 	

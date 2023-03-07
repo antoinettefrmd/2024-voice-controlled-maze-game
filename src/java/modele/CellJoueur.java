@@ -6,12 +6,12 @@ public class CellJoueur {
 	private CellJoueur suivant;
 	private CellJoueur precedent;
 	
-	CellJoueur(Joueur p){
+	public CellJoueur(Joueur p){
 		joueur = p;
 		suivant = this;
 	}
 	
-	CellJoueur(Joueur p, CellJoueur suiv,CellJoueur prec){
+	public CellJoueur(Joueur p, CellJoueur suiv,CellJoueur prec){
 		joueur = p;
 		suivant = suiv;
 		precedent = prec;
