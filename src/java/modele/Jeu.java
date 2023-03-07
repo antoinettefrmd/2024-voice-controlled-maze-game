@@ -26,20 +26,26 @@ public class Jeu {
 	
 	public void manche() {
 		etage++;
-		labyrinth = new LabyrinthGraphique(taille+2);
+		//changer l'affichage de l'étage (ALEC)
+		labyrinth = new LabyrinthGraphique(taille);
+		taille+=2;
 		CellJoueur tmp = courant;
 		while(tmp.getSuivant()!=courant) {
-			//placer le joueur au milieu du labyrinth
+			labyrinth.getLabyrinthD().getLabyrinth()[taille][taille].addPion(courant.getJoueur());
+		}
+		while(!joueurs.estVide()) {
+			courant = courant.getSuivant();
+			//mettre en surbrillance le joueur courant (ALEC)
+			tour();
 		}
 	}
 	
 	public boolean tour() {
 		return true;
+		// faire jouer le joueur (lancer script bash+vérifier)
+		// déplacer le pion
+		// vérifier si le joueur attérit sur sa cléf
+		// vérifier si il à sa clef et qu'il est au milieu
+		// si il à finit, le mettre d'une couleur spéciale (ALEC)
 	}
-	
-	
-	public static void main(String[]args) {
-		
-	}
-	
 }
