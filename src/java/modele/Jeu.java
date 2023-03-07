@@ -1,6 +1,7 @@
 package modele;
 
 import vue.LabyrinthGraphique;
+import vue.Menu;
 
 public class Jeu {
 	
@@ -10,7 +11,7 @@ public class Jeu {
 	public static Joueur courant;
 	public int etage;
 	
-	public Jeu() {
+	public Jeu(Menu m, ListeDeJoueurs ldj) {
 		
 	}
 	
