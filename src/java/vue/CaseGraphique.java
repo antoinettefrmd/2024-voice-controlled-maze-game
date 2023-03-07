@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
 
+
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -15,18 +16,20 @@ import modele.Labyrinth;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
-
+import modele.Labyrinth.Case;
 
 
 public class CaseGraphique extends JPanel {
 	
 	private Border lineBorder = BorderFactory.createLineBorder(Color.black, 4);
 	private BufferedImage image;
+	private Case c;
 	/**
 	 * Create the panel.
 	 */
 	public CaseGraphique(Labyrinth.Case c) {
 		
+		this.c = c;
 		setPreferredSize(new Dimension(50, 50));
 		if (c.getMur()) {
 //			setBackground(new Color(97, 93, 92));
@@ -48,9 +51,14 @@ public class CaseGraphique extends JPanel {
 		}
 
 	}
-	
+
+	@Override
 	public void paintComponent(Graphics g) {
-		g.drawImage(image, 0, 0, null);
+		super.paintComponent(g);
+		for (int i = 0; i < c.getPions().size(); i++) {
+			g.setColor(c.getPions().get(i).getCouleur());
+			g.fillOval(i * 40 / c.getPions().size(), 0, 40/c.getPions().size(), 40/c.getPions().size());
+		}
 	}
 
 }

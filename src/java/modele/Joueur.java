@@ -1,18 +1,20 @@
 package modele;
+import java.awt.Color;
 
 public class Joueur {
+ 
+    private Color couleur;
+    
 
-    private String name;
-    private Pion pion;
-    private String couleur;
-
-    public Joueur(String name, String couleur) {
-        this.name = name;
+    public Joueur (Color couleur) {
         this.couleur = couleur;
-        this.pion = new Pion(couleur);
-    }
-    public String toString() {
-        return pion.toString();
     }
 
+    public Color getCouleur () {
+        return this.couleur;
+    }
+
+    public String toString() {
+        return "B";
+    }
 }

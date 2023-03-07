@@ -1,5 +1,8 @@
 package modele;
 
+import java.awt.Color;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -23,10 +26,14 @@ public class Labyrinth {
 		}
 		x = 0;
 		y = 0;
-		labyrinth[l][l].addPion(new Pion("bleu"));
+		labyrinth[l][l].addPion(new Joueur(Color.BLUE));
+		labyrinth[l][l].addPion(new Joueur(Color.RED));
+		labyrinth[l][l].addPion(new Joueur(Color.PINK));
 		tab_val[x][y] = -1;
 		generate();
 	}
+	
+	
 	
 	public Case[][] getLabyrinth(){ //On aura besoin d'avoir accès au labyrinthe
 		return this.labyrinth;
@@ -111,10 +118,10 @@ public class Labyrinth {
 	
 	public class Case {
 		private boolean mur; // définie si une case est un mur ou non
-		private ArrayList<Pion> pions;
+		private ArrayList<Joueur> joueurs;
 		public Case() { //Crée une case avec un mur par défaut
 			mur = true;
-			pions = new ArrayList<Pion>();
+			joueurs = new ArrayList<Joueur>();
 		}
 
 		// public Case getCase() {
@@ -133,24 +140,24 @@ public class Labyrinth {
 			mur = b;
 		}
 		
-		public void addPion(Pion p) {
-			pions.add(p);
+		public void addPion(Joueur p) {
+			joueurs.add(p);
 		}
-		public ArrayList<Pion> getPions() {
-			return this.pions;
+		public ArrayList<Joueur> getPions() {
+			return this.joueurs;
 		}
-		public boolean delPion(Pion p) {
-			return pions.remove(p);
+		public boolean delPion(Joueur p) {
+			return joueurs.remove(p);
 		}
 		public boolean estVide() {
-			return pions.isEmpty();
+			return joueurs.isEmpty();
 		}
 		
 		@Override
 		public String toString() {
 			if(mur) return "# ";
 			else if (estVide()) return ". ";
-			else return pions.get(0).toString();
+			else return joueurs.get(0).toString();
 		}
 			
 	}
@@ -160,4 +167,5 @@ public class Labyrinth {
 		System.out.println(test);
 		System.out.println(test.labyrinth[20][20].mur);
 	}
+
 }
