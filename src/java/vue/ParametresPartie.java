@@ -37,7 +37,6 @@ public class ParametresPartie extends JPanel {
 
 	public ParametresPartie(Menu m) {
 		
-// <<<<<<< HEAD
 		// image = m.getImage();
 		// minecraft = m.getMinecraft();
 		try {

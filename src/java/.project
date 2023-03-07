@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
+<<<<<<< HEAD
 	<name>java</name>
+=======
+	<name>src_java</name>
+>>>>>>> pion
 	<comment></comment>
 	<projects>
 	</projects>
@@ -14,6 +18,7 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+<<<<<<< HEAD
 	<filteredResources>
 		<filter>
 			<id>1677685186149</id>
@@ -25,4 +30,6 @@
 			</matcher>
 		</filter>
 	</filteredResources>
+=======
+>>>>>>> pion
 </projectDescription>
