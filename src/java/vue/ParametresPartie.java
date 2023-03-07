@@ -6,9 +6,6 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-
-import java.awt.GridLayout;
-import java.io.File;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -19,14 +16,16 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import javax.swing.BorderFactory;
+
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+
+import modele.Joueur;
+import modele.ListeDeJoueurs;
 
 public class ParametresPartie extends JPanel {
 	
@@ -154,9 +153,32 @@ public class ParametresPartie extends JPanel {
 		
 		lancer.addActionListener((ActionEvent event) -> {
 			//on verifie s'il y a au moins une personne qui participe au jeu, si c'est le cas on lance la partie
-			if(j1.isSelected() || j2.isSelected() || j3.isSelected() || j4.isSelected() || j5.isSelected()) {
-				m.lancerjeu(j1.isSelected(), j2.isSelected(), j3.isSelected(), j4.isSelected(), j5.isSelected());
-			}
+			 if(j1.isSelected() || j2.isSelected() || j3.isSelected() || j4.isSelected() || j5.isSelected()) {
+	                
+	                ListeDeJoueurs ldj = new ListeDeJoueurs();
+	                
+	                if(j1.isSelected()) {
+	                    ldj.add(new Joueur(Color.PINK));//georges
+	                }
+	                
+	                if(j2.isSelected()) {
+	                    ldj.add(new Joueur(Color.GREEN));//ronen
+	                }
+	                
+	                if(j3.isSelected()) {
+	                    ldj.add(new Joueur(Color.BLUE));//antoinette
+	                }
+	                
+	                if(j4.isSelected()) {
+	                    ldj.add(new Joueur(Color.MAGENTA));//alec
+	                }
+	                
+	                if(j5.isSelected()) {
+	                    ldj.add(new Joueur(Color.MAGENTA));//lea
+	                }
+
+	                m.lancerjeu(ldj);
+	            }
 		});
 		
 		//####################################################
