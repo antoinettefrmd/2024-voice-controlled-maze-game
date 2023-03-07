@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 
 import modele.Labyrinth;
+import modele.ListeDeJoueurs;
 
 public class LabyrinthGraphique extends JPanel {
 	
@@ -19,7 +20,7 @@ public class LabyrinthGraphique extends JPanel {
 	/**
 	 * n represente la taille n*n du labyrinth
 	 */
-	public LabyrinthGraphique(Menu m, int n) {
+	public LabyrinthGraphique(int n) {
 		
 		this.labyrinthD = new Labyrinth(n);
 		setLayout(new GridLayout(2*n+1, 2*n+1));
@@ -87,5 +88,8 @@ public class LabyrinthGraphique extends JPanel {
 		}
 		
 	}
-
+	
+	public void placerJoueurs(ListeDeJoueurs joueurs) {
+		
+	}
 }

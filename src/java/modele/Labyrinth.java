@@ -86,8 +86,6 @@ public class Labyrinth {
 						y++;
 						break;
 				}	
-				//System.out.println(x);
-				//System.out.println(y);
 				tab_val[x][y] = direction[i];
 			}
 			else {
@@ -96,19 +94,6 @@ public class Labyrinth {
 				else if (tab_val[x][y]==3) x++;
 				else if (tab_val[x][y]==4) y--;
 				else state = true;
-				/*switch(tab_val[x][y]) {
-					case 1 :
-						x--;
-						break;
-					case 2 :
-						y++;
-					case 3 :
-						x++;
-					case 4 :
-						y--;
-					default :
-						state = true;
-				}*/
 			}
 		}
 	}
@@ -136,7 +121,7 @@ public class Labyrinth {
 		// 	return this;
 		// }
 		
-		public Case(boolean i) { //Crée une case avec l'orientation du mur en argument 
+		public Case(boolean i) {  
 			mur = i;
 		}
 		

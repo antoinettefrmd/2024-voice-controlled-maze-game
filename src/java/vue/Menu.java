@@ -257,7 +257,7 @@ public class Menu extends JFrame {
 		
 		Jeu j = new Jeu(this, ldj);
 		
-		LabyrinthGraphique lg = new LabyrinthGraphique(this, 11);
+		LabyrinthGraphique lg = new LabyrinthGraphique(11);
 		jmb.setVisible(true);
 		getContentPane().removeAll();
 		contentPane = lg;
