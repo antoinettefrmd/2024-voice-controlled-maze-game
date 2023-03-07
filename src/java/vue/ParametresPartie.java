@@ -6,6 +6,9 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+
+import java.awt.GridLayout;
+import java.io.File;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -16,7 +19,6 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -33,11 +35,11 @@ public class ParametresPartie extends JPanel {
 	private Font mincecarftcheckbox;
 	private Font DayDream;
 
-	/**
-	 * Create the panel.
-	 */
 	public ParametresPartie(Menu m) {
 		
+// <<<<<<< HEAD
+		// image = m.getImage();
+		// minecraft = m.getMinecraft();
 		try {
 			InputStream is = getClass().getResourceAsStream("/fonts/Daydream.ttf");
 			DayDream = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(25f);
@@ -47,8 +49,6 @@ public class ParametresPartie extends JPanel {
 		catch(IOException | FontFormatException e) {
 			e.printStackTrace();
 		}
-		
-		
 		
 		setSize(new Dimension(1000, 800));
 		setLayout(new BorderLayout(0, 0));
@@ -73,12 +73,13 @@ public class ParametresPartie extends JPanel {
 		
 		topBox.add(retour, BorderLayout.WEST);
 		
-		
 		JPanel centerBox = new JPanel();
+
 		centerBox.setLayout(new BorderLayout());
 		centerBox.setOpaque(false);
 		
 		JPanel centerTopBox = new JPanel();
+		centerTopBox.setOpaque(false);
 		centerTopBox.add(titre, BorderLayout.CENTER);
 		centerTopBox.setOpaque(false);
 		
@@ -88,6 +89,7 @@ public class ParametresPartie extends JPanel {
 		centerCenterBox.setOpaque(false);
 		
 		JCheckBox j1 = new JCheckBox("Georges");
+
 		j1.setFont(mincecarftcheckbox);
 		j1.setOpaque(false);
 		j1.setFocusPainted(false); //permet de ne pas afficher le fait que le bouton soit selectionné
@@ -131,6 +133,9 @@ public class ParametresPartie extends JPanel {
 		lancer.setFocusPainted(false);
 		lancer.setFont(minecraft);
 		lancer.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		// lancer.setBorder(null);
+		// lancer.setOpaque(false);
+		// lancer.setContentAreaFilled(false);
 
 		lancer.setPreferredSize(new Dimension(200, 50));
 		
@@ -139,7 +144,6 @@ public class ParametresPartie extends JPanel {
 		add(topBox, BorderLayout.NORTH);
 		add(centerBox, BorderLayout.CENTER);
 		add(southBox, BorderLayout.SOUTH);
-
 		
 		//Controller
 		//####################################################
@@ -156,16 +160,12 @@ public class ParametresPartie extends JPanel {
 		});
 		
 		//####################################################
-
 	}
 	
 	public void paintComponent(Graphics g) { //on redéfinit la méthode paintComponent de JPanel pour mettre une image en fond
 		g.drawImage(image, 0, 0, null); //permet de dessiner une image sur le fond de notre JPanel
 	}
-	
-	
-	
-	
+
 	public class GenericRoundedButton extends JButton {
 		
 		private Color color;

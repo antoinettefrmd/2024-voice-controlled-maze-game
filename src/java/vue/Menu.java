@@ -1,5 +1,6 @@
 package vue;
 
+import java.lang.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -65,7 +66,8 @@ public class Menu extends JFrame {
 			
 			//essaye de trouver l'image pour le fond de l'interface graphique, en cas d'échec cela renvoie une erreur
 			try {
-				image = ImageIO.read(new File("./src/ressources/images/gregory-ligman-brickwall.jpeg"));
+				image = ImageIO.read(new File("./src/ressources/images/gregory-ligman-brickwall.jpeg"));	
+				// image = ImageIO.read(new File("./src/ressources/images/mur2.jpg"));	
 			}
 			catch (IOException e) {
 				e.printStackTrace();
@@ -79,7 +81,8 @@ public class Menu extends JFrame {
 			titre.setHorizontalAlignment(SwingConstants.CENTER);
 			titre.setBorder(new EmptyBorder(150, 0, 0, 0));
 			//titre.setForeground(new Color(220, 226, 195));
-			titre.setForeground(new Color(33, 54, 79));
+			titre.setForeground(new Color(34, 120, 15));
+			titre.setForeground(new Color(250, 250, 175));
 			titre.setFont(DayDream);
 			
 			//contient les boutons de navigation, cela permet de bien les organiser sur l'interface graphique
@@ -104,6 +107,7 @@ public class Menu extends JFrame {
 			
 			//bouton qui permet d'accéder à Credit
 			JButton credit = new JButton("Credit");
+
 			credit.setPreferredSize(dimButton);
 			credit.setFont(minecraft);
 			credit.setForeground(Color.white);
