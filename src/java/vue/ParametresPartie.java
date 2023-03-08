@@ -158,23 +158,23 @@ public class ParametresPartie extends JPanel {
 	                ListeDeJoueurs ldj = new ListeDeJoueurs();
 	                
 	                if(j1.isSelected()) {
-	                    ldj.add(new Joueur(Color.PINK));//georges
+	                    ldj.add(new Joueur(Color.PINK, 0, 0));//georges
 	                }
 	                
 	                if(j2.isSelected()) {
-	                    ldj.add(new Joueur(Color.GREEN));//ronen
+	                    ldj.add(new Joueur(Color.GREEN, 0, 0));//ronen
 	                }
 	                
 	                if(j3.isSelected()) {
-	                    ldj.add(new Joueur(Color.BLUE));//antoinette
+	                    ldj.add(new Joueur(Color.BLUE, 0, 0));//antoinette
 	                }
 	                
 	                if(j4.isSelected()) {
-	                    ldj.add(new Joueur(Color.MAGENTA));//alec
+	                    ldj.add(new Joueur(Color.MAGENTA, 0, 0));//alec
 	                }
 	                
 	                if(j5.isSelected()) {
-	                    ldj.add(new Joueur(Color.MAGENTA));//lea
+	                    ldj.add(new Joueur(Color.MAGENTA, 0, 0));//lea
 	                }
 
 	                m.lancerjeu(ldj);

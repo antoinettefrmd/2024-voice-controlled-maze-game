@@ -26,9 +26,9 @@ public class Labyrinth {
 		}
 		x = 0;
 		y = 0;
-		labyrinth[l][l].addPion(new Joueur(Color.BLUE));
-		labyrinth[l][l].addPion(new Joueur(Color.RED));
-		labyrinth[l][l].addPion(new Joueur(Color.PINK));
+		labyrinth[l][l].addJoueur(new Joueur(Color.BLUE, l, l));
+		labyrinth[l][l].addJoueur(new Joueur(Color.RED, l, l));
+		labyrinth[l][l].addJoueur(new Joueur(Color.PINK, l, l));
 		tab_val[x][y] = -1;
 		generate();
 	}
@@ -38,7 +38,40 @@ public class Labyrinth {
 	public Case[][] getLabyrinth(){ //On aura besoin d'avoir accès au labyrinthe
 		return this.labyrinth;
 	}
-	
+	public void droite(int x, int y) {
+		if (x < labyrinth.length - 1) {			
+			Joueur p = labyrinth[x][y].getJoueurs().get(0);
+			labyrinth[x][y].delJoueur(p);
+			labyrinth[x+1][y].addJoueur(p);
+			p.setX(x+1);
+		}
+	}
+
+	public void gauche(int x, int y) {
+		if (x > 0) {			
+			Joueur p = labyrinth[x][y].getJoueurs().get(0);
+			labyrinth[x][y].delJoueur(p);
+			labyrinth[x-1][y].addJoueur(p);
+			p.setX(x-1);
+		}
+	}
+	public void haut(int x, int y) {
+		if (y > 0) {			
+			Joueur p = labyrinth[x][y].getJoueurs().get(0);
+			labyrinth[x][y].delJoueur(p);
+			labyrinth[x][y-1].addJoueur(p);
+			p.setX(y-1);
+		}
+	}
+	public void bas(int x, int y) {
+		if (y < labyrinth.length - 1) {			
+			Joueur p = labyrinth[x][y].getJoueurs().get(0);
+			labyrinth[x][y].delJoueur(p);
+			labyrinth[x][y+1].addJoueur(p);
+			p.setX(y+1);
+		}
+	}
+
 	//Ajouter une classe interne coordonnées ? Ou autre part ?
 	
 	public void generate() {
@@ -140,13 +173,13 @@ public class Labyrinth {
 			mur = b;
 		}
 		
-		public void addPion(Joueur p) {
+		public void addJoueur(Joueur p) {
 			joueurs.add(p);
 		}
-		public ArrayList<Joueur> getPions() {
+		public ArrayList<Joueur> getJoueurs() {
 			return this.joueurs;
 		}
-		public boolean delPion(Joueur p) {
+		public boolean delJoueur(Joueur p) {
 			return joueurs.remove(p);
 		}
 		public boolean estVide() {
@@ -161,6 +194,7 @@ public class Labyrinth {
 		}
 			
 	}
+	
 	
 	public static void main(String[]args) {
 		Labyrinth test = new Labyrinth(21);

@@ -213,7 +213,6 @@ public class Menu extends JFrame {
 		
 		//utile quand on est en partie, le bouton permet de quitter la partie et de retourner au Menu 
 		JButton quitterjeu = new JButton("Quitter");
-		quitterjeu.setFocusable(false);
 		
 		jmb.add(quitterjeu);
 		

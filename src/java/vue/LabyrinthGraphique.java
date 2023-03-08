@@ -127,9 +127,14 @@ public class LabyrinthGraphique extends JPanel{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("right");
+			
 			
 		}
 	};
+
+	
+	public Labyrinth getLabyrinthD() {
+		return labyrinthD;
+	}
 
 }
