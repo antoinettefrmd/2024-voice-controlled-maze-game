@@ -205,7 +205,6 @@ public class Menu extends JFrame {
 		jmb = new JMenuBar();
 		
 		JButton quitterjeu = new JButton("Quitter");
-		quitterjeu.setFocusable(false);
 		
 		jmb.add(quitterjeu);
 		

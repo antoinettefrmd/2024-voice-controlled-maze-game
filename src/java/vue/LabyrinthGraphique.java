@@ -107,11 +107,12 @@ public class LabyrinthGraphique extends JPanel{
 		
 	}
 	
+	
 	private Action right = new AbstractAction() {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("right");
+			
 			
 		}
 	};

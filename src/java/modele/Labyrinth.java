@@ -26,9 +26,9 @@ public class Labyrinth {
 		}
 		x = 0;
 		y = 0;
-		labyrinth[l][l].addPion(new Joueur(Color.BLUE));
-		labyrinth[l][l].addPion(new Joueur(Color.RED));
-		labyrinth[l][l].addPion(new Joueur(Color.PINK));
+		labyrinth[l][l].addPion(new Joueur(Color.BLUE, l, l));
+		labyrinth[l][l].addPion(new Joueur(Color.RED, l, l));
+		labyrinth[l][l].addPion(new Joueur(Color.PINK, l, l));
 		tab_val[x][y] = -1;
 		generate();
 	}
