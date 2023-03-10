@@ -36,9 +36,6 @@ public class ParametresPartie extends JPanel {
 
 	public ParametresPartie(Menu m) {
 		
-// <<<<<<< HEAD
-		// image = m.getImage();
-		// minecraft = m.getMinecraft();
 		try {
 			InputStream is = getClass().getResourceAsStream("/fonts/Daydream.ttf");
 			DayDream = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(25f);

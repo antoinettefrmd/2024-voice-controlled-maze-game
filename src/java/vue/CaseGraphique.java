@@ -44,9 +44,10 @@ public class CaseGraphique extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		for (int i = 0; i < c.getPions().size(); i++) {
-			g.setColor(c.getPions().get(i).getCouleur());
-			g.fillOval(i * 40 / c.getPions().size(), 0, 40/c.getPions().size(), 40/c.getPions().size());
+		g.drawImage(image, 0, 0, null);
+		for (int i = 0; i < c.getJoueurs().size(); i++) {
+			g.setColor(c.getJoueurs().get(i).getCouleur());
+			g.fillOval(i * 40 / c.getJoueurs().size(), 0, 40/c.getJoueurs().size(), 40/c.getJoueurs().size());
 		}
 	}
 
