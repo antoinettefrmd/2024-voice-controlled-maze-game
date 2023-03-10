@@ -31,7 +31,7 @@ public class Jeu {
 		taille+=2;
 		CellJoueur tmp = courant;
 		while(tmp.getSuivant()!=courant) {
-			labyrinth.getLabyrinthD().getLabyrinth()[taille][taille].addPion(courant.getJoueur());
+			labyrinth.getLabyrinthD().getLabyrinth()[taille][taille].addJoueur(courant.getJoueur());
 		}
 		while(!joueurs.estVide()) {
 			courant = courant.getSuivant();
