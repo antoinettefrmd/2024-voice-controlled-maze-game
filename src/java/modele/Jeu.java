@@ -14,25 +14,30 @@ public class Jeu {
 	
 	public Jeu(Menu m, ListeDeJoueurs j) {
 		labyrinth = new LabyrinthGraphique(taille);
+		//afficher le labyrinth (ALEC)
 		joueurs = j;
 		joueursfinito = new ListeDeJoueurs();
 		etage = 0;
 		courant = joueurs.getCourant();
 		
 		while(etage != 5) {
-			manche();
+			etage();
 		}
 	}
 	
-	public void manche() {
+	public void etage() {
 		etage++;
 		//changer l'affichage de l'étage (ALEC)
 		labyrinth = new LabyrinthGraphique(taille);
 		taille+=2;
-		CellJoueur tmp = courant;
-		while(tmp.getSuivant()!=courant) {
+		if(joueurs.getTaille()==1) {
 			labyrinth.getLabyrinthD().getLabyrinth()[taille][taille].addJoueur(courant.getJoueur());
 		}
+		CellJoueur tmp = courant;
+		while(tmp.getSuivant()!=courant) {
+			labyrinth.getLabyrinthD().getLabyrinth()[taille][taille].addJoueur(tmp.getJoueur());
+		}
+		//afficher le nouveau labyrinth avec les joueurs (ALEC)
 		while(!joueurs.estVide()) {
 			courant = courant.getSuivant();
 			//mettre en surbrillance le joueur courant (ALEC)
