@@ -1,6 +1,5 @@
 package vue;
 
-import java.lang.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -10,28 +9,48 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.LayoutManager;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-import javax.swing.OverlayLayout;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 public class Menu extends JFrame {
+	
+	private static class ProcessReader implements Callable {
+		
+		private InputStream inputStream;
+		
+		public ProcessReader(InputStream inputStream) {
+			this.inputStream = inputStream;
+		}
+
+		@Override
+		public Object call() throws Exception {
+			return new BufferedReader(new InputStreamReader(inputStream)).lines().collect(Collectors.toList());
+		}
+		
+	}
 
 	private JPanel contentPane;
 	private JPanel menuPanel;
@@ -206,7 +225,11 @@ public class Menu extends JFrame {
 		//utile quand on est en partie, le bouton permet de quitter la partie et de retourner au Menu 
 		JButton quitterjeu = new JButton("Quitter");
 		
+		//permet de lancer l'enregistrement de la voix
+		JButton record = new JButton("Record");
+		
 		jmb.add(quitterjeu);
+		jmb.add(record);
 		
 		//####################################################
 
@@ -239,6 +262,49 @@ public class Menu extends JFrame {
 			getContentPane().add(menuPanel);
 		});
 		
+		record.addActionListener((ActionEvent event) -> {
+			
+			//on regarde si on est sur windows ou non
+			boolean isWindows = System.getProperty("os.name").toLowerCase().startsWith("windows");
+			
+			ProcessBuilder builder = new ProcessBuilder();
+			
+			if(isWindows) {
+				//il faut changer le fichier bat n'est pas bon
+				builder.command(System.getProperty("user.dir") + "\\src\\java\\controlleur\\echo.bat");
+			} else {
+				builder.command("sh", "-c", System.getProperty("user.dir") + "/src/java/controlleur/record.sh");
+			}
+			
+			ExecutorService pool = Executors.newSingleThreadExecutor();
+			
+			try {
+				Process process = builder.start();
+				
+				ProcessReader task = new ProcessReader(process.getInputStream());
+				
+				Future<List<String>> future = pool.submit(task);
+				
+				List<String> results = future.get();
+				for (String res : results) {
+					System.out.println(res);
+				}
+				
+				int exitCode = process.waitFor();
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				e.printStackTrace();
+			} finally {
+				pool.shutdown();
+			}
+			
+			
+		});
+		
 		//####################################################
 
 	}
@@ -254,6 +320,9 @@ public class Menu extends JFrame {
 	public void lancerjeu(boolean georges, boolean ronen, boolean antoinette, boolean alec, boolean lea) {
 		//On crée une instance de LabyrinthGraphique à laquelle on donne l'instance de Menu, la taille du labyrinth et des boolean pour dire qui va jouer ou non
 		LabyrinthGraphique lg = new LabyrinthGraphique(this, 11, georges, ronen, antoinette, alec, lea);
+		
+		
+		
 		jmb.setVisible(true);
 		getContentPane().removeAll();
 		contentPane = lg;
