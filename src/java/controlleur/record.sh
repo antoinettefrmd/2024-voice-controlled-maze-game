@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if[-d src/WAV/];
+if [ -d src/WAV/ ];
 then
 cd src/WAV
 else
