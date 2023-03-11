@@ -261,7 +261,7 @@ public class Menu extends JFrame {
 	//permet de lancer le jeu depuis parametresPartie
 	public void lancerjeu(ListeDeJoueurs ldj) {
 		
-		Jeu j = new Jeu(this, ldj);
+		//Jeu j = new Jeu(this, ldj);
 		
 		LabyrinthGraphique lg = new LabyrinthGraphique(11);
 		jmb.setVisible(true);

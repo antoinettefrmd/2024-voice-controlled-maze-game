@@ -1,28 +1,17 @@
 package vue;
 
 import java.awt.GridLayout;
-
-import javax.swing.JPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.BufferedInputStream;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.awt.image.BufferedImage;
 
+import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
-import javax.swing.SwingConstants;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 
 import modele.Labyrinth;
 import modele.ListeDeJoueurs;
@@ -48,6 +37,12 @@ public class LabyrinthGraphique extends JPanel{
 		this.labyrinthD = new Labyrinth(n);
 		this.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "right");
 		this.getActionMap().put("right", right);
+		this.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "left");
+		this.getActionMap().put("left", left);
+		this.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "up");
+		this.getActionMap().put("up", up);
+		this.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "down");
+		this.getActionMap().put("down", down);
 		setLayout(new GridLayout(2*n+1, 2*n+1));
 		labyrinthG = new JPanel[2*n +1][2*n +1];
 
@@ -104,6 +99,14 @@ public class LabyrinthGraphique extends JPanel{
 //		
 //		jmb.add(jbox);
 		
+		try {
+			//permet de récupérer le fichier de l'image
+			imageMur = ImageIO.read(new File("./src/ressources/images/mur.jpeg"));
+			imageSol = ImageIO.read(new File("./src/ressources/images/cailloux.jpeg"));
+		} catch (IOException e){
+			e.printStackTrace();
+		}
+		
 		//cette double boucle for permet d'accéder à toutes les cases du labyrinth pour le créer graphiquement
 		for(int i = 0; i < 2*n+1; i++) {
 			for(int j = 0; j < 2*n+1; j++) {
@@ -127,12 +130,37 @@ public class LabyrinthGraphique extends JPanel{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
-			
+			LabyrinthGraphique.this.labyrinthD.droite(LabyrinthGraphique.this.labyrinthD.getCurrent());
+			repaint();
 		}
 	};
 
+	private Action left = new AbstractAction() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			LabyrinthGraphique.this.labyrinthD.gauche(LabyrinthGraphique.this.labyrinthD.getCurrent());
+			repaint();
+		}
+	};
 	
+	private Action up = new AbstractAction() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			LabyrinthGraphique.this.labyrinthD.haut(LabyrinthGraphique.this.labyrinthD.getCurrent());
+			repaint();
+		}
+	};
+	
+	private Action down = new AbstractAction() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			LabyrinthGraphique.this.labyrinthD.bas(LabyrinthGraphique.this.labyrinthD.getCurrent());
+			repaint();
+		}
+	};
 	public Labyrinth getLabyrinthD() {
 		return labyrinthD;
 	}

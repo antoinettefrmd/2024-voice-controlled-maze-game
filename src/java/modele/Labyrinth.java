@@ -8,6 +8,7 @@ import java.util.Random;
 
 public class Labyrinth {
 	protected Case[][] labyrinth;
+	private Joueur current;
 	private int[][]tab_val;//entier entre -1 et 4, -1 représentant la première case, 0 les cases non visitées 1-4 représentent d'ou vient l'ancienne case visitée
 	//1 = gauche, 2 = bas, 3 = droite, 4 = haut
 	protected int l; // taille du labyrinth
@@ -26,7 +27,10 @@ public class Labyrinth {
 		}
 		x = 0;
 		y = 0;
-		labyrinth[l][l].addJoueur(new Joueur(Color.BLUE, l, l));
+		current = new Joueur(Color.BLUE, l, l);
+		current.setX(l);
+		current.setY(l);
+		labyrinth[l][l].addJoueur(current);
 		labyrinth[l][l].addJoueur(new Joueur(Color.RED, l, l));
 		labyrinth[l][l].addJoueur(new Joueur(Color.PINK, l, l));
 		tab_val[x][y] = -1;
@@ -38,39 +42,38 @@ public class Labyrinth {
 	public Case[][] getLabyrinth(){ //On aura besoin d'avoir accès au labyrinthe
 		return this.labyrinth;
 	}
-	public void droite(int x, int y) {
-		if (x < labyrinth.length - 1) {			
-			Joueur p = labyrinth[x][y].getJoueurs().get(0);
-			labyrinth[x][y].delJoueur(p);
-			labyrinth[x+1][y].addJoueur(p);
-			p.setX(x+1);
+	public void droite(Joueur p) {
+		if (p.getY() < labyrinth.length - 1 && !labyrinth[p.getX()][p.getY() + 1].mur) {			
+			labyrinth[p.getX()][p.getY()].delJoueur(p);
+			labyrinth[p.getX()][p.getY() + 1].addJoueur(p);
+			p.setY(p.getY()+1);
 		}
 	}
+	
 
-	public void gauche(int x, int y) {
-		if (x > 0) {			
-			Joueur p = labyrinth[x][y].getJoueurs().get(0);
-			labyrinth[x][y].delJoueur(p);
-			labyrinth[x-1][y].addJoueur(p);
-			p.setX(x-1);
+	public void gauche(Joueur p) {
+		if (p.getY() > 0 && !labyrinth[p.getX()][p.getY() - 1].mur) {			
+			labyrinth[p.getX()][p.getY()].delJoueur(p);
+			labyrinth[p.getX()][p.getY() - 1].addJoueur(p);
+			p.setY(p.getY()-1);
 		}
 	}
-	public void haut(int x, int y) {
-		if (y > 0) {			
-			Joueur p = labyrinth[x][y].getJoueurs().get(0);
-			labyrinth[x][y].delJoueur(p);
-			labyrinth[x][y-1].addJoueur(p);
-			p.setX(y-1);
+	public void haut(Joueur p) {
+		if (p.getX() > 0 && !labyrinth[p.getX() - 1][p.getY()].mur) {			
+			labyrinth[p.getX()][p.getY()].delJoueur(p);
+			labyrinth[p.getX() - 1][p.getY()].addJoueur(p);
+			p.setX(p.getX() - 1);
 		}
 	}
-	public void bas(int x, int y) {
-		if (y < labyrinth.length - 1) {			
-			Joueur p = labyrinth[x][y].getJoueurs().get(0);
-			labyrinth[x][y].delJoueur(p);
-			labyrinth[x][y+1].addJoueur(p);
-			p.setX(y+1);
+	
+	public void bas(Joueur p) {
+		if (p.getX() < labyrinth.length - 1 && !labyrinth[p.getX() + 1][p.getY()].mur) {			
+			labyrinth[p.getX()][p.getY()].delJoueur(p);
+			labyrinth[p.getX() + 1][p.getY()].addJoueur(p);
+			p.setX(p.getX() + 1);
 		}
 	}
+	
 
 	//Ajouter une classe interne coordonnées ? Ou autre part ?
 	
@@ -147,6 +150,9 @@ public class Labyrinth {
 			res+="\n";
 		}
 		return res;
+	}
+	public Joueur getCurrent() {
+		return current;
 	}
 	
 	public class Case {
