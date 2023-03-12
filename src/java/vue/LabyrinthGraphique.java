@@ -49,59 +49,6 @@ public class LabyrinthGraphique extends JPanel{
 		
 		setBackground(Color.GRAY);
 
-//		JMenuBar jmb = m.getJMenuBar();
-//		
-//		listj = new LinkedList<>();
-//		
-//		JLabel jactu = new JLabel("Joueur(s) / Joueuse(s) : ");
-//		jactu.setBorder(new EmptyBorder(0, 10, 0, 0));
-//		
-//		jmb.add(jactu);
-//		
-//		JPanel jbox = new JPanel(new GridLayout(0, 5, 10, 0));
-//		
-//		if(georges) {
-//			JLabel g = new JLabel("Georges");
-//			g.setHorizontalAlignment(SwingConstants.CENTER);
-//			g.setBorder(Jborder);
-//			jbox.add(g);
-//			listj.add(g);
-//		}
-//		
-//		if(ronen) {
-//			JLabel r = new JLabel("Ronen");
-//			r.setHorizontalAlignment(SwingConstants.CENTER);
-//			r.setBorder(Jborder);
-//			jbox.add(r);
-//			listj.add(r);
-//		}
-//		
-//		if(antoinette) {
-//			JLabel a1 = new JLabel("Antoinette");
-//			a1.setHorizontalAlignment(SwingConstants.CENTER);
-//			a1.setBorder(Jborder);
-//			jbox.add(a1);
-//			listj.add(a1);
-//		}
-//		
-//		if(alec) {
-//			JLabel a2 = new JLabel("Alec");
-//			a2.setHorizontalAlignment(SwingConstants.CENTER);
-//			a2.setBorder(Jborder);
-//			jbox.add(a2);
-//			listj.add(a2);
-//		}
-//		
-//		if(lea) {
-//			JLabel l = new JLabel("Lea");
-//			l.setHorizontalAlignment(SwingConstants.CENTER);
-//			l.setBorder(Jborder);
-//			jbox.add(l);
-//			listj.add(l);
-//		}
-//		
-//		jmb.add(jbox);
-		
 		try {
 			//permet de récupérer le fichier de l'image
 			imageMur = ImageIO.read(new File("./src/ressources/images/mur.jpeg"));

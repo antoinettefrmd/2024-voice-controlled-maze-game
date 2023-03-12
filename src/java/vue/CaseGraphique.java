@@ -2,23 +2,12 @@ package vue;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
-
-import java.io.File;
-import java.io.IOException;
-
-
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
-import javax.swing.border.Border;
-
-import modele.Labyrinth;
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import modele.Labyrinth.Case;
-import java.nio.Buffer;
+
+import javax.swing.JPanel;
 
 import modele.Labyrinth;
+import modele.Labyrinth.Case;
 
 
 public class CaseGraphique extends JPanel {

@@ -10,7 +10,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 
 import vue.LabyrinthGraphique;
 import vue.Menu;
@@ -26,12 +25,21 @@ public class Jeu {
 	
 	private Menu m;
 	
-	private int JLabelCourantJPos = 0;
+	//permet de savoir qui est le joueur courant dans la liste de JLabel
+	private int JLabelCourantJPos = 0; 
+	
+	//JLabel qui represente le joueur courant
 	private JLabel JLabelCourant;
+	
+	//nombre de joueur max pour la partie
+	private int nbrJ;
+	
+	private Color gold = new Color(255, 215, 0); //quand le joueur a une clef on met son pseudo en couleur gold
 	
 	private Border Jborder = BorderFactory.createLineBorder(Color.black, 2); //bordure pour entourer le nom d'un joueur
 	private Border JActuBorder = BorderFactory.createLineBorder(Color.WHITE, 2); //bordure pour entourer le nom du joueur qui joue
-	private Border JWinBorder = BorderFactory.createLineBorder(new Color(255, 215, 0));
+	private Border JWinBorder = BorderFactory.createLineBorder(gold); //bordure pour les joueurs qui ont terminé
+	
 	
 	private LinkedList<JLabel> listj; //permet d'avoir la liste des JLabel représentant les joueurs
 	private JPanel jbox;
@@ -42,8 +50,7 @@ public class Jeu {
 		this.m = m;
 		
 		labyrinth = new LabyrinthGraphique(taille);
-		m.MAJlabyrinthG(labyrinth); //met à jour l'interface graphique
-		//afficher le labyrinth (ALEC)
+		m.MAJlabyrinthG(labyrinth); //met à jour l'interface graphique et donc le labyrinth
 		joueurs = j;
 		joueursfinito = new ListeDeJoueurs();
 		etage = 0;
@@ -57,6 +64,7 @@ public class Jeu {
 		jbox.setOpaque(false);
 		
 		int n = j.getTaille();
+		nbrJ = n;
 		for(int i = 0; i < n; i++) {
 			
 			//recupère la couleur du joueur
@@ -88,6 +96,9 @@ public class Jeu {
 		jmb.add(jbox);
 		
 //		remettre plus tard -> le code ne fonctionne pas pour le moment
+//		c'est pas bon le code avec le while c'est pas possible de faire un
+//		while dans un constructeur sinon l'element n'est jamais construit
+//		il faut changer le fonctionnement.
 //		while(etage != 5) {
 //			etage();
 //		}
@@ -104,11 +115,7 @@ public class Jeu {
 		}
 		CellJoueur tmp = courant;
 		while(tmp.getSuivant()!=courant) {
-<<<<<<< HEAD
 			labyrinth.getLabyrinthD().getLabyrinth()[taille][taille].addJoueur(courant.getJoueur());
-=======
-			labyrinth.getLabyrinthD().getLabyrinth()[taille][taille].addJoueur(tmp.getJoueur());
->>>>>>> 671c26ef6793adaca41d9ddd4b936c9042f20310
 		}
 		m.MAJlabyrinthG(labyrinth); //afficher le nouveau labyrinth avec les joueurs (ALEC)
 		while(!joueurs.estVide()) {
@@ -134,11 +141,13 @@ public class Jeu {
 		return jbox;
 	}
 	
+	//permet de mettre le joueur actuel avec la borduer spécial
+	//normalement ça suit le joueur courant du jeu mais pas encore tester donc pas sur
 	public void actualisationLabelJCourant() {
-		if(JLabelCourantJPos == 5) JLabelCourantJPos = 0;
+		if(JLabelCourantJPos == nbrJ-1) JLabelCourantJPos = 0;
 		else JLabelCourantJPos++;
 		
-		JLabelCourant = (JLabel) jbox.getComponent(JLabelCourantJPos);
+		JLabelCourant = (JLabel) jbox.getComponent(JLabelCourantJPos); 
 		JLabelCourant.setBorder(JActuBorder);
 	}
 	

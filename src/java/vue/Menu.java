@@ -1,7 +1,5 @@
 package vue;
 
-import java.lang.*;
-import java.util.LinkedList;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -11,37 +9,27 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.LayoutManager;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
 import javax.imageio.ImageIO;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-import javax.swing.OverlayLayout;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.BorderUIResource;
 
 import modele.Jeu;
 import modele.ListeDeJoueurs;
-import modele.Clavier;
 
 public class Menu extends JFrame {
 
@@ -251,11 +239,6 @@ public class Menu extends JFrame {
 		ImageIcon logo = new ImageIcon(getClass().getResource("/images/logo.png")); //On va chercher l'image pour le logo du jeu
 		//ImageIcon logo = new ImageIcon("../../images/logo.png");
 		
-
-//		setBounds(100, 100, 450, 300);
-//		contentPane = new JPanel();
-//		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		
 		setJMenuBar(jmb);
 		jmb.setVisible(false); //On set le JMenuBar a false car on en aura besoin seulement quand la partie a commencé
 		
@@ -295,17 +278,10 @@ public class Menu extends JFrame {
 		
 		jbox = j.getJbox();
 		
-//		LabyrinthGraphique lg = new LabyrinthGraphique(11);
-//		jmb.setVisible(true);
-//		getContentPane().removeAll();
-//		contentPane = lg;
-//		getContentPane().add(contentPane);
-//		contentPane.updateUI();
 	}
 	
 	public void MAJlabyrinthG(LabyrinthGraphique lg) {
 		jmb.setVisible(true);
-//		jmb.remove(lg);
 		getContentPane().removeAll();
 		contentPane = lg;
 		getContentPane().add(contentPane);
