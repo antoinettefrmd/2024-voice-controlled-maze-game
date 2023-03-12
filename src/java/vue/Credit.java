@@ -4,10 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -18,6 +21,7 @@ public class Credit extends JPanel {
 	
 	private BufferedImage image;
 	private Font minecraft;
+	private Font minecraftButton;
 	private Color c;
 
 	/**
@@ -29,16 +33,21 @@ public class Credit extends JPanel {
 
 		image = m.getImage();
 		minecraft = m.getMinecraft();
+		minecraftButton = m.getMinecraftButton();
 		
 		setLayout(new BorderLayout());
 		
-		JPanel topBox = new JPanel(new FlowLayout(FlowLayout.LEADING));
+		JPanel topBox = new JPanel(new BorderLayout());
 		topBox.setOpaque(false);
 
 		
 		JButton retour = new JButton("retour");
+		retour.setFont(minecraftButton);
+		retour.setBackground(new Color(176, 69, 25));
+		retour.setFocusPainted(false);
+		retour.setHorizontalAlignment(SwingConstants.LEFT);
 		
-		topBox.add(retour);
+		topBox.add(retour, BorderLayout.WEST);
 		
 		
 		JPanel gridlayout = new JPanel(new GridLayout(5, 0, 0, 40));

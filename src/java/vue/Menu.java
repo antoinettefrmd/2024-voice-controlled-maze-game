@@ -1,6 +1,7 @@
 package vue;
 
 import java.lang.*;
+import java.util.LinkedList;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -24,6 +25,7 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -33,7 +35,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.OverlayLayout;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.BorderUIResource;
 
 import modele.Jeu;
 import modele.ListeDeJoueurs;
@@ -45,11 +49,17 @@ public class Menu extends JFrame {
 	private JPanel menuPanel;
 	private JPanel creditPanel;
 	private JMenuBar jmb; //permet de créer une barre en haut dans le jeu
+	private JPanel jbox; //contient tous les labels pour les joueurs
+	private JLabel etage;
 	
 	private Dimension dimMenu; //donne la dimension de notre interface graphique sur l'écran
 	private Font DayDream; //police d'écriture pour le titre
 	private Font minecraft; //police d'écriture pour le texte en général
+	private Font minecraftButton;
 	private BufferedImage image; //image pour le fond de l'interface graphique
+	private Border Jborder = BorderFactory.createLineBorder(Color.black, 2);
+
+	
 	
 	/**
 	 * Launch the application.
@@ -192,6 +202,9 @@ public class Menu extends JFrame {
 			DayDream = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(40f); //On crée notre police avec une taille de 40
 			is = getClass().getResourceAsStream("/fonts/Minecraft.ttf");
 			minecraft = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(40f);
+			is = getClass().getResourceAsStream("/fonts/Minecraft.ttf");
+			minecraftButton = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(20f);
+
 		}
 		catch(IOException | FontFormatException e) {
 			e.printStackTrace();
@@ -211,10 +224,26 @@ public class Menu extends JFrame {
 		
 		jmb = new JMenuBar();
 		
+		jmb.setBackground(Color.GRAY);
+		
 		//utile quand on est en partie, le bouton permet de quitter la partie et de retourner au Menu 
 		JButton quitterjeu = new JButton("Quitter");
+		quitterjeu.setFocusPainted(false);
+		quitterjeu.setBorderPainted(false);
+		//quitterjeu.setFont(minecraftButton);
+		quitterjeu.setBackground(new Color(176, 69, 25));
+
+		etage = new JLabel("Etage : 0");
+		//etage.setBorder(BorderFactory.createCompoundBorder(Jborder, new EmptyBorder(5,5,5,5)));
+		etage.setBorder(new EmptyBorder(5, 5, 5, 5));
+		
+		JLabel jactu = new JLabel("Joueur(s) / Joueuse(s) : ");
+		jactu.setBorder(new EmptyBorder(0, 10, 0, 0));
 		
 		jmb.add(quitterjeu);
+		jmb.add(etage);
+		jmb.add(jactu);
+
 		
 		//####################################################
 
@@ -242,6 +271,7 @@ public class Menu extends JFrame {
 		//####################################################
 
 		quitterjeu.addActionListener((ActionEvent event) -> {
+			resetJMenuBar(jbox);
 			jmb.setVisible(false);
 			getContentPane().remove(contentPane);
 			getContentPane().add(menuPanel);
@@ -261,14 +291,44 @@ public class Menu extends JFrame {
 	//permet de lancer le jeu depuis parametresPartie
 	public void lancerjeu(ListeDeJoueurs ldj) {
 		
-		//Jeu j = new Jeu(this, ldj);
+		Jeu j = new Jeu(this, ldj);
 		
-		LabyrinthGraphique lg = new LabyrinthGraphique(11);
+		jbox = j.getJbox();
+		
+//		LabyrinthGraphique lg = new LabyrinthGraphique(11);
+//		jmb.setVisible(true);
+//		getContentPane().removeAll();
+//		contentPane = lg;
+//		getContentPane().add(contentPane);
+//		contentPane.updateUI();
+	}
+	
+	public void MAJlabyrinthG(LabyrinthGraphique lg) {
 		jmb.setVisible(true);
+//		jmb.remove(lg);
 		getContentPane().removeAll();
 		contentPane = lg;
 		getContentPane().add(contentPane);
 		contentPane.updateUI();
+	}
+	
+	public void MAJJMenuBAr(JPanel jbox) {
+		jmb.remove(jbox);
+		
+	}
+	
+	public void resetJMenuBar(JPanel jbox) {
+		jmb.remove(jbox);
+		int n = jbox.getComponentCount();
+		for(int i = 0; i < n; i++) {
+			JLabel tmp = (JLabel) jbox.getComponent(i);
+			tmp.setBorder(Jborder);
+		}
+	}
+	
+	public void changeEtage(int numEtage) {
+		etage.setText("Etage : " + numEtage);
+		etage.updateUI();
 	}
 	
 	public double getHauteur() {
@@ -285,6 +345,10 @@ public class Menu extends JFrame {
 	
 	public Font getDayDream() {
 		return DayDream;
+	}
+	
+	public Font getMinecraftButton() {
+		return minecraftButton;
 	}
 	
 	public BufferedImage getImage() {

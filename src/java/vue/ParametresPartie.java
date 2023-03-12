@@ -85,7 +85,6 @@ public class ParametresPartie extends JPanel {
 		centerCenterBox.setOpaque(false);
 		
 		JCheckBox j1 = new JCheckBox("Georges");
-
 		j1.setFont(mincecarftcheckbox);
 		j1.setOpaque(false);
 		j1.setFocusPainted(false); //permet de ne pas afficher le fait que le bouton soit selectionné
@@ -171,7 +170,7 @@ public class ParametresPartie extends JPanel {
 	                }
 	                
 	                if(j5.isSelected()) {
-	                    ldj.add(new Joueur(Color.MAGENTA, 0, 0));//lea
+	                    ldj.add(new Joueur(Color.ORANGE, 0, 0));//lea
 	                }
 
 	                m.lancerjeu(ldj);

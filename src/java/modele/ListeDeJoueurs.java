@@ -15,6 +15,10 @@ public class ListeDeJoueurs {
 		return courant;
 	}
 	
+	public void suivant() {
+		courant = courant.getSuivant();
+	}
+	
 	public boolean estVide() {
 		return taille == 0;
 	}

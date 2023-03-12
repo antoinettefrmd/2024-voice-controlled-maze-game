@@ -1,5 +1,6 @@
 package vue;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -39,6 +40,8 @@ public class LabyrinthGraphique extends JPanel{
 		this.getActionMap().put("right", right);
 		setLayout(new GridLayout(2*n+1, 2*n+1));
 		labyrinthG = new JPanel[2*n +1][2*n +1];
+		
+		setBackground(Color.GRAY);
 
 //		JMenuBar jmb = m.getJMenuBar();
 //		
