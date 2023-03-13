@@ -200,8 +200,50 @@ public class Labyrinth {
 		}
 			
 	}
+
+	// public boolean surChemin(int x, int y) {
+	// 	return !labyrinth[x][y].getMur();
+	// }
 	
-	
+	// public class Cle {
+        
+    //     private int xCle;
+    //     private int yCle; 
+	// 	private boolean attrape; // mettre à false à chaque debut de manche
+	// 	private Random rand;
+
+    //     public Cle () {
+	// 		xCle = l; // vérifier la l
+	// 		yCle = l; 
+	// 		while(xCle == l && yCle == l){
+	// 			this.xCle = rand.nextInt(2*l)+1;
+	// 			this.yCle = rand.nextInt(2*l)+1;
+	// 		}
+	// 		for (int i = xCle ; i < l ; i++) {
+	// 			if (i == l-1) {
+	// 				i = 0;
+	// 			}
+	// 			else if (surChemin(i, yCle)) {
+	// 				xCle = i;
+	// 				return;
+	// 			}
+	// 		}
+	// 		this.attrape = false;
+    //     }
+
+	// 	public int getxCle() {
+	// 		return xCle;
+	// 	}
+
+	// 	public int getyCle() {
+	// 		return yCle;
+	// 	}
+
+	// 	public void setAttrape(boolean attrape) {
+	// 		this.attrape = attrape;
+	// 	}
+    // }
+
 	public static void main(String[]args) {
 		Labyrinth test = new Labyrinth(21);
 		System.out.println(test);

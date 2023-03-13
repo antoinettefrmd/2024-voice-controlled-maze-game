@@ -104,7 +104,7 @@ public class Jeu {
 //		}
 	}
 	
-	public void etage() {
+	public void etage() { // set l'endroit des clé à chaque manche
 		etage++;
 		//changer l'affichage de l'étage (ALEC)
 		m.changeEtage(etage);
@@ -125,16 +125,47 @@ public class Jeu {
 		}
 	}
 	
-	public boolean tour() {
-		return true;
-		// faire jouer le joueur (lancer script bash+vérifier)
-		// déplacer le pion si c'est bon
-		// sinon le faire refaire la manip 5 fois max
-		// si toujours pas bon, afficher un mesage d'erreur et finirle tour (ALEC)
-		// vérifier si le joueur attérit sur sa cléf 
-		// si oui, afficher une clef à coté de son pseudo (ALEC)
-		// vérifier si il à sa clef et qu'il est au milieu
-		// si il à finit, le mettre d'une couleur spéciale (ALEC)
+	public void tour() {
+		// on va surement oublier le clavier (variable globale sinon)
+		
+		// Avec le script bash :
+		// int i = 0;
+		// while ( i < 5 && voix == null && mot == "") {
+			// demarrer l'enregistrement
+			// faire la fonction de transformation en .wav
+			// recuperer la voix alize
+			// recuperer le mot
+			// si voix != null && mot != null
+				// break;
+			// si i == 4 
+				// afficher un mesage d'erreur (ALEC)
+				// return;
+		// }
+
+		// Labyrinth lab = labyrinth.getLabyrinthD();
+		// Joueur current = courant.getJoueur();
+		// if (voix = current.voix) {
+			// 	switch (mot) {
+			// 		case haut : lab.haut(current);
+			// 		case bas : lab.bas(current);
+			// 		case gauche : lab.gauche(current);
+			// 		case droite : lab.droite(current);
+			// 	}
+		// }
+
+		// if (!current.getCle().getAttrape()) {
+			// if (current.cle.getX() == current.getX() && current.cle.getY() == current.getY()) { // pour moi c'est foncdamental qu'un joueur ait sa clé // vérifier si le joueur attérit sur sa cléf 
+				// current.getCle().setRecup(true);
+				// si oui, afficher une clef à coté de son pseudo (ALEC)
+				
+			// }
+		// }
+		// else if (current.getX() == taille && current.getY()== taille) { // vérifier si il à sa clef et qu'il est au milieu
+			// le mettre d'une couleur spéciale (ALEC)
+			// joueursfinito.add(current);
+			// joueurs.supprimer(current);
+			
+		// }
 	}
 	
 	public JPanel getJbox() {

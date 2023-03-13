@@ -6,7 +6,7 @@ public class Joueur {
     private Color couleur;
     private int x;
     private int y;
-    
+    // private Labyrinth.Cle cle;
 
     public Joueur (Color couleur, int x, int y) {
     	this.x = x;
@@ -34,5 +34,7 @@ public class Joueur {
     public void setY(int y) {
 		this.y = y;
 	}
-    
+    // public Labyrint.Cle getCle() {
+        // return this.cle;
+    // }
 }
