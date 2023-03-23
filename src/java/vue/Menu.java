@@ -87,7 +87,7 @@ public class Menu extends JFrame {
 			titre.setHorizontalAlignment(SwingConstants.CENTER);
 			titre.setBorder(new EmptyBorder(150, 0, 0, 0));
 			//titre.setForeground(new Color(220, 226, 195));
-			titre.setForeground(new Color(34, 120, 15));
+			//titre.setForeground(new Color(34, 120, 15));
 			titre.setForeground(new Color(250, 250, 175));
 			titre.setFont(DayDream);
 			
