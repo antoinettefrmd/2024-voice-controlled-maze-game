@@ -286,6 +286,7 @@ public class Menu extends JFrame {
 		
 		jmb.add(quitterjeu);
 		jmb.add(etage);
+		jmb.add(record);
 		jmb.add(jactu);
 
 		
