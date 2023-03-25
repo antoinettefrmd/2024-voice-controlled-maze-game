@@ -16,6 +16,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.LinkedList;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -33,8 +34,9 @@ public class ParametresPartie extends JPanel {
 	private Font minecraft;
 	private Font mincecarftcheckbox;
 	private Font DayDream;
+	private LinkedList<JCheckBox> jSuppJCheckBox;
 
-	public ParametresPartie(Menu m) {
+	public ParametresPartie(Menu m, ListeDeJoueurs joueurSupp) {
 		
 		try {
 			InputStream is = getClass().getResourceAsStream("/fonts/Daydream.ttf");
@@ -51,6 +53,7 @@ public class ParametresPartie extends JPanel {
 		
 		image = m.getImage();
 		mincecarftcheckbox = m.getMinecraft();
+		jSuppJCheckBox = new LinkedList<JCheckBox>();
 		
 		JPanel topBox = new JPanel(new BorderLayout());
 		topBox.setOpaque(false);
@@ -121,6 +124,19 @@ public class ParametresPartie extends JPanel {
 		centerCenterBox.add(j3);
 		centerCenterBox.add(j4);
 		centerCenterBox.add(j5);
+		
+		int n = joueurSupp.getTaille();
+		
+		//permet d'ajouter les JCheckBox pour cocher ou non les nouveaux joueurs
+		for(int i = 0; i < n; i++) {
+			JCheckBox tmpJCheckBox = new JCheckBox("Il faut creer un attribut nom pour les joueurs");
+			tmpJCheckBox.setFont(DayDream);
+			tmpJCheckBox.setForeground(new Color(250, 250, 175));
+			tmpJCheckBox.setOpaque(false);
+			tmpJCheckBox.setFocusPainted(false);
+			centerCenterBox.add(tmpJCheckBox);
+			jSuppJCheckBox.add(tmpJCheckBox);
+		}
 
 		
 		centerBox.add(centerTopBox, BorderLayout.NORTH);
@@ -178,6 +194,14 @@ public class ParametresPartie extends JPanel {
 	                
 	                if(j5.isSelected()) {
 	                    ldj.add(new Joueur(Color.ORANGE, 0, 0));//lea
+	                }
+	                
+	                //permet d'ajouter les nouveaux joueurs a la liste de joueur
+	                for(int i = 0; i < n; i++) {
+	                	if(((JCheckBox)jSuppJCheckBox.get(i)).isSelected()) {
+	                		ldj.add(joueurSupp.getCourant().getJoueur());
+	                		joueurSupp.suivant();
+	                	}
 	                }
 
 	                m.lancerjeu(ldj);

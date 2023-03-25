@@ -42,7 +42,7 @@ public class Jeu {
 	
 	
 	private LinkedList<JLabel> listj; //permet d'avoir la liste des JLabel représentant les joueurs
-	private JPanel jbox;
+	private JPanel jbox; //permet de contenir tous les JLabel des joueurs et de les organiser dans la topbar
 
 	
 	public Jeu(Menu m, ListeDeJoueurs j) {
@@ -108,8 +108,8 @@ public class Jeu {
 		etage++;
 		//changer l'affichage de l'étage (ALEC)
 		m.changeEtage(etage);
-		labyrinth = new LabyrinthGraphique(taille);
 		taille+=2;
+		labyrinth = new LabyrinthGraphique(taille);
 		if(joueurs.getTaille()==1) {
 			labyrinth.getLabyrinthD().getLabyrinth()[taille][taille].addJoueur(courant.getJoueur());
 		}

@@ -36,6 +36,7 @@ public class Menu extends JFrame {
 	private JPanel contentPane;
 	private JPanel menuPanel;
 	private JPanel creditPanel;
+	private JPanel creationJoueurPanel;
 	private JMenuBar jmb; //permet de créer une barre en haut dans le jeu
 	private JPanel jbox; //contient tous les labels pour les joueurs
 	private JLabel etage;
@@ -46,6 +47,8 @@ public class Menu extends JFrame {
 	private Font minecraftButton;
 	private BufferedImage image; //image pour le fond de l'interface graphique
 	private Border Jborder = BorderFactory.createLineBorder(Color.black, 2);
+	
+	private ListeDeJoueurs joueurSupp; //permet d'ajouter des joueurs supplémentaire a la liste de joueur de base
 
 	
 	
@@ -92,7 +95,7 @@ public class Menu extends JFrame {
 			titre.setFont(DayDream);
 			
 			//contient les boutons de navigation, cela permet de bien les organiser sur l'interface graphique
-			JPanel buttonBox = new JPanel(new GridLayout(3, 0, 0, 60));
+			JPanel buttonBox = new JPanel(new GridLayout(4, 0, 0, 60));
 			buttonBox.setBorder(new EmptyBorder(100, 0, 0, 0)); //ajoute une bordure invisible qui nous permet de laisser un écart entre le titre et les boutons
 			buttonBox.setOpaque(false);
 			
@@ -110,6 +113,17 @@ public class Menu extends JFrame {
 			jouer.setFocusPainted(false); //permet de ne pas afficher le fait que le bouton soit selectionné
 			jouer.setContentAreaFilled(false); //permet de ne pas rendre visible le fait de cliquer sur le bouton 
 			jouer.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)); //change le curseur lorsque la souris est au-dessus du bouton
+			
+			//permet d'accéder au menu de création des joueurs
+			JButton creationJoueur = new JButton("Creation");
+			creationJoueur.setPreferredSize(new Dimension(200, 50));
+			creationJoueur.setFont(minecraft);
+			creationJoueur.setForeground(Color.white);
+			creationJoueur.setBorder(null);
+			creationJoueur.setOpaque(false);
+			creationJoueur.setFocusPainted(false);
+			creationJoueur.setContentAreaFilled(false);
+			creationJoueur.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			
 			//bouton qui permet d'accéder à Credit
 			JButton credit = new JButton("Credit");
@@ -133,8 +147,10 @@ public class Menu extends JFrame {
 			quitter.setFocusPainted(false);
 			quitter.setContentAreaFilled(false);
 			quitter.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			
 
 			buttonBox.add(jouer);
+			buttonBox.add(creationJoueur);
 			buttonBox.add(credit);
 			buttonBox.add(quitter);
 
@@ -151,11 +167,19 @@ public class Menu extends JFrame {
 			//####################################################
 			
 			jouer.addActionListener((ActionEvent event) -> {
-				ParametresPartie pp = new ParametresPartie(Menu.this); //On crée une instance de ParametresPartie
+				ParametresPartie pp = new ParametresPartie(Menu.this, joueurSupp); //On crée une instance de ParametresPartie
 				getContentPane().remove(menuPanel); //On vide notre JFrame
 				contentPane = pp;
 				getContentPane().add(contentPane); //On remplit le JFrame avec notre instance de ParametresPartie
 				contentPane.updateUI(); //On met à jour la vue pour que les changements soient visibles
+			});
+			
+			creationJoueur.addActionListener((ActionEvent event) -> {
+				getContentPane().remove(menuPanel);
+				contentPane = creationJoueurPanel;
+				getContentPane().add(contentPane);
+				contentPane.updateUI();
+
 			});
 			
 			credit.addActionListener((ActionEvent event) -> {
@@ -201,11 +225,16 @@ public class Menu extends JFrame {
 		//recupere la taille de l'écran
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		
+		joueurSupp = new ListeDeJoueurs();
+		
 		dimMenu = new Dimension(1000,800);
 		
 		menuPanel = new MenuPanel();
 		
+		creationJoueurPanel = new CreationJoueur(this);
+		
 		creditPanel = new Credit(this);
+		
 		
 		//JMenuBar
 		//####################################################
