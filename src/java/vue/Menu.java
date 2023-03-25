@@ -12,9 +12,18 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -32,6 +41,21 @@ import modele.Jeu;
 import modele.ListeDeJoueurs;
 
 public class Menu extends JFrame {
+	
+	private static class ProcessReader implements Callable {
+		
+		private InputStream inputStream;
+		
+		public ProcessReader(InputStream inputStream) {
+			this.inputStream = inputStream;
+		}
+
+		@Override
+		public Object call() throws Exception {
+			return new BufferedReader(new InputStreamReader(inputStream)).lines().collect(Collectors.toList());
+		}
+		
+	}
 
 	private JPanel contentPane;
 	private JPanel menuPanel;
@@ -257,6 +281,9 @@ public class Menu extends JFrame {
 		JLabel jactu = new JLabel("Joueur(s) / Joueuse(s) : ");
 		jactu.setBorder(new EmptyBorder(0, 10, 0, 0));
 		
+		//permet de lancer l'enregistrement de la voix
+		JButton record = new JButton("Record");
+		
 		jmb.add(quitterjeu);
 		jmb.add(etage);
 		jmb.add(jactu);
@@ -287,6 +314,49 @@ public class Menu extends JFrame {
 			jmb.setVisible(false);
 			getContentPane().remove(contentPane);
 			getContentPane().add(menuPanel);
+		});
+		
+		record.addActionListener((ActionEvent event) -> {
+			
+			//on regarde si on est sur windows ou non
+			boolean isWindows = System.getProperty("os.name").toLowerCase().startsWith("windows");
+			
+			ProcessBuilder builder = new ProcessBuilder();
+			
+			if(isWindows) {
+				//il faut changer le fichier bat n'est pas bon
+				builder.command(System.getProperty("user.dir") + "\\src\\java\\controlleur\\echo.bat");
+			} else {
+				builder.command("sh", "-c", System.getProperty("user.dir") + "/src/java/controlleur/record.sh");
+			}
+			
+			ExecutorService pool = Executors.newSingleThreadExecutor();
+			
+			try {
+				Process process = builder.start();
+				
+				ProcessReader task = new ProcessReader(process.getInputStream());
+				
+				Future<List<String>> future = pool.submit(task);
+				
+				List<String> results = future.get();
+				for (String res : results) {
+					System.out.println(res);
+				}
+				
+				int exitCode = process.waitFor();
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				e.printStackTrace();
+			} finally {
+				pool.shutdown();
+			}
+			
+			
 		});
 		
 		//####################################################
