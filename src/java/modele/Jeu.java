@@ -94,14 +94,13 @@ public class Jeu {
 		
 		
 		jmb.add(jbox);
-		
-//		remettre plus tard -> le code ne fonctionne pas pour le moment
-//		c'est pas bon le code avec le while c'est pas possible de faire un
-//		while dans un constructeur sinon l'element n'est jamais construit
-//		il faut changer le fonctionnement.
-//		while(etage != 5) {
-//			etage();
-//		}
+
+	}
+	
+	public void jouer() {
+		while(etage != 5) {
+			etage();
+		}
 	}
 	
 	public void etage() { // set l'endroit des clé à chaque manche
