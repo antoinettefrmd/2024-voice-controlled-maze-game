@@ -29,6 +29,7 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
@@ -371,12 +372,43 @@ public class Menu extends JFrame {
 		menuPanel.updateUI();
 	}
 	
+	public void quitterJeu() {
+		resetJMenuBar(jbox);
+		jmb.setVisible(false);
+		getContentPane().remove(contentPane);
+		getContentPane().add(menuPanel);
+	}
+	
 	//permet de lancer le jeu depuis parametresPartie
 	public void lancerjeu(ListeDeJoueurs ldj) {
 		
 		Jeu j = new Jeu(this, ldj);
 		
 		jbox = j.getJbox();
+		
+		//on utilise normalement la classe jouer mais elle ne fonctionne pas pour le moment
+		//j.jouer();
+		
+		//REMETTRE LE CODE QUAND LA FONCTION TOUR FONCTIONNE
+//		MessageFin dialog;
+//
+//		try {
+//			dialog = new MessageFin(this ,j.getTemps());
+//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//			dialog.setVisible(true);
+//			//dialog.ferme();
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+		
+//		try {
+//			//Thread.sleep(5000);
+//			//dialog.dispose();
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 	}
 	
@@ -429,6 +461,10 @@ public class Menu extends JFrame {
 	
 	public BufferedImage getImage() {
 		return image;
+	}
+	
+	public Dimension getDimMenu() {
+		return dimMenu;
 	}
 	
 	

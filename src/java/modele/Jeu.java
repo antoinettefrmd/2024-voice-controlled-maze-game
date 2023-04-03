@@ -23,6 +23,8 @@ public class Jeu {
 	public int etage;
 	public int taille = 5;
 	
+	
+	private String temps = "0";
 	private Menu m;
 	
 	//permet de savoir qui est le joueur courant dans la liste de JLabel
@@ -94,7 +96,8 @@ public class Jeu {
 		
 		
 		jmb.add(jbox);
-
+		
+		
 	}
 	
 	public void jouer() {
@@ -171,6 +174,10 @@ public class Jeu {
 		return jbox;
 	}
 	
+	public String getTemps() {
+		return temps;
+	}
+	
 	//permet de mettre le joueur actuel avec la borduer spécial
 	//normalement ça suit le joueur courant du jeu mais pas encore tester donc pas sur
 	public void actualisationLabelJCourant() {
@@ -180,7 +187,6 @@ public class Jeu {
 		JLabelCourant = (JLabel) jbox.getComponent(JLabelCourantJPos); 
 		JLabelCourant.setBorder(JActuBorder);
 	}
-	
 	
 	
 }
