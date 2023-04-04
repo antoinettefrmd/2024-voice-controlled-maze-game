@@ -8,8 +8,6 @@ mkdir src/ressources/WAV
 cd src/WAV
 fi
 
-rm *
-
 NOW=$(date +"%Y%m%d_%H%M%S.wav")
 echo $NOW
-arecord -d 5 -r 16000 -f S16_LE "$NOW"
+arecord -d 10 -r 16000 -f S16_LE "$NOW"
