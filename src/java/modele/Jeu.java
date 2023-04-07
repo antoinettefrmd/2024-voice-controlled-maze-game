@@ -127,6 +127,8 @@ public class Jeu {
 		}
 	}
 	
+	//pour l'utilisation de script bash il faut utiliser la class ExecuteBash et donner en argument du constructeur le
+	//chemin vers le script depuis src ex : "/src/java/controlleur/record.sh"
 	public void tour() {
 		// on va surement oublier le clavier (variable globale sinon)
 		
