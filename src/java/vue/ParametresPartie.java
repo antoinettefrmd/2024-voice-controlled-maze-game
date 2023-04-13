@@ -127,6 +127,8 @@ public class ParametresPartie extends JPanel {
 		
 		int n = joueurSupp.getTaille();
 		
+		ListeDeJoueurs courant = joueurSupp;
+		
 		//permet d'ajouter les JCheckBox pour cocher ou non les nouveaux joueurs
 		for(int i = 0; i < n; i++) {
 			JCheckBox tmpJCheckBox = new JCheckBox("Il faut creer un attribut nom pour les joueurs");
@@ -136,6 +138,7 @@ public class ParametresPartie extends JPanel {
 			tmpJCheckBox.setFocusPainted(false);
 			centerCenterBox.add(tmpJCheckBox);
 			jSuppJCheckBox.add(tmpJCheckBox);
+			courant.suivant();
 		}
 
 		
