@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -269,11 +270,14 @@ public class Menu extends JFrame {
 		jactu.setBorder(new EmptyBorder(0, 10, 0, 0));
 		
 		//permet de lancer l'enregistrement de la voix
-		JButton record = new JButton("Record");
+		JButton recordVoix = new JButton("RecordVoix");
+		JButton recordMot = new JButton("RecordMot");
+
 		
 		jmb.add(quitterjeu);
 		jmb.add(etage);
-		jmb.add(record);
+		jmb.add(recordVoix);
+		jmb.add(recordMot);
 		jmb.add(jactu);
 
 		
@@ -303,15 +307,37 @@ public class Menu extends JFrame {
 			getContentPane().remove(contentPane);
 			getContentPane().add(menuPanel);
 		});
+
+		// faire disparaitre le premier bouton par le deuxieme car on en a plus besoin une fois dans le jeu
 		
-		record.addActionListener((ActionEvent event) -> {
+		recordVoix.addActionListener((ActionEvent event) -> { // j'ai remplacé par recordVoix
 			
-			ExecuteBash r = new ExecuteBash("/src/java/controlleur/record.sh");
+			ExecuteBash r = new ExecuteBash("/src/java/controlleur/recordVoix.sh");	
+		});
+
+		recordMot.addActionListener((ActionEvent event) -> { 
+			ExecuteBash rm = new ExecuteBash("/src/java/controlleur/recordMot.sh");	
+			ExecuteBash tr = new ExecuteBash("/src/java/controlleur/whisper.sh");
 			
+			String mot = "";
+			File repertoire = new File("./src/ressources/WAV");
+
+			File[] fichiers = repertoire.listFiles();
+
+			for(File fichier : fichiers) { // au cas où
+				if (fichier.getName().endsWith(".txt")) { 
+					try (BufferedReader reader = new BufferedReader(new FileReader(fichier))) {
+						mot = reader.readLine();
+					} catch (IOException e) {
+						e.printStackTrace();
+					} 
+				}
+			}
+			System.out.println(mot);
+			Jeu.tour(mot);
 		});
 		
 		//####################################################
-
 	}
 	
 	//utilisé dans ParametresPartie et Credit pour revenir au Menu
@@ -336,7 +362,7 @@ public class Menu extends JFrame {
 		jbox = j.getJbox();
 		
 		//on utilise normalement la classe jouer mais elle ne fonctionne pas pour le moment
-		//j.jouer();
+		j.jouer();
 		
 		//REMETTRE LE CODE QUAND LA FONCTION TOUR FONCTIONNE
 //		MessageFin dialog;

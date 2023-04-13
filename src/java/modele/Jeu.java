@@ -2,6 +2,7 @@ package modele;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.io.IOException;
 import java.util.LinkedList;
 
 import javax.swing.BorderFactory;
@@ -11,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
+import controlleur.ExecuteBash;
 import vue.LabyrinthGraphique;
 import vue.Menu;
 
@@ -120,56 +122,43 @@ public class Jeu {
 			labyrinth.getLabyrinthD().getLabyrinth()[taille][taille].addJoueur(courant.getJoueur());
 		}
 		m.MAJlabyrinthG(labyrinth); //afficher le nouveau labyrinth avec les joueurs (ALEC)
-		while(!joueurs.estVide()) {
-			courant = courant.getSuivant();
-			actualisationLabelJCourant(); //mettre en surbrillance le joueur courant (ALEC) ça fonctionne normalement
-			tour();
-		}
+		// while(!joueurs.estVide()) {
+		// 	courant = courant.getSuivant();
+		// 	actualisationLabelJCourant(); //mettre en surbrillance le joueur courant (ALEC) ça fonctionne normalement
+		// 	tour();
+		// }
 	}
 	
 	//pour l'utilisation de script bash il faut utiliser la class ExecuteBash et donner en argument du constructeur le
 	//chemin vers le script depuis src ex : "/src/java/controlleur/record.sh"
-	public void tour() {
-		// on va surement oublier le clavier (variable globale sinon)
-		
-		// Avec le script bash :
-		// int i = 0;
-		// while ( i < 5 && voix == null && mot == "") {
-			// demarrer l'enregistrement
-			// faire la fonction de transformation en .wav
-			// recuperer la voix alize
-			// recuperer le mot
-			// si voix != null && mot != null
-				// break;
-			// si i == 4 
-				// afficher un mesage d'erreur (ALEC)
-				// return;
-		// }
 
-		// Labyrinth lab = labyrinth.getLabyrinthD();
-		// Joueur current = courant.getJoueur();
-		// if (voix = current.voix) {
-			// 	switch (mot) {
-			// 		case haut : lab.haut(current);
-			// 		case bas : lab.bas(current);
-			// 		case gauche : lab.gauche(current);
-			// 		case droite : lab.droite(current);
-			// 	}
-		// }
+	public static void tour(String deplacement) {
 
-		// if (!current.getCle().getAttrape()) {
-			// if (current.cle.getX() == current.getX() && current.cle.getY() == current.getY()) { // pour moi c'est foncdamental qu'un joueur ait sa clé // vérifier si le joueur attérit sur sa cléf 
-				// current.getCle().setRecup(true);
-				// si oui, afficher une clef à coté de son pseudo (ALEC)
-				
-			// }
-		// }
-		// else if (current.getX() == taille && current.getY()== taille) { // vérifier si il à sa clef et qu'il est au milieu
+		System.out.print(("Je suis là \n"));
+		Labyrinth lab = labyrinth.getLabyrinthD();
+		Joueur current = courant.getJoueur();
+		System.out.print(("Je suis là \n"));
+
+		switch (deplacement) {
+			case "haut" : lab.haut(current);
+			case "bas" : lab.bas(current);
+			case "gauche" : lab.gauche(current);
+			case "droite": lab.droite(current);
+			// default : ; //Alec message d'erreur // boucler 2 fois
+		}	
+
+		System.out.print(("Je suis là aussi \n"));
+		if (!current.getCle().getAttrape()) {
+			if (current.getCle().getxCle() == current.getX() && current.getCle().getyCle() == current.getY()) { // pour moi c'est foncdamental qu'un joueur ait sa clé // vérifier si le joueur attérit sur sa cléf 
+				current.getCle().setAttrape(true);
+				// si oui, afficher une clef à coté de son pseudo (ALEC)	
+			}
+		}
+		else if (current.getX() == 5 && current.getY()== 5) { // vérifier si il à sa clef et qu'il est au milieu
 			// le mettre d'une couleur spéciale (ALEC)
-			// joueursfinito.add(current);
-			// joueurs.supprimer(current);
-			
-		// }
+			joueursfinito.add(current);
+			joueurs.supprimer(current);	
+		}
 	}
 	
 	public JPanel getJbox() {

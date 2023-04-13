@@ -38,7 +38,6 @@ private static class ProcessReader implements Callable {
 		
 		//on regarde si on est sur windows ou non
 		boolean isWindows = System.getProperty("os.name").toLowerCase().startsWith("windows");
-		
 		ProcessBuilder builder = new ProcessBuilder();
 		
 		if(isWindows) {
@@ -76,7 +75,6 @@ private static class ProcessReader implements Callable {
 		} finally {
 			pool.shutdown();
 		}
-
 	}
 	
 	public String getResultat() {

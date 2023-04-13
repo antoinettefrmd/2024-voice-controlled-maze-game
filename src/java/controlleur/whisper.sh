@@ -2,11 +2,14 @@
 
 cd src/ressources/WAV
 
-fichier = $(ls *.wav | sed -e "s/.wav$//g")
+fichier=$(ls *.wav)
 
-whisper fichier --language French
+whisper $fichier --language French
 
-rm fichier.json
-rm fichier.srt
-rm fichier.tsv
-rm fichier.vtt
+rm *.json
+rm *.srt
+rm *.tsv
+rm *.vtt
+rm *.wav
+
+echo $fichier
