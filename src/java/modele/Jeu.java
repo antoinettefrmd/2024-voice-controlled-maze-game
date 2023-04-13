@@ -125,8 +125,6 @@ public class Jeu {
 		// while(!joueurs.estVide()) {
 		// 	courant = courant.getSuivant();
 		// 	actualisationLabelJCourant(); //mettre en surbrillance le joueur courant (ALEC) ça fonctionne normalement
-		// 	tour();
-		// }
 	}
 	
 	//pour l'utilisation de script bash il faut utiliser la class ExecuteBash et donner en argument du constructeur le
@@ -136,16 +134,19 @@ public class Jeu {
 
 		Labyrinth lab = labyrinth.getLabyrinthD();
 		Joueur current = courant.getJoueur();
-
-		switch (deplacement) { //remplacer par des if pour plus de chances de réussir
-			case "haut" : lab.haut(current);break;
-			case "bas" : lab.bas(current);break;
-			case "gauche" : lab.gauche(current);break;
-			case "droite": lab.droite(current); break;
-			// default : ; //Alec message d'erreur
+		deplacement = deplacement.toLowerCase();
+		if (deplacement.equals("haut") || deplacement.equals("eau") || deplacement.equals("au") || deplacement.equals("o") || deplacement.equals("ho")) {
+			lab.haut(current);
+		} else if (deplacement.equals("droite") || deplacement.equals("droit") || deplacement.equals("droit.")) {
+			lab.droite(current);
+		} else if (deplacement.equals("gauche") || deplacement.equals("gâche") || deplacement.equals("gouche") || deplacement.equals("douche")) {
+			lab.gauche(current);
+		} else if (deplacement.equals("bas") || deplacement.equals("bah")) { 
+			lab.bas(current);
+		} else {
+			 //Alec message d'erreur
 		}	
 		 //afficher le nouveau labyrinth avec les joueurs (ALEC)
-
 
 		// if (!current.getCle().getAttrape()) {
 		// 	if (current.getCle().getxCle() == current.getX() && current.getCle().getyCle() == current.getY()) { // pour moi c'est foncdamental qu'un joueur ait sa clé // vérifier si le joueur attérit sur sa cléf 
@@ -153,11 +154,12 @@ public class Jeu {
 		// 		// si oui, afficher une clef à coté de son pseudo (ALEC)	
 		// 	}
 		// }
-		// else if (current.getX() == 5 && current.getY()== 5) { // vérifier si il à sa clef et qu'il est au milieu
+		// else if (current.getX() == 5 && current.getY()== 5) { //5 à changer
 		// 	// le mettre d'une couleur spéciale (ALEC)
 		// 	joueursfinito.add(current);
 		// 	joueurs.supprimer(current);	
 		// }
+
 	}
 	
 	public JPanel getJbox() {
