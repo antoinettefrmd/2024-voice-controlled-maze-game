@@ -134,31 +134,30 @@ public class Jeu {
 
 	public static void tour(String deplacement) {
 
-		System.out.print(("Je suis là \n"));
 		Labyrinth lab = labyrinth.getLabyrinthD();
 		Joueur current = courant.getJoueur();
-		System.out.print(("Je suis là \n"));
 
-		switch (deplacement) {
-			case "haut" : lab.haut(current);
-			case "bas" : lab.bas(current);
-			case "gauche" : lab.gauche(current);
-			case "droite": lab.droite(current);
-			// default : ; //Alec message d'erreur // boucler 2 fois
+		switch (deplacement) { //remplacer par des if pour plus de chances de réussir
+			case "haut" : lab.haut(current);break;
+			case "bas" : lab.bas(current);break;
+			case "gauche" : lab.gauche(current);break;
+			case "droite": lab.droite(current); break;
+			// default : ; //Alec message d'erreur
 		}	
+		 //afficher le nouveau labyrinth avec les joueurs (ALEC)
 
-		System.out.print(("Je suis là aussi \n"));
-		if (!current.getCle().getAttrape()) {
-			if (current.getCle().getxCle() == current.getX() && current.getCle().getyCle() == current.getY()) { // pour moi c'est foncdamental qu'un joueur ait sa clé // vérifier si le joueur attérit sur sa cléf 
-				current.getCle().setAttrape(true);
-				// si oui, afficher une clef à coté de son pseudo (ALEC)	
-			}
-		}
-		else if (current.getX() == 5 && current.getY()== 5) { // vérifier si il à sa clef et qu'il est au milieu
-			// le mettre d'une couleur spéciale (ALEC)
-			joueursfinito.add(current);
-			joueurs.supprimer(current);	
-		}
+
+		// if (!current.getCle().getAttrape()) {
+		// 	if (current.getCle().getxCle() == current.getX() && current.getCle().getyCle() == current.getY()) { // pour moi c'est foncdamental qu'un joueur ait sa clé // vérifier si le joueur attérit sur sa cléf 
+		// 		current.getCle().setAttrape(true);
+		// 		// si oui, afficher une clef à coté de son pseudo (ALEC)	
+		// 	}
+		// }
+		// else if (current.getX() == 5 && current.getY()== 5) { // vérifier si il à sa clef et qu'il est au milieu
+		// 	// le mettre d'une couleur spéciale (ALEC)
+		// 	joueursfinito.add(current);
+		// 	joueurs.supprimer(current);	
+		// }
 	}
 	
 	public JPanel getJbox() {
