@@ -146,7 +146,7 @@ public class Jeu {
 		} else {
 			 //Alec message d'erreur
 		}	
-		 //afficher le nouveau labyrinth avec les joueurs (ALEC)
+		m.MAJlabyrinthG(labyrinth);
 
 		// if (!current.getCle().getAttrape()) {
 		// 	if (current.getCle().getxCle() == current.getX() && current.getCle().getyCle() == current.getY()) { // pour moi c'est foncdamental qu'un joueur ait sa clé // vérifier si le joueur attérit sur sa cléf 
@@ -154,10 +154,14 @@ public class Jeu {
 		// 		// si oui, afficher une clef à coté de son pseudo (ALEC)	
 		// 	}
 		// }
-		// else if (current.getX() == 5 && current.getY()== 5) { //5 à changer
+		// else if (current.getX() == lab.getL() && current.getY()== lab.getL()) { 
 		// 	// le mettre d'une couleur spéciale (ALEC)
 		// 	joueursfinito.add(current);
 		// 	joueurs.supprimer(current);	
+		// }
+
+		// if (joueurs.getTaille() == 0) {
+		// 	etage();
 		// }
 
 	}
