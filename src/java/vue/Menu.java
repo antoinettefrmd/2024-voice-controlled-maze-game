@@ -61,7 +61,7 @@ public class Menu extends JFrame {
 	private Border Jborder = BorderFactory.createLineBorder(Color.black, 2);
 	
 	private ListeDeJoueurs joueurSupp; //permet d'ajouter des joueurs supplémentaire a la liste de joueur de base
-
+	private Jeu jeu;
 	
 	
 	/**
@@ -246,6 +246,7 @@ public class Menu extends JFrame {
 		creationJoueurPanel = new CreationJoueur(this);
 		
 		creditPanel = new Credit(this);
+
 		
 		
 		//JMenuBar
@@ -334,7 +335,7 @@ public class Menu extends JFrame {
 				}
 			}
 			System.out.println(mot);
-			Jeu.tour(mot);
+			jeu.tour(mot);
 		});
 		
 		//####################################################
@@ -357,12 +358,12 @@ public class Menu extends JFrame {
 	//permet de lancer le jeu depuis parametresPartie
 	public void lancerjeu(ListeDeJoueurs ldj) {
 		
-		Jeu j = new Jeu(this, ldj);
+		jeu = new Jeu(this, ldj);
 		
-		jbox = j.getJbox();
+		jbox = jeu.getJbox();
 		
 		//on utilise normalement la classe jouer mais elle ne fonctionne pas pour le moment
-		j.jouer();
+		jeu.jouer();
 		
 		//REMETTRE LE CODE QUAND LA FONCTION TOUR FONCTIONNE
 //		MessageFin dialog;

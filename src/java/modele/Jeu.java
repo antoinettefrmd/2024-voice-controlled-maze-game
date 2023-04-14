@@ -130,12 +130,12 @@ public class Jeu {
 	//pour l'utilisation de script bash il faut utiliser la class ExecuteBash et donner en argument du constructeur le
 	//chemin vers le script depuis src ex : "/src/java/controlleur/record.sh"
 
-	public static void tour(String deplacement) {
+	public void tour(String deplacement) {
 
 		Labyrinth lab = labyrinth.getLabyrinthD();
 		Joueur current = courant.getJoueur();
 		deplacement = deplacement.toLowerCase();
-		if (deplacement.equals("haut") || deplacement.equals("eau") || deplacement.equals("au") || deplacement.equals("o") || deplacement.equals("ho")) {
+		if (deplacement.equals("haut") || deplacement.equals("eau") || deplacement.equals("au") || deplacement.equals("o") || deplacement.equals("oh")) {
 			lab.haut(current);
 		} else if (deplacement.equals("droite") || deplacement.equals("droit") || deplacement.equals("droit.")) {
 			lab.droite(current);
