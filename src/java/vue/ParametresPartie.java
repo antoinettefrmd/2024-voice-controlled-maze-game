@@ -9,6 +9,8 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.font.FontRenderContext;
@@ -18,6 +20,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -25,6 +29,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import controlleur.ExecuteBash;
 import modele.Joueur;
 import modele.ListeDeJoueurs;
 
@@ -89,33 +94,37 @@ public class ParametresPartie extends JPanel {
 		centerCenterBox.setBorder(new EmptyBorder(200, 0, 0, 0));
 		centerCenterBox.setOpaque(false);
 		
+		Color checkBoxColor = Color.red; //new Color(250, 250, 175)
+		Color checkBoxColorV = Color.green;
+
+		
 		JCheckBox j1 = new JCheckBox("Georges");
 		j1.setFont(DayDream);
-		j1.setForeground(new Color(250, 250, 175));
+		j1.setForeground(checkBoxColor);
 		j1.setOpaque(false);
 		j1.setFocusPainted(false); //permet de ne pas afficher le fait que le bouton soit selectionné
 		
 		JCheckBox j2 = new JCheckBox("Ronen");
 		j2.setFont(DayDream);
-		j2.setForeground(new Color(250, 250, 175));
+		j2.setForeground(checkBoxColor);
 		j2.setOpaque(false);
 		j2.setFocusPainted(false);
 
 		JCheckBox j3 = new JCheckBox("Antoinette");
 		j3.setFont(DayDream);
-		j3.setForeground(new Color(250, 250, 175));
+		j3.setForeground(checkBoxColor);
 		j3.setOpaque(false);
 		j3.setFocusPainted(false);
 
 		JCheckBox j4 = new JCheckBox("Alec");
 		j4.setFont(DayDream);
-		j4.setForeground(new Color(250, 250, 175));
+		j4.setForeground(checkBoxColor);
 		j4.setOpaque(false);
 		j4.setFocusPainted(false);
 
 		JCheckBox j5 = new JCheckBox("Lea");
 		j5.setFont(DayDream);
-		j5.setForeground(new Color(250, 250, 175));
+		j5.setForeground(checkBoxColor);
 		j5.setOpaque(false);
 		j5.setFocusPainted(false);
 		
@@ -146,7 +155,7 @@ public class ParametresPartie extends JPanel {
 		centerBox.add(centerCenterBox, BorderLayout.CENTER);
 		
 		
-		JPanel southBox = new JPanel(new FlowLayout());
+		JPanel southBox = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
 		southBox.setOpaque(false);
 		setBorder(new EmptyBorder(0, 0, 100, 0));
 		
@@ -171,6 +180,116 @@ public class ParametresPartie extends JPanel {
 		
 		retour.addActionListener((ActionEvent event) -> {
 			m.retour();
+		});
+		
+		j1.addActionListener((ActionEvent event) -> {
+			if(j1.isSelected()) {
+				j1.setEnabled(false);
+				
+				//REMETTRE QUAND LES Instruction jsp sont ajouter
+//				ExecuteBash recordVoix = new ExecuteBash("/src/java/controlleur/recordVoix.sh");
+//				String fichierWav = recordVoix.getResultat();
+				
+				//Instruction jsp il faut verifier quoi
+				
+				boolean verifier = true; //mettre le resultat de Instruction jsp
+				if(verifier) {
+					j1.setForeground(checkBoxColorV);
+				} else {
+					j1.setSelected(false);
+				}
+				j1.setEnabled(true);
+			} else {
+				j1.setForeground(checkBoxColor);
+			}
+		});
+		
+		j2.addActionListener((ActionEvent event) -> {
+			if(j2.isSelected()) {
+				j2.setEnabled(false);
+				
+				//REMETTRE QUAND LES Instruction jsp sont ajouter
+//				ExecuteBash recordVoix = new ExecuteBash("/src/java/controlleur/recordVoix.sh");
+//				String fichierWav = recordVoix.getResultat();
+				
+				//Instruction jsp il faut verifier quoi
+				
+				boolean verifier = true; //mettre le resultat de Instruction jsp
+				if(verifier) {
+					j2.setForeground(checkBoxColorV);
+				} else {
+					j2.setSelected(false);
+				}
+				j2.setEnabled(true);
+			} else {
+				j2.setForeground(checkBoxColor);
+			}
+		});
+		
+		j3.addActionListener((ActionEvent event) -> {
+			if(j3.isSelected()) {
+				j3.setEnabled(false);
+				
+				//REMETTRE QUAND LES Instruction jsp sont ajouter
+//				ExecuteBash recordVoix = new ExecuteBash("/src/java/controlleur/recordVoix.sh");
+//				String fichierWav = recordVoix.getResultat();
+				
+				//Instruction jsp il faut verifier quoi
+				
+				boolean verifier = true; //mettre le resultat de Instruction jsp
+				if(verifier) {
+					j3.setForeground(checkBoxColorV);
+				} else {
+					j3.setSelected(false);
+				}
+				j3.setEnabled(true);
+			} else {
+				j3.setForeground(checkBoxColor);
+			}
+		});
+		
+		j4.addActionListener((ActionEvent event) -> {
+			if(j4.isSelected()) {
+				j4.setEnabled(false);
+				
+				//REMETTRE QUAND LES Instruction jsp sont ajouter
+//				ExecuteBash recordVoix = new ExecuteBash("/src/java/controlleur/recordVoix.sh");
+//				String fichierWav = recordVoix.getResultat();
+				
+				//Instruction jsp il faut verifier quoi
+				
+				boolean verifier = true; //mettre le resultat de Instruction jsp
+				if(verifier) {
+					j4.setForeground(checkBoxColorV);
+				} else {
+					j4.setSelected(false);
+				}
+				j4.setEnabled(true);
+			} else {
+				j4.setForeground(checkBoxColor);
+			}
+		});
+		
+		j5.addActionListener((ActionEvent event) -> {
+			if(j5.isSelected()) {
+				j5.setEnabled(false);
+				
+				//REMETTRE QUAND LES Instruction jsp sont ajouter
+//				ExecuteBash recordVoix = new ExecuteBash("/src/java/controlleur/recordVoix.sh");
+//				String fichierWav = recordVoix.getResultat();
+				
+				//Instruction jsp il faut verifier quoi
+				
+				boolean verifier = true; //mettre le resultat de Instruction jsp
+				if(verifier) {
+					j5.setForeground(checkBoxColorV);
+				} else {
+					j5.setSelected(false);
+				}
+				j5.setEnabled(true);
+			} else {
+				j5.setForeground(checkBoxColor);
+			}
 		});
 		
 		lancer.addActionListener((ActionEvent event) -> {

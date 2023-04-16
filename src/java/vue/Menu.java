@@ -271,13 +271,11 @@ public class Menu extends JFrame {
 		jactu.setBorder(new EmptyBorder(0, 10, 0, 0));
 		
 		//permet de lancer l'enregistrement de la voix
-		JButton recordVoix = new JButton("RecordVoix");
 		JButton recordMot = new JButton("RecordMot");
 
 		
 		jmb.add(quitterjeu);
 		jmb.add(etage);
-		jmb.add(recordVoix);
 		jmb.add(recordMot);
 		jmb.add(jactu);
 
@@ -307,13 +305,6 @@ public class Menu extends JFrame {
 			jmb.setVisible(false);
 			getContentPane().remove(contentPane);
 			getContentPane().add(menuPanel);
-		});
-
-		// faire disparaitre le premier bouton par le deuxieme car on en a plus besoin une fois dans le jeu
-		
-		recordVoix.addActionListener((ActionEvent event) -> { // j'ai remplacé par recordVoix
-			
-			ExecuteBash r = new ExecuteBash("/src/java/controlleur/recordVoix.sh");	
 		});
 
 		recordMot.addActionListener((ActionEvent event) -> { 
@@ -441,6 +432,10 @@ public class Menu extends JFrame {
 	
 	public Dimension getDimMenu() {
 		return dimMenu;
+	}
+	
+	public void update() {
+		contentPane.updateUI();
 	}
 	
 	

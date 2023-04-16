@@ -1,11 +1,11 @@
 #!/bin/sh
 
-if [ -d src/WAV/ ];
+if [ -d src/ressources/WAV/ ];
 then
 cd src/ressources/WAV
 else
 mkdir src/ressources/WAV
-cd src/WAV
+cd src/ressources/WAV
 fi
 
 NOW=$(date +"%Y%m%d_%H%M%S.wav")

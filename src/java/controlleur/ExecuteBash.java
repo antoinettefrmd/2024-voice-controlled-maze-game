@@ -60,7 +60,6 @@ private static class ProcessReader implements Callable {
 			for (String res : results) {
 				System.out.println(res);
 			}
-			System.out.println(results.get(0));
 
 			resultat = results.get(0);
 			

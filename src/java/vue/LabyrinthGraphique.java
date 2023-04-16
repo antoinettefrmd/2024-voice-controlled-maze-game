@@ -24,6 +24,7 @@ public class LabyrinthGraphique extends JPanel{
 	
 	private BufferedImage imageMur;
 	private BufferedImage imageSol;
+	private BufferedImage clef;
 	
 	//private Border Jborder = BorderFactory.createLineBorder(Color.black, 2); //bordure pour entourer le nom d'un joueur
 	//private Border JActuBorder = BorderFactory.createLineBorder(Color.gray, 2); //bordure pour entourer le nom du joueur qui joue
@@ -51,8 +52,9 @@ public class LabyrinthGraphique extends JPanel{
 
 		try {
 			//permet de récupérer le fichier de l'image
-			imageMur = ImageIO.read(new File("./src/ressources/images/mur.jpeg"));
-			imageSol = ImageIO.read(new File("./src/ressources/images/cailloux.jpeg"));
+			imageMur = ImageIO.read(new File("./src/ressources/images/mur.png"));
+			imageSol = ImageIO.read(new File("./src/ressources/images/sol4.png"));
+			clef = ImageIO.read(new File("./src/ressources/images/key.png"));
 		} catch (IOException e){
 			e.printStackTrace();
 		}
@@ -62,7 +64,7 @@ public class LabyrinthGraphique extends JPanel{
 			for(int j = 0; j < 2*n+1; j++) {
 				
 				//On récupère la case et on crée un mur ou un chemin en fonction de la valeur de la case
-				CaseGraphique tmp = new CaseGraphique(labyrinthD.getLabyrinth()[i][j], imageMur, imageSol);
+				CaseGraphique tmp = new CaseGraphique(labyrinthD.getLabyrinth()[i][j], imageMur, imageSol, clef);
 				labyrinthG[i][j] = tmp;
 				this.add(tmp);
 			}
