@@ -39,6 +39,9 @@ public class Labyrinth {
 		generate();
 	}
 	
+	public int getL() {
+		return this.l;
+	}
 	
 	
 	public Case[][] getLabyrinth(){ //On aura besoin d'avoir accès au labyrinthe
