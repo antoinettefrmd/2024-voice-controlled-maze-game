@@ -13,6 +13,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import controlleur.ExecuteBash;
+import vue.JoueurSuivant;
 import vue.LabyrinthGraphique;
 import vue.Menu;
 
@@ -53,12 +54,14 @@ public class Jeu {
 		
 		this.m = m;
 		
-		labyrinth = new LabyrinthGraphique(taille);
+		labyrinth = new LabyrinthGraphique(taille, j);
+		
 		m.MAJlabyrinthG(labyrinth); //met à jour l'interface graphique et donc le labyrinth
 		joueurs = j;
 		joueursfinito = new ListeDeJoueurs();
 		etage = 0;
 		courant = joueurs.getCourant();
+		
 		
 		JMenuBar jmb = m.getJMenuBar();
 		
@@ -102,29 +105,19 @@ public class Jeu {
 		
 	}
 	
-	public void jouer() {
-		while(etage != 5) {
-			etage();
-		}
-	}
-	
 	public void etage() { // set l'endroit des clé à chaque manche
 		etage++;
-		//changer l'affichage de l'étage (ALEC)
 		m.changeEtage(etage);
 		taille+=2;
-		labyrinth = new LabyrinthGraphique(taille);
+		labyrinth = new LabyrinthGraphique(taille, joueurs);
 		if(joueurs.getTaille()==1) {
 			labyrinth.getLabyrinthD().getLabyrinth()[taille][taille].addJoueur(courant.getJoueur());
 		}
 		CellJoueur tmp = courant;
-		while(tmp.getSuivant()!=courant) {
+		while((tmp=tmp.getSuivant())!=courant) {
 			labyrinth.getLabyrinthD().getLabyrinth()[taille][taille].addJoueur(courant.getJoueur());
 		}
 		m.MAJlabyrinthG(labyrinth); //afficher le nouveau labyrinth avec les joueurs (ALEC)
-		// while(!joueurs.estVide()) {
-		// 	courant = courant.getSuivant();
-		// 	actualisationLabelJCourant(); //mettre en surbrillance le joueur courant (ALEC) ça fonctionne normalement
 	}
 	
 	//pour l'utilisation de script bash il faut utiliser la class ExecuteBash et donner en argument du constructeur le
@@ -141,12 +134,15 @@ public class Jeu {
 			lab.droite(current);
 		} else if (deplacement.equals("gauche") || deplacement.equals("gâche") || deplacement.equals("gouche") || deplacement.equals("douche")) {
 			lab.gauche(current);
-		} else if (deplacement.equals("bas") || deplacement.equals("bah")) { 
+		} else if (deplacement.equals("bas") || deplacement.equals("bah") ||  deplacement.equals("baa") ||  deplacement.equals("ba") ||  deplacement.equals("da")) { 
 			lab.bas(current);
 		} else {
 			 //Alec message d'erreur
 		}	
 		m.MAJlabyrinthG(labyrinth);
+		courant = courant.getSuivant();
+		JoueurSuivant js = new JoueurSuivant(); //bizarre de recreer on pourrait faire en static ?
+		// ça ne fais pas le carré blanc
 
 		// if (!current.getCle().getAttrape()) {
 		// 	if (current.getCle().getxCle() == current.getX() && current.getCle().getyCle() == current.getY()) { // pour moi c'est foncdamental qu'un joueur ait sa clé // vérifier si le joueur attérit sur sa cléf 
@@ -160,9 +156,9 @@ public class Jeu {
 		// 	joueurs.supprimer(current);	
 		// }
 
-		// if (joueurs.getTaille() == 0) {
-		// 	etage();
-		// }
+		if (joueurs.getTaille() == 0) {
+			etage();
+		}
 
 	}
 	

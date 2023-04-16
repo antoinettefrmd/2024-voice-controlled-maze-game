@@ -316,8 +316,8 @@ public class Menu extends JFrame {
 
 			File[] fichiers = repertoire.listFiles();
 
-			for(File fichier : fichiers) { // au cas où
-				if (fichier.getName().endsWith(".txt")) { 
+			for(File fichier : fichiers) { // au cas où 
+				if (fichier.getName().endsWith(".txt")) { // utiliser un Scnanner pour lire seulement le premier mot
 					try (BufferedReader reader = new BufferedReader(new FileReader(fichier))) {
 						mot = reader.readLine();
 					} catch (IOException e) {
@@ -354,7 +354,7 @@ public class Menu extends JFrame {
 		jbox = jeu.getJbox();
 		
 		//on utilise normalement la classe jouer mais elle ne fonctionne pas pour le moment
-//		jeu.jouer();
+//		jeu.jouer(); // pour moi pas besoin
 		
 		//REMETTRE LE CODE QUAND LA FONCTION TOUR FONCTIONNE
 //		MessageFin dialog;
