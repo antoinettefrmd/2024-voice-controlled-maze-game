@@ -53,12 +53,14 @@ public class Jeu {
 		
 		this.m = m;
 		
-		labyrinth = new LabyrinthGraphique(taille);
+		labyrinth = new LabyrinthGraphique(taille, j);
+		
 		m.MAJlabyrinthG(labyrinth); //met à jour l'interface graphique et donc le labyrinth
 		joueurs = j;
 		joueursfinito = new ListeDeJoueurs();
 		etage = 0;
 		courant = joueurs.getCourant();
+		
 		
 		JMenuBar jmb = m.getJMenuBar();
 		
@@ -113,12 +115,12 @@ public class Jeu {
 		//changer l'affichage de l'étage (ALEC)
 		m.changeEtage(etage);
 		taille+=2;
-		labyrinth = new LabyrinthGraphique(taille);
+		labyrinth = new LabyrinthGraphique(taille, joueurs);
 		if(joueurs.getTaille()==1) {
 			labyrinth.getLabyrinthD().getLabyrinth()[taille][taille].addJoueur(courant.getJoueur());
 		}
 		CellJoueur tmp = courant;
-		while(tmp.getSuivant()!=courant) {
+		while((tmp=tmp.getSuivant())!=courant) {
 			labyrinth.getLabyrinthD().getLabyrinth()[taille][taille].addJoueur(courant.getJoueur());
 		}
 		m.MAJlabyrinthG(labyrinth); //afficher le nouveau labyrinth avec les joueurs (ALEC)

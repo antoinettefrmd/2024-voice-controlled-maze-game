@@ -363,7 +363,7 @@ public class Menu extends JFrame {
 		jbox = jeu.getJbox();
 		
 		//on utilise normalement la classe jouer mais elle ne fonctionne pas pour le moment
-		jeu.jouer();
+		//jeu.jouer();
 		
 		//REMETTRE LE CODE QUAND LA FONCTION TOUR FONCTIONNE
 //		MessageFin dialog;

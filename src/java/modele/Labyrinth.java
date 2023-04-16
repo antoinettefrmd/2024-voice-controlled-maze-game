@@ -10,14 +10,14 @@ import javax.imageio.plugins.tiff.GeoTIFFTagSet;
 
 public class Labyrinth {
 	protected Case[][] labyrinth;
-	private Joueur current;
+	private CellJoueur current;
 	private int[][]tab_val;//entier entre -1 et 4, -1 représentant la première case, 0 les cases non visitées 1-4 représentent d'ou vient l'ancienne case visitée
 	//1 = gauche, 2 = bas, 3 = droite, 4 = haut
 	protected int l; // taille du labyrinth
 	private int x; // utile seulement pour la génération
 	private int y; // idem
 	
-	public Labyrinth(int n) {
+	public Labyrinth(int n, ListeDeJoueurs p) {
 		l = n;
 		labyrinth = new Case[2*l+1][2*l+1];
 		tab_val = new int[n][n];
@@ -29,12 +29,15 @@ public class Labyrinth {
 		}
 		x = 0;
 		y = 0;
-		current = new Joueur(Color.BLUE, l, l);
-		current.setX(l);
-		current.setY(l);
-		labyrinth[l][l].addJoueur(current);
-		labyrinth[l][l].addJoueur(new Joueur(Color.RED, l, l));
-		labyrinth[l][l].addJoueur(new Joueur(Color.PINK, l, l));
+		
+		current = p.getCourant();
+		CellJoueur tmp = current;
+		do {
+			tmp.getJoueur().setX(l);
+			tmp.getJoueur().setY(l);
+			labyrinth[l][l].addJoueur(tmp.getJoueur());
+			tmp = tmp.getSuivant();
+		} while (tmp != current);
 		tab_val[x][y] = -1;
 		generate();
 	}
@@ -153,7 +156,7 @@ public class Labyrinth {
 		}
 		return res;
 	}
-	public Joueur getCurrent() {
+	public CellJoueur getCurrent() {
 		return current;
 	}
 	
@@ -249,11 +252,5 @@ public class Labyrinth {
 			this.attrape = attrape;
 		}
     }
-
-	public static void main(String[]args) {
-		Labyrinth test = new Labyrinth(21);
-		System.out.println(test);
-		System.out.println(test.labyrinth[20][20].mur);
-	}
 
 }

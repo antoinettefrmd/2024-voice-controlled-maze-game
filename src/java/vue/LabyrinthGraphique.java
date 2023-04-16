@@ -33,9 +33,9 @@ public class LabyrinthGraphique extends JPanel{
 	/**
 	 * n represente la taille n*n du labyrinth
 	 */
-	public LabyrinthGraphique(int n) {
+	public LabyrinthGraphique(int n, ListeDeJoueurs p) {
 		
-		this.labyrinthD = new Labyrinth(n);
+		this.labyrinthD = new Labyrinth(n, p);
 		this.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "right");
 		this.getActionMap().put("right", right);
 		this.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "left");
@@ -80,7 +80,7 @@ public class LabyrinthGraphique extends JPanel{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			LabyrinthGraphique.this.labyrinthD.droite(LabyrinthGraphique.this.labyrinthD.getCurrent());
+			LabyrinthGraphique.this.labyrinthD.droite(LabyrinthGraphique.this.labyrinthD.getCurrent().getJoueur());
 			repaint();
 		}
 	};
@@ -89,7 +89,7 @@ public class LabyrinthGraphique extends JPanel{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			LabyrinthGraphique.this.labyrinthD.gauche(LabyrinthGraphique.this.labyrinthD.getCurrent());
+			LabyrinthGraphique.this.labyrinthD.gauche(LabyrinthGraphique.this.labyrinthD.getCurrent().getJoueur());
 			repaint();
 		}
 	};
@@ -98,7 +98,7 @@ public class LabyrinthGraphique extends JPanel{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			LabyrinthGraphique.this.labyrinthD.haut(LabyrinthGraphique.this.labyrinthD.getCurrent());
+			LabyrinthGraphique.this.labyrinthD.haut(LabyrinthGraphique.this.labyrinthD.getCurrent().getJoueur());
 			repaint();
 		}
 	};
@@ -107,7 +107,7 @@ public class LabyrinthGraphique extends JPanel{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			LabyrinthGraphique.this.labyrinthD.bas(LabyrinthGraphique.this.labyrinthD.getCurrent());
+			LabyrinthGraphique.this.labyrinthD.bas(LabyrinthGraphique.this.labyrinthD.getCurrent().getJoueur());
 			repaint();
 		}
 	};
