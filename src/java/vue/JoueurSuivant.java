@@ -35,7 +35,7 @@ public class JoueurSuivant extends JDialog {
 	 * Create the dialog.
 	 */
 	public JoueurSuivant() {
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 200);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -86,7 +86,19 @@ public class JoueurSuivant extends JDialog {
 //
 //			}
 //		}).start();
+		
+//		Thread t = new Thread();
+		this.setVisible(true);
+		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.dispose();
+		
 	}
 
 }
