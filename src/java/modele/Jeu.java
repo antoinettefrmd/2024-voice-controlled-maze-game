@@ -56,14 +56,18 @@ public class Jeu {
 		this.m = m;
 		
 		labyrinth = new LabyrinthGraphique(taille, j);
-		
-		m.MAJlabyrinthG(labyrinth); //met à jour l'interface graphique et donc le labyrinth
+		clefs = new LinkedList<Cle>();
 		joueurs = j;
 		joueursfinito = new ListeDeJoueurs();
 		etage = 0;
 		courant = joueurs.getCourant();
 		
+		int n = j.getTaille();
+		nbrJ = n;
+		
 		genererClefs();
+		
+		m.MAJlabyrinthG(labyrinth); //met à jour l'interface graphique et donc le labyrinth
 
 		JMenuBar jmb = m.getJMenuBar();
 		
@@ -72,8 +76,7 @@ public class Jeu {
 		jbox = new JPanel(new GridLayout(0, 5, 10, 0));
 		jbox.setOpaque(false);
 		
-		int n = j.getTaille();
-		nbrJ = n;
+		
 		for(int i = 0; i < n; i++) {
 			
 			//recupère la couleur du joueur
@@ -188,17 +191,23 @@ public class Jeu {
 		int l = labyrinth.getLabyrinthD().getL();
 		Random rand = new Random();
 		CellJoueur tmp = courant;
-		while(tmp.getSuivant() != courant){
-			int xCle = l;
-			int yCle = l; 
-			while(!labyrinth.getLabyrinthD().surChemin(xCle,yCle) && !PasDejaDeClef(xCle,yCle)){
+		int n = 0;
+		System.out.println(nbrJ);
+		do {
+			int xCle = 0;
+			int yCle = 0; 
+			while(!labyrinth.getLabyrinthD().surChemin(xCle,yCle) || !PasDejaDeClef(xCle,yCle)){
 				xCle = rand.nextInt(2*l)+1;
 				yCle = rand.nextInt(2*l)+1;
+				System.out.println(xCle + " | " + yCle);
 			}
 			Cle c = labyrinth.getLabyrinthD().new Cle(tmp.getJoueur().getCouleur(),xCle,yCle);
 			tmp.getJoueur().setCle(c);
 			labyrinth.getCase(xCle,yCle).setEstCle(true);
-		}
+			labyrinth.getCase(xCle, yCle).setClej(c);
+			tmp = tmp.getSuivant();
+			n++;
+		} while(n < nbrJ);
 	}
 	
 	public boolean PasDejaDeClef(int x, int y){

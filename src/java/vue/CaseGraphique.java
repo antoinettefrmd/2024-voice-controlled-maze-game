@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import modele.Labyrinth;
 import modele.Labyrinth.Case;
+import modele.Labyrinth.Cle;
 
 
 public class CaseGraphique extends JPanel {
@@ -18,6 +19,7 @@ public class CaseGraphique extends JPanel {
 	private Case c;
 	private boolean estclef;
 	private boolean clefprise;
+	private Cle clej;
 
 	/**
 	 * Create the panel.
@@ -26,6 +28,8 @@ public class CaseGraphique extends JPanel {
 		
 		this.c = c;
 		imageClef = clef;
+		estclef = false;
+		clefprise = false;
 		setPreferredSize(new Dimension(50, 50));
 		if (c.getMur()) {
 			image = imageMur;
@@ -43,7 +47,7 @@ public class CaseGraphique extends JPanel {
 		
 		if(estclef && !clefprise) {
 			surface.scale(0.5,0.5);
-			surface.drawImage(imageClef, 0, 0, this);
+			surface.drawImage(imageClef, this.getWidth(), this.getHeight(), this);
 		}
 		
 		for (int i = 0; i < c.getJoueurs().size(); i++) {
@@ -54,6 +58,18 @@ public class CaseGraphique extends JPanel {
 
 	public void setEstCle(boolean b) {
 		estclef = b;
+	}
+	
+	public boolean getEstCle() {
+		return estclef;
+	}
+	
+	public void setClej(Cle clej) {
+		this.clej = clej;
+	}
+	
+	public Cle getClej() {
+		return clej;
 	}
 
 }
