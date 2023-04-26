@@ -117,4 +117,8 @@ public class LabyrinthGraphique extends JPanel{
 		return labyrinthD;
 	}
 
+	public CaseGraphique getCase(int x, int y) {
+		return (CaseGraphique)labyrinthG[x][y];
+	}
+
 }

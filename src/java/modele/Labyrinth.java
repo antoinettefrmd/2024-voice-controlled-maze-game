@@ -218,25 +218,13 @@ public class Labyrinth {
         private int xCle;
         private int yCle; 
 		private boolean attrape; // mettre à false à chaque debut de manche
-		private Random rand;
+		private Color couleur;
 
-        public Cle () {
-			xCle = l; // vérifier la l
-			yCle = l; 
-			while(xCle == l && yCle == l){
-				this.xCle = rand.nextInt(2*l)+1;
-				this.yCle = rand.nextInt(2*l)+1;
-			}
-			for (int i = xCle ; i < l ; i++) {
-				if (i == l-1) {
-					i = 0;
-				}
-				else if (surChemin(i, yCle)) {
-					xCle = i;
-					return;
-				}
-			}
-			this.attrape = false;
+        public Cle (Color c, int x, int y) {
+			attrape = false;
+			couleur = c;
+			xCle = x;
+			yCle = y;			
         }
 
 		public int getxCle() {
@@ -255,5 +243,4 @@ public class Labyrinth {
 			this.attrape = attrape;
 		}
     }
-
 }

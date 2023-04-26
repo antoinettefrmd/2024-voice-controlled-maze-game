@@ -2,8 +2,8 @@ package modele;
 
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.io.IOException;
 import java.util.LinkedList;
+import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
-import controlleur.ExecuteBash;
+import modele.Labyrinth.Cle;
 import vue.JoueurSuivant;
 import vue.LabyrinthGraphique;
 import vue.Menu;
@@ -25,6 +25,7 @@ public class Jeu {
 	public static CellJoueur courant;
 	public int etage;
 	public int taille = 5;
+	public static LinkedList<Cle> clefs;
 	
 	
 	private String temps = "0";
@@ -62,7 +63,8 @@ public class Jeu {
 		etage = 0;
 		courant = joueurs.getCourant();
 		
-		
+		genererClefs();
+
 		JMenuBar jmb = m.getJMenuBar();
 		
 		listj = new LinkedList<JLabel>();
@@ -118,6 +120,8 @@ public class Jeu {
 			labyrinth.getLabyrinthD().getLabyrinth()[taille][taille].addJoueur(courant.getJoueur());
 		}
 		m.MAJlabyrinthG(labyrinth); //afficher le nouveau labyrinth avec les joueurs (ALEC)
+		genererClefs();
+
 	}
 	
 	//pour l'utilisation de script bash il faut utiliser la class ExecuteBash et donner en argument du constructeur le
@@ -179,6 +183,29 @@ public class Jeu {
 		JLabelCourant = (JLabel) jbox.getComponent(JLabelCourantJPos); 
 		JLabelCourant.setBorder(JActuBorder);
 	}
+
+	public void genererClefs(){
+		int l = labyrinth.getLabyrinthD().getL();
+		Random rand = new Random();
+		CellJoueur tmp = courant;
+		while(tmp.getSuivant() != courant){
+			int xCle = l;
+			int yCle = l; 
+			while(!labyrinth.getLabyrinthD().surChemin(xCle,yCle) && !PasDejaDeClef(xCle,yCle)){
+				xCle = rand.nextInt(2*l)+1;
+				yCle = rand.nextInt(2*l)+1;
+			}
+			Cle c = labyrinth.getLabyrinthD().new Cle(tmp.getJoueur().getCouleur(),xCle,yCle);
+			tmp.getJoueur().setCle(c);
+			labyrinth.getCase(xCle,yCle).setEstCle(true);
+		}
+	}
 	
+	public boolean PasDejaDeClef(int x, int y){
+		for(int i=0;i<clefs.size();i++){
+			if(clefs.get(i).getxCle() == x && clefs.get(i).getyCle() == y) return false;
+		}
+		return true;
+	}
 	
 }

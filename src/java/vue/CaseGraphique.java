@@ -41,15 +41,19 @@ public class CaseGraphique extends JPanel {
 		Graphics2D surface = (Graphics2D) g;
 		g.drawImage(image, 0, 0, null);
 		
-//		if(estclef && !clefprise) {
-//			surface.scale(0.5,0.5);
-//			surface.drawImage(imageClef, 0, 0, this);
-//		}
+		if(estclef && !clefprise) {
+			surface.scale(0.5,0.5);
+			surface.drawImage(imageClef, 0, 0, this);
+		}
 		
 		for (int i = 0; i < c.getJoueurs().size(); i++) {
 			g.setColor(c.getJoueurs().get(i).getCouleur());
 			g.fillOval(i * 40 / c.getJoueurs().size(), 0, 40/c.getJoueurs().size(), 40/c.getJoueurs().size());
 		}
+	}
+
+	public void setEstCle(boolean b) {
+		estclef = b;
 	}
 
 }

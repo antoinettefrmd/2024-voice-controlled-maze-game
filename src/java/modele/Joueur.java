@@ -12,6 +12,7 @@ public class Joueur {
     	this.x = x;
     	this.y = y;
         this.couleur = couleur;
+        cle = null;
     }
 
     public Color getCouleur () {
@@ -37,5 +38,9 @@ public class Joueur {
 
     public Labyrinth.Cle getCle() {
        return cle;
+    }
+
+    public void setCle(Labyrinth.Cle c) {
+        cle = c;
     }
 }
