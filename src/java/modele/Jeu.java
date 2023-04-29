@@ -81,7 +81,7 @@ public class Jeu {
 		
 		try {
 			clef = ImageIO.read(new File("./src/ressources/images/key.png"));
-			escalier = ImageIO.read(new File("./src/ressources/images/escalier.png"));
+			escalier = ImageIO.read(new File("./src/ressources/images/escalier3.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
