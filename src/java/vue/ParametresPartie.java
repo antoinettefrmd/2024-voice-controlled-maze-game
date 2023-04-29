@@ -190,9 +190,16 @@ public class ParametresPartie extends JPanel {
 //				ExecuteBash recordVoix = new ExecuteBash("/src/java/controlleur/recordVoix.sh");
 //				String fichierWav = recordVoix.getResultat();
 				
-				//Instruction jsp il faut verifier quoi
+				//Instruction jsp il faut verifier quoi a faire dans verificationJoueur
+				//VerificationJoueur vj = new VerificationJoueur();
+				//Il faut peut etres transmettre une information? pour verifier?
 				
-				boolean verifier = true; //mettre le resultat de Instruction jsp
+				
+				//mettre le resultat de Instruction jsp
+				boolean verifier = true;
+				//il faut remplacer par :
+				//boolean verifier = vj.getVerif();
+				
 				if(verifier) {
 					j1.setForeground(checkBoxColorV);
 				} else {
@@ -345,8 +352,6 @@ public class ParametresPartie extends JPanel {
 		
 		private Graphics2D g2d;
 		
-		private boolean over;
-
 		 public GenericRoundedButton(String title) {
 		   super(title);
 		   init();

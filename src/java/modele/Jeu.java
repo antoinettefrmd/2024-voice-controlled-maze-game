@@ -1,11 +1,23 @@
 package modele;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.RenderingHints;
+import java.awt.font.TextAttribute;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
@@ -26,7 +38,9 @@ public class Jeu {
 	public int etage;
 	public int taille = 5;
 	public static LinkedList<Cle> clefs;
-	
+	private BufferedImage clef;
+	Icon clefvertical;
+
 	
 	private String temps = "0";
 	private Menu m;
@@ -44,8 +58,8 @@ public class Jeu {
 	
 	private Border Jborder = BorderFactory.createLineBorder(Color.black, 2); //bordure pour entourer le nom d'un joueur
 	private Border JActuBorder = BorderFactory.createLineBorder(Color.WHITE, 2); //bordure pour entourer le nom du joueur qui joue
-	private Border JWinBorder = BorderFactory.createLineBorder(gold); //bordure pour les joueurs qui ont terminé
-	
+	private Border JWinBorder = BorderFactory.createLineBorder(gold, 2); //bordure pour les joueurs qui ont terminé
+	private Font Jfontwin; //texte pour les joueurs qui ont terminé
 	
 	private LinkedList<JLabel> listj; //permet d'avoir la liste des JLabel représentant les joueurs
 	private JPanel jbox; //permet de contenir tous les JLabel des joueurs et de les organiser dans la topbar
@@ -65,6 +79,13 @@ public class Jeu {
 		int n = j.getTaille();
 		nbrJ = n;
 		
+		try {
+			clef = ImageIO.read(new File("./src/ressources/images/key.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		genererClefs();
 		
 		m.MAJlabyrinthG(labyrinth); //met à jour l'interface graphique et donc le labyrinth
@@ -76,6 +97,35 @@ public class Jeu {
 		jbox = new JPanel(new GridLayout(0, 5, 10, 0));
 		jbox.setOpaque(false);
 		
+		Font font = new Font("Arial Black", Font.BOLD, 12);
+		Map  attributes = font.getAttributes();
+		attributes.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
+		Jfontwin = new Font(attributes); //on fait une police d'écriture barre pour les joueurs qui ont terminé
+		
+		BufferedImage rotatedclef = rotateImage(clef, -90);
+		clefvertical = new Icon() {
+			
+			@Override
+			public void paintIcon(Component c, Graphics g, int x, int y) {
+				// TODO Auto-generated method stub
+				Graphics2D surface = (Graphics2D) g;
+				surface.scale(0.4, 0.4);
+				surface.drawImage(rotatedclef, 0, 7, null);
+				surface.scale(2.5, 2.5);
+			}
+			
+			@Override
+			public int getIconWidth() {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+			
+			@Override
+			public int getIconHeight() {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+		};
 		
 		for(int i = 0; i < n; i++) {
 			
@@ -92,6 +142,7 @@ public class Jeu {
 			if(c.equals(Color.ORANGE)) nom = "Léa";
 
 			JLabel g = new JLabel(nom);
+			
 			g.setHorizontalAlignment(SwingConstants.CENTER);
 			g.setBorder(Jborder);
 			jbox.add(g);
@@ -149,6 +200,7 @@ public class Jeu {
 		m.MAJlabyrinthG(labyrinth);
 		courant = courant.getSuivant();
 		JoueurSuivant js = new JoueurSuivant(); //bizarre de recreer on pourrait faire en static ?
+												//OUI effectivement bonne idee mais jsp comment faire
 		// ça ne fais pas le carré blanc
 
 		// if (!current.getCle().getAttrape()) {
@@ -192,17 +244,28 @@ public class Jeu {
 		Random rand = new Random();
 		CellJoueur tmp = courant;
 		int n = 0;
-		System.out.println(nbrJ);
+		
 		do {
 			int xCle = 0;
 			int yCle = 0; 
 			while(!labyrinth.getLabyrinthD().surChemin(xCle,yCle) || !PasDejaDeClef(xCle,yCle)){
 				xCle = rand.nextInt(2*l)+1;
 				yCle = rand.nextInt(2*l)+1;
-				System.out.println(xCle + " | " + yCle);
 			}
 			Cle c = labyrinth.getLabyrinthD().new Cle(tmp.getJoueur().getCouleur(),xCle,yCle);
+			
+			BufferedImage btmp = new BufferedImage(clef.getWidth(), clef.getHeight(), BufferedImage.TYPE_INT_ARGB);
+			
+			for(int i = 0; i < btmp.getWidth(); i++){
+				for(int j = 0; j < btmp.getHeight(); j++) {
+					if(clef.getRGB(i, j) == Color.BLACK.getRGB()) {
+						btmp.setRGB(i,j, tmp.getJoueur().getCouleur().getRGB());
+					}
+				}
+			}
+			
 			tmp.getJoueur().setCle(c);
+			labyrinth.getCase(xCle, yCle).setImageClef(btmp);
 			labyrinth.getCase(xCle,yCle).setEstCle(true);
 			labyrinth.getCase(xCle, yCle).setClej(c);
 			tmp = tmp.getSuivant();
@@ -215,6 +278,47 @@ public class Jeu {
 			if(clefs.get(i).getxCle() == x && clefs.get(i).getyCle() == y) return false;
 		}
 		return true;
+	}
+	
+	public void ajouteclefJLabel() {
+		JLabelCourant.setIcon(clefvertical);
+	}
+	
+	public void barreJLabel() {
+		JLabelCourant.setFont(Jfontwin);
+	}
+	
+	public void bordureGoldJLabel() {
+		JLabelCourant.setBorder(JWinBorder);
+	}
+	
+	private static BufferedImage rotateImage(BufferedImage buffImage, double angle) {
+	    double radian = Math.toRadians(angle);
+	    double sin = Math.abs(Math.sin(radian));
+	    double cos = Math.abs(Math.cos(radian));
+
+	    int width = buffImage.getWidth();
+	    int height = buffImage.getHeight();
+
+	    int nWidth = (int) Math.floor((double) width * cos + (double) height * sin);
+	    int nHeight = (int) Math.floor((double) height * cos + (double) width * sin);
+
+	    BufferedImage rotatedImage = new BufferedImage(
+	            nWidth, nHeight, BufferedImage.TYPE_INT_ARGB);
+
+	    Graphics2D graphics = rotatedImage.createGraphics();
+
+	    graphics.setRenderingHint(
+	            RenderingHints.KEY_INTERPOLATION,
+	            RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+
+	    graphics.translate((nWidth - width) / 2, (nHeight - height) / 2);
+	    // rotation around the center point
+	    graphics.rotate(radian, (double) (width / 2), (double) (height / 2));
+	    graphics.drawImage(buffImage, 0, 0, null);
+	    graphics.dispose();
+
+	    return rotatedImage;
 	}
 	
 }

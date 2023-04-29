@@ -20,6 +20,7 @@ public class CaseGraphique extends JPanel {
 	private boolean estclef;
 	private boolean clefprise;
 	private Cle clej;
+	BufferedImage imageclef;
 
 	/**
 	 * Create the panel.
@@ -30,6 +31,7 @@ public class CaseGraphique extends JPanel {
 		imageClef = clef;
 		estclef = false;
 		clefprise = false;
+		
 		setPreferredSize(new Dimension(50, 50));
 		if (c.getMur()) {
 			image = imageMur;
@@ -70,6 +72,10 @@ public class CaseGraphique extends JPanel {
 	
 	public Cle getClej() {
 		return clej;
+	}
+	
+	public void setImageClef(BufferedImage imageClef) {
+		this.imageClef = imageClef;
 	}
 
 }
