@@ -39,8 +39,8 @@ public class Jeu {
 	public int taille = 5;
 	public static LinkedList<Cle> clefs;
 	private BufferedImage clef;
-	Icon clefvertical;
-
+	private Icon clefvertical;
+	private BufferedImage escalier;
 	
 	private String temps = "0";
 	private Menu m;
@@ -81,12 +81,16 @@ public class Jeu {
 		
 		try {
 			clef = ImageIO.read(new File("./src/ressources/images/key.png"));
+			escalier = ImageIO.read(new File("./src/ressources/images/escalier.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		genererClefs();
+		
+		labyrinth.getCase(taille, taille).setSortie(true);
+		labyrinth.getCase(taille, taille).setEscalier(escalier);
 		
 		m.MAJlabyrinthG(labyrinth); //met à jour l'interface graphique et donc le labyrinth
 
@@ -128,7 +132,6 @@ public class Jeu {
 		};
 		
 		for(int i = 0; i < n; i++) {
-			
 			//recupère la couleur du joueur
 			Color c = j.getCourant().getJoueur().getCouleur();
 			
@@ -166,6 +169,8 @@ public class Jeu {
 		m.changeEtage(etage);
 		taille+=2;
 		labyrinth = new LabyrinthGraphique(taille, joueurs);
+		labyrinth.getCase(taille, taille).setSortie(true);
+		labyrinth.getCase(taille, taille).setEscalier(escalier);
 		if(joueurs.getTaille()==1) {
 			labyrinth.getLabyrinthD().getLabyrinth()[taille][taille].addJoueur(courant.getJoueur());
 		}

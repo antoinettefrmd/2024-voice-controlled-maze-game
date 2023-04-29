@@ -19,8 +19,10 @@ public class CaseGraphique extends JPanel {
 	private Case c;
 	private boolean estclef;
 	private boolean clefprise;
+	private boolean sortie;
+	private BufferedImage escalier;
 	private Cle clej;
-	BufferedImage imageclef;
+	private BufferedImage imageclef;
 
 	/**
 	 * Create the panel.
@@ -31,6 +33,7 @@ public class CaseGraphique extends JPanel {
 		imageClef = clef;
 		estclef = false;
 		clefprise = false;
+		
 		
 		setPreferredSize(new Dimension(50, 50));
 		if (c.getMur()) {
@@ -45,11 +48,24 @@ public class CaseGraphique extends JPanel {
 	public void paintComponent(Graphics g) {
 		//super.paintComponent(g);
 		Graphics2D surface = (Graphics2D) g;
-		g.drawImage(image, 0, 0, null);
+		//g.drawImage(image, 0, 0, null);
+		
+		surface.drawImage(
+		        image, 
+		        0, 
+		        0, 
+		        this.getWidth(), 
+		        this.getHeight(), 
+		        null
+		);
 		
 		if(estclef && !clefprise) {
 			surface.scale(0.5,0.5);
 			surface.drawImage(imageClef, this.getWidth(), this.getHeight(), this);
+		}
+		
+		if(sortie) {
+			surface.drawImage(escalier, 0, 0, this.getWidth(), this.getHeight(), null);
 		}
 		
 		for (int i = 0; i < c.getJoueurs().size(); i++) {
@@ -76,6 +92,14 @@ public class CaseGraphique extends JPanel {
 	
 	public void setImageClef(BufferedImage imageClef) {
 		this.imageClef = imageClef;
+	}
+	
+	public void setSortie(boolean sortie) {
+		this.sortie = sortie;
+	}
+	
+	public void setEscalier(BufferedImage escalier) {
+		this.escalier = escalier;
 	}
 
 }
