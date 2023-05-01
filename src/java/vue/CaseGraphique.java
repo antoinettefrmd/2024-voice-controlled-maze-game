@@ -62,6 +62,7 @@ public class CaseGraphique extends JPanel {
 		if(estclef && !clefprise) {
 			surface.scale(0.5,0.5);
 			surface.drawImage(imageClef, this.getWidth(), this.getHeight(), this);
+			surface.scale(2, 2);
 		}
 		
 		if(sortie) {
