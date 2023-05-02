@@ -17,7 +17,7 @@ public class VerificationJoueur extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	
-	private JButton okButton;
+	private JButton verifButton;
 	private JButton cancelButton;
 	private boolean verif;
 
@@ -46,7 +46,7 @@ public class VerificationJoueur extends JDialog {
 		
 			public void windowClosing(WindowEvent arg0) {
 				//on fait les instruction pour remettre la couleurs verte
-				System.out.println("Coucou");
+				verif = false;
 				dispose();
 				System.exit(0);
 			}
@@ -66,10 +66,10 @@ public class VerificationJoueur extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				okButton = new JButton("Vérifier");
-				okButton.setActionCommand("Vérifier");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				verifButton = new JButton("Vérifier");
+				verifButton.setActionCommand("Vérifier");
+				buttonPane.add(verifButton);
+				getRootPane().setDefaultButton(verifButton);
 			}
 			{
 				cancelButton = new JButton("Cancel");
@@ -81,8 +81,9 @@ public class VerificationJoueur extends JDialog {
 		//Controller
 		//####################################################
 		
-		okButton.addActionListener((ActionEvent event) -> {
-			//instruction de vérification (Léa)
+		verifButton.addActionListener((ActionEvent event) -> {
+			//instruction de vérification (pour Léa)
+			//mettre verif = true si la personne est vérifier
 		});
 		
 		cancelButton.addActionListener((ActionEvent event) -> {

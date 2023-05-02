@@ -53,7 +53,7 @@ public class LabyrinthGraphique extends JPanel{
 		try {
 			//permet de récupérer le fichier de l'image
 			imageMur = ImageIO.read(new File("./src/ressources/images/mur.png"));
-			imageSol = ImageIO.read(new File("./src/ressources/images/sol4.png"));
+			imageSol = ImageIO.read(new File("./src/ressources/images/sol5.png"));
 			clef = ImageIO.read(new File("./src/ressources/images/key.png"));
 		} catch (IOException e){
 			e.printStackTrace();
