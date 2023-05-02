@@ -196,7 +196,7 @@ public class Jeu {
 		do {
 			int xCle = 0;
 			int yCle = 0; 
-			while(!labyrinth.getLabyrinthD().surChemin(xCle,yCle) || !PasDejaDeClef(xCle,yCle)){
+			while(!labyrinth.getLabyrinthD().surChemin(xCle,yCle) || !PasDejaDeClef(xCle,yCle) || (xCle == l/2+1 && yCle == l/2+1)){
 				xCle = rand.nextInt(2*l)+1;
 				yCle = rand.nextInt(2*l)+1;
 				System.out.println(xCle + " | " + yCle);
