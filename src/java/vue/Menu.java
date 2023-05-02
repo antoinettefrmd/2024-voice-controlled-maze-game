@@ -18,6 +18,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -272,12 +274,20 @@ public class Menu extends JFrame {
 		
 		//permet de lancer l'enregistrement de la voix
 		JButton recordMot = new JButton("RecordMot");
-
 		
+		long tempsDepart = System.currentTimeMillis();
+		JLabel temps = new JLabel(""+(System.currentTimeMillis()-tempsDepart));
+		/*temps.setHorizontalAlignment(JLabel.CENTER);
+		temps.setText(
+		           DateFormat.getDateTimeInstance().format(new Date())
+		);*/
+		           
+		           
 		jmb.add(quitterjeu);
 		jmb.add(etage);
 		jmb.add(recordMot);
 		jmb.add(jactu);
+		jmb.add(temps);
 
 		
 		//####################################################
