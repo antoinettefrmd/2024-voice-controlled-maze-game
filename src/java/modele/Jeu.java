@@ -81,7 +81,7 @@ public class Jeu {
 		
 		try {
 			clef = ImageIO.read(new File("./src/ressources/images/key.png"));
-			escalier = ImageIO.read(new File("./src/ressources/images/escalier3.png"));
+			escalier = ImageIO.read(new File("./src/ressources/images/escalier.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -89,6 +89,7 @@ public class Jeu {
 		
 		genererClefs();
 		
+		//permet de faire en sorte que la case du millieu soit un escalier
 		labyrinth.getCase(taille, taille).setSortie(true);
 		labyrinth.getCase(taille, taille).setEscalier(escalier);
 		

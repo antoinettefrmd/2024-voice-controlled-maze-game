@@ -48,7 +48,7 @@ public class Menu extends JFrame {
 	private JPanel contentPane;
 	private JPanel menuPanel;
 	private JPanel creditPanel;
-	private JPanel creationJoueurPanel;
+	private JPanel meilleurScore;
 	private JMenuBar jmb; //permet de créer une barre en haut dans le jeu
 	private JPanel jbox; //contient tous les labels pour les joueurs
 	private JLabel etage;
@@ -87,8 +87,7 @@ public class Menu extends JFrame {
 			
 			//essaye de trouver l'image pour le fond de l'interface graphique, en cas d'échec cela renvoie une erreur
 			try {
-				image = ImageIO.read(new File("./src/ressources/images/gregory-ligman-brickwall.jpeg"));	
-				// image = ImageIO.read(new File("./src/ressources/images/mur2.jpg"));	
+				image = ImageIO.read(new File("./src/ressources/images/background.jpeg"));	
 			}
 			catch (IOException e) {
 				e.printStackTrace();
@@ -126,16 +125,16 @@ public class Menu extends JFrame {
 			jouer.setContentAreaFilled(false); //permet de ne pas rendre visible le fait de cliquer sur le bouton 
 			jouer.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)); //change le curseur lorsque la souris est au-dessus du bouton
 			
-			//permet d'accéder au menu de création des joueurs
-			JButton creationJoueur = new JButton("Creation");
-			creationJoueur.setPreferredSize(new Dimension(200, 50));
-			creationJoueur.setFont(minecraft);
-			creationJoueur.setForeground(Color.white);
-			creationJoueur.setBorder(null);
-			creationJoueur.setOpaque(false);
-			creationJoueur.setFocusPainted(false);
-			creationJoueur.setContentAreaFilled(false);
-			creationJoueur.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			//permet d'accéder a la liste des scores des joueurs
+			JButton scoreJoueur = new JButton("Scores");
+			scoreJoueur.setPreferredSize(new Dimension(200, 50));
+			scoreJoueur.setFont(minecraft);
+			scoreJoueur.setForeground(Color.white);
+			scoreJoueur.setBorder(null);
+			scoreJoueur.setOpaque(false);
+			scoreJoueur.setFocusPainted(false);
+			scoreJoueur.setContentAreaFilled(false);
+			scoreJoueur.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			
 			//bouton qui permet d'accéder à Credit
 			JButton credit = new JButton("Credit");
@@ -162,7 +161,7 @@ public class Menu extends JFrame {
 			
 
 			buttonBox.add(jouer);
-			buttonBox.add(creationJoueur);
+			buttonBox.add(scoreJoueur);
 			buttonBox.add(credit);
 			buttonBox.add(quitter);
 
@@ -171,9 +170,10 @@ public class Menu extends JFrame {
 			centerBox.add(buttonBox);
 			centerBox.setOpaque(false);
 			
-			add(titre, BorderLayout.NORTH);
-			add(centerBox, BorderLayout.CENTER);
-			setOpaque(false);
+			
+			this.add(titre, BorderLayout.NORTH);
+			this.add(centerBox, BorderLayout.CENTER);
+			this.setOpaque(false);
 			
 			//Controller
 			//####################################################
@@ -186,9 +186,9 @@ public class Menu extends JFrame {
 				contentPane.updateUI(); //On met à jour la vue pour que les changements soient visibles
 			});
 			
-			creationJoueur.addActionListener((ActionEvent event) -> {
+			scoreJoueur.addActionListener((ActionEvent event) -> {
 				getContentPane().remove(menuPanel);
-				contentPane = creationJoueurPanel;
+				contentPane = meilleurScore;
 				getContentPane().add(contentPane);
 				contentPane.updateUI();
 
@@ -243,7 +243,7 @@ public class Menu extends JFrame {
 		
 		menuPanel = new MenuPanel();
 		
-		creationJoueurPanel = new CreationJoueur(this);
+		meilleurScore = new Scores(this);
 		
 		creditPanel = new Credit(this);
 
@@ -353,30 +353,15 @@ public class Menu extends JFrame {
 		
 		jbox = jeu.getJbox();
 		
-		//on utilise normalement la classe jouer mais elle ne fonctionne pas pour le moment
-//		jeu.jouer(); // pour moi pas besoin
+		String restemps = jeu.getTemps();
 		
-		//REMETTRE LE CODE QUAND LA FONCTION TOUR FONCTIONNE
-//		MessageFin dialog;
-//
-//		try {
-//			dialog = new MessageFin(this ,j.getTemps());
-//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//			dialog.setVisible(true);
-//			//dialog.ferme();
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		MessageFin dialog = new MessageFin(this , restemps);
+		dialog.setVisible(true);
 		
-//		try {
-//			//Thread.sleep(5000);
-//			//dialog.dispose();
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
+		boolean majscores = ((Scores) meilleurScore).sauvegardeScores(Integer.parseInt(restemps));
+		if(majscores) {
+			((Scores) meilleurScore).majScores();
+		}
 	}
 	
 	public void MAJlabyrinthG(LabyrinthGraphique lg) {

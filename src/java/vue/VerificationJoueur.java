@@ -45,7 +45,7 @@ public class VerificationJoueur extends JDialog {
 		this.addWindowListener(new WindowAdapter() {
 		
 			public void windowClosing(WindowEvent arg0) {
-				//on fait les instruction pour remettre la couleurs verte
+				//on met a verif a false pour ensuite remettre la couleur en rouge
 				verif = false;
 				dispose();
 				System.exit(0);
