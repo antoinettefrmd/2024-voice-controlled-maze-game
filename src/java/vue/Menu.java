@@ -355,8 +355,14 @@ public class Menu extends JFrame {
 		
 		String restemps = jeu.getTemps();
 		
-		MessageFin dialog = new MessageFin(this , restemps);
-		dialog.setVisible(true);
+//		Il faut faire un boolean pour savoir si le jeu est terminer
+//		si c'est le cas alors on affiche le message de fin
+//		PROBLEME dans Jeu comment on sait que le jeu est terminer ?
+//		if(jeu.getfin()) {
+//			MessageFin dialog = new MessageFin(this , restemps);
+//			dialog.setVisible(true);
+//		}
+
 		
 		boolean majscores = ((Scores) meilleurScore).sauvegardeScores(Integer.parseInt(restemps));
 		if(majscores) {

@@ -197,9 +197,9 @@ public class Scores extends JPanel {
 				tempstop10.add(i, nouveauScore);
 				tempstop10.removeLast();
 				try {
-					FileWriter fw = new FileWriter(sauvegarde, true);
+					FileWriter fw = new FileWriter(sauvegarde);
 					for(int j = 0; j < n; j++) {
-						fw.write(""+tempstop10.get(j));
+						fw.write(tempstop10.get(j)+"\n");
 					}
 					fw.close();
 				} catch (IOException e) {
