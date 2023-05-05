@@ -33,6 +33,7 @@ public class Jeu {
 	
 	public static LabyrinthGraphique labyrinth;
 	public static ListeDeJoueurs joueurs;
+	public static ListeDeJoueurs joueursencours;
 	public static ListeDeJoueurs joueursfinito;
 	public static CellJoueur courant;
 	public int etage;
@@ -71,10 +72,12 @@ public class Jeu {
 		
 		labyrinth = new LabyrinthGraphique(taille, j);
 		clefs = new LinkedList<Cle>();
-		joueurs = j;
+		ListeDeJoueurs.print(j);
+		joueurs = ListeDeJoueurs.copier(j);
+		joueursencours = ListeDeJoueurs.copier(j);
 		joueursfinito = new ListeDeJoueurs();
 		etage = 0;
-		courant = joueurs.getCourant();
+		courant = joueursencours.getCourant();
 		
 		int n = j.getTaille();
 		nbrJ = n;
@@ -154,8 +157,6 @@ public class Jeu {
 			j.suivant();
 		} //possible probleme a la fin de la boucle qui est le joueur courant?
 		
-		System.out.println(j.getCourant().getJoueur().getCouleur());
-		
 		JLabelCourant = ((JLabel)jbox.getComponent(0));
 		JLabelCourant.setBorder(JActuBorder);
 		
@@ -169,10 +170,12 @@ public class Jeu {
 		etage++;
 		m.changeEtage(etage);
 		taille+=2;
-		labyrinth = new LabyrinthGraphique(taille, joueurs);
+		joueursencours = ListeDeJoueurs.copier(joueurs);
+
+		labyrinth = new LabyrinthGraphique(taille, joueursencours);
 		labyrinth.getCase(taille, taille).setSortie(true);
 		labyrinth.getCase(taille, taille).setEscalier(escalier);
-		if(joueurs.getTaille()==1) {
+		if(joueursencours.getTaille()==1) {
 			labyrinth.getLabyrinthD().getLabyrinth()[taille][taille].addJoueur(courant.getJoueur());
 		}
 		CellJoueur tmp = courant;
@@ -192,36 +195,38 @@ public class Jeu {
 		Labyrinth lab = labyrinth.getLabyrinthD();
 		Joueur current = courant.getJoueur();
 		deplacement = deplacement.toLowerCase();
-		if (deplacement.equals("haut") || deplacement.equals("eau") || deplacement.equals("au") || deplacement.equals("o") || deplacement.equals("oh")) {
+		if (deplacement.equals("je vais en haut") || deplacement.equals("je vais en haut.") || deplacement.equals("haut") || deplacement.equals("eau") || deplacement.equals("au") || deplacement.equals("o") || deplacement.equals("oh")) {
 			lab.haut(current);
-		} else if (deplacement.equals("droite") || deplacement.equals("droit") || deplacement.equals("droit.")) {
+		} else if (deplacement.equals("je vais à droite") || deplacement.equals("je vais à droite.") ||deplacement.equals("droite") || deplacement.equals("droit") || deplacement.equals("droit.")) {
 			lab.droite(current);
-		} else if (deplacement.equals("gauche") || deplacement.equals("gâche") || deplacement.equals("gouche") || deplacement.equals("douche")) {
+		} else if (deplacement.equals("je vais à gauche") || deplacement.equals("je vais à gauche.") || deplacement.equals("gauche") || deplacement.equals("gâche") || deplacement.equals("gouche") || deplacement.equals("douche")) {
 			lab.gauche(current);
-		} else if (deplacement.equals("bas") || deplacement.equals("bah") ||  deplacement.equals("baa") ||  deplacement.equals("ba") ||  deplacement.equals("da")) { 
+		} else if (deplacement.equals("je vais en bas.") || deplacement.equals("je vais en bas") || deplacement.equals("bas") || deplacement.equals("bah") ||  deplacement.equals("baa") ||  deplacement.equals("ba") ||  deplacement.equals("da")) { 
 			lab.bas(current);
 		} else {
-			 //Alec message d'erreur
+			JoueurSuivant js = new JoueurSuivant();		
 		}	
 		m.MAJlabyrinthG(labyrinth);
-		courant = courant.getSuivant();
-		JoueurSuivant js = new JoueurSuivant(); //bizarre de recreer on pourrait faire en static ?
-												//OUI effectivement bonne idee mais jsp comment faire
-		// ça ne fais pas le carré blanc
 
-		// if (!current.getCle().getAttrape()) {
-		// 	if (current.getCle().getxCle() == current.getX() && current.getCle().getyCle() == current.getY()) { // pour moi c'est foncdamental qu'un joueur ait sa clé // vérifier si le joueur attérit sur sa cléf 
-		// 		current.getCle().setAttrape(true);
+		if (!current.getCle().getAttrape()) {
+			if (current.getCle().getxCle() == current.getX() && current.getCle().getyCle() == current.getY()) { // pour moi c'est foncdamental qu'un joueur ait sa clé // vérifier si le joueur attérit sur sa cléf 
+				current.getCle().setAttrape(true);
+				// System.out.println(current.getCle().getAttrape());
 		// 		// si oui, afficher une clef à coté de son pseudo (ALEC)	
-		// 	}
-		// }
-		// else if (current.getX() == lab.getL() && current.getY()== lab.getL()) { 
-		// 	// le mettre d'une couleur spéciale (ALEC)
-		// 	joueursfinito.add(current);
-		// 	joueurs.supprimer(current);	
-		// }
+			}
+			courant = courant.getSuivant();
+			actualisationLabelJCourant();
+			return;			
+		}
+		else if (current.getX() == lab.getL() && current.getY()== lab.getL()) { 
+			// le mettre d'une couleur spéciale (ALEC) 
+			courant = courant.getSuivant();
+			actualisationLabelJCourant();
+			joueursfinito.add(courant.getPrecedent().getJoueur());
+			joueursencours.supprimer(courant.getPrecedent().getJoueur());	// le faire disparaitre
+		}
 
-		if (joueurs.getTaille() == 0) {
+		if (joueursencours.getTaille() == 0) {
 			etage();
 		}
 
@@ -240,7 +245,8 @@ public class Jeu {
 	public void actualisationLabelJCourant() {
 		if(JLabelCourantJPos == nbrJ-1) JLabelCourantJPos = 0;
 		else JLabelCourantJPos++;
-		
+		JLabel tmp = JLabelCourant;
+		tmp.setBorder(Jborder);
 		JLabelCourant = (JLabel) jbox.getComponent(JLabelCourantJPos); 
 		JLabelCourant.setBorder(JActuBorder);
 	}
