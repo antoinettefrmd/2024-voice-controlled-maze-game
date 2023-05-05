@@ -195,13 +195,13 @@ public class Jeu {
 		Labyrinth lab = labyrinth.getLabyrinthD();
 		Joueur current = courant.getJoueur();
 		deplacement = deplacement.toLowerCase();
-		if (deplacement.equals("je vais en haut") || deplacement.equals("je vais en haut.") || deplacement.equals("haut") || deplacement.equals("eau") || deplacement.equals("au") || deplacement.equals("o") || deplacement.equals("oh")) {
+		if (deplacement.equals("je vais en haut") || deplacement.equals("je vais en haut.")) {
 			lab.haut(current);
-		} else if (deplacement.equals("je vais à droite") || deplacement.equals("je vais à droite.") ||deplacement.equals("droite") || deplacement.equals("droit") || deplacement.equals("droit.")) {
+		} else if (deplacement.equals("je vais à droite") || deplacement.equals("je vais à droite.")) {
 			lab.droite(current);
-		} else if (deplacement.equals("je vais à gauche") || deplacement.equals("je vais à gauche.") || deplacement.equals("gauche") || deplacement.equals("gâche") || deplacement.equals("gouche") || deplacement.equals("douche")) {
+		} else if (deplacement.equals("je vais à gauche") || deplacement.equals("je vais à gauche.")) {
 			lab.gauche(current);
-		} else if (deplacement.equals("je vais en bas.") || deplacement.equals("je vais en bas") || deplacement.equals("bas") || deplacement.equals("bah") ||  deplacement.equals("baa") ||  deplacement.equals("ba") ||  deplacement.equals("da")) { 
+		} else if (deplacement.equals("je vais en bas.") || deplacement.equals("je vais en bas")) { 
 			lab.bas(current);
 		} else {
 			JoueurSuivant js = new JoueurSuivant();		
