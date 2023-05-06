@@ -2,16 +2,13 @@ package vue;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -26,6 +23,7 @@ import javax.swing.border.EmptyBorder;
 
 public class Scores extends JPanel {
 	
+	private static final long serialVersionUID = -5453585265679531011L;
 	private BufferedImage image;
 	private Font minecraft;
 	private Font minecraftButton;
@@ -231,7 +229,6 @@ public class Scores extends JPanel {
 			fr.close();
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

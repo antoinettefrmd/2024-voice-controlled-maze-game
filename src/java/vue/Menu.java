@@ -17,20 +17,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
@@ -45,6 +36,7 @@ import modele.ListeDeJoueurs;
 
 public class Menu extends JFrame {
 	
+	private static final long serialVersionUID = -6998221356285371549L;
 	private JPanel contentPane;
 	private JPanel menuPanel;
 	private JPanel creditPanel;
@@ -83,6 +75,8 @@ public class Menu extends JFrame {
 	//Class qui permet de créer le menu
 	private class MenuPanel extends JPanel {
 		
+		private static final long serialVersionUID = 6370216772399128806L;
+
 		public MenuPanel() {
 			
 			//essaye de trouver l'image pour le fond de l'interface graphique, en cas d'échec cela renvoie une erreur

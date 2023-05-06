@@ -65,6 +65,7 @@ public class Jeu {
 	private JPanel jbox; //permet de contenir tous les JLabel des joueurs et de les organiser dans la topbar
 
 	
+	@SuppressWarnings("unchecked")
 	public Jeu(Menu m, ListeDeJoueurs j) {
 		
 		this.m = m;
@@ -83,7 +84,6 @@ public class Jeu {
 			clef = ImageIO.read(new File("./src/ressources/images/key.png"));
 			escalier = ImageIO.read(new File("./src/ressources/images/escalier.png"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -103,6 +103,7 @@ public class Jeu {
 		jbox.setOpaque(false);
 		
 		Font font = new Font("Arial Black", Font.BOLD, 12);
+		@SuppressWarnings("rawtypes")
 		Map  attributes = font.getAttributes();
 		attributes.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
 		Jfontwin = new Font(attributes); //on fait une police d'écriture barre pour les joueurs qui ont terminé
@@ -112,7 +113,6 @@ public class Jeu {
 			
 			@Override
 			public void paintIcon(Component c, Graphics g, int x, int y) {
-				// TODO Auto-generated method stub
 				Graphics2D surface = (Graphics2D) g;
 				surface.scale(0.4, 0.4);
 				surface.drawImage(rotatedclef, 0, 7, null);
@@ -201,6 +201,7 @@ public class Jeu {
 		} else if (deplacement.equals("je vais en bas.") || deplacement.equals("je vais en bas")) { 
 			lab.bas(current);
 		} else {
+			@SuppressWarnings("unused")
 			JoueurSuivant js = new JoueurSuivant();		
 		}	
 		m.MAJlabyrinthG(labyrinth);
@@ -209,6 +210,7 @@ public class Jeu {
 			if (current.getCle().getxCle() == current.getX() && current.getCle().getyCle() == current.getY()) { // pour moi c'est foncdamental qu'un joueur ait sa clé // vérifier si le joueur attérit sur sa cléf 
 				current.getCle().setAttrape(true);
 				ajouteclefJLabel();
+				labyrinth.getCase(current.getX(), current.getY()).setClefprise(true);;
 			}
 			courant = courant.getSuivant();
 		}
@@ -217,7 +219,7 @@ public class Jeu {
 			courant = courant.getSuivant();
 			joueursencours.supprimer(courant.getPrecedent().getJoueur());
 		}
-		// actualisationLabelJCourant();
+		actualisationLabelJCourant();
 		if (joueursencours.getTaille() == 0) {
 			etage();
 		}
@@ -234,10 +236,11 @@ public class Jeu {
 	//permet de mettre le joueur actuel avec la borduer spécial
 	//normalement ça suit le joueur courant du jeu mais pas encore tester donc pas sur
 	public void actualisationLabelJCourant() {
+		JLabelCourant.setBorder(Jborder);
 		if(JLabelCourantJPos == nbrJ-1) JLabelCourantJPos = 0;
 		else JLabelCourantJPos++;
-		JLabel tmp = JLabelCourant;
-		tmp.setBorder(Jborder);
+		//JLabel tmp = JLabelCourant;
+		//tmp.setBorder(Jborder);
 		JLabelCourant = (JLabel) jbox.getComponent(JLabelCourantJPos); 
 		JLabelCourant.setBorder(JActuBorder);
 	}
@@ -293,6 +296,10 @@ public class Jeu {
 	
 	public void bordureGoldJLabel() {
 		JLabelCourant.setBorder(JWinBorder);
+	}
+	
+	public void reinitialisationToutJLabel() {
+		
 	}
 	
 	private static BufferedImage rotateImage(BufferedImage buffImage, double angle) {

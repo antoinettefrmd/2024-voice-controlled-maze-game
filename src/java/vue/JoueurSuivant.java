@@ -2,7 +2,6 @@ package vue;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
@@ -13,6 +12,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 public class JoueurSuivant extends JDialog {
+
+	private static final long serialVersionUID = 8499763274387868118L;
 
 	private final JPanel contentPanel = new JPanel();
 	
@@ -95,7 +96,6 @@ public class JoueurSuivant extends JDialog {
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		this.dispose();

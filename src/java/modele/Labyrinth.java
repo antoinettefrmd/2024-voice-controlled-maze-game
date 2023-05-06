@@ -1,12 +1,8 @@
 package modele;
 
 import java.awt.Color;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Random;
-
-import javax.imageio.plugins.tiff.GeoTIFFTagSet;
 
 public class Labyrinth {
 	protected Case[][] labyrinth;
@@ -218,6 +214,7 @@ public class Labyrinth {
         private int xCle;
         private int yCle; 
 		private boolean attrape; // mettre à false à chaque debut de manche
+		@SuppressWarnings("unused")
 		private Color couleur;
 
         public Cle (Color c, int x, int y) {

@@ -17,8 +17,10 @@ import javax.swing.KeyStroke;
 import modele.Labyrinth;
 import modele.ListeDeJoueurs;
 
+@SuppressWarnings("serial")
 public class LabyrinthGraphique extends JPanel{
 	
+	private static final long serialVersionUID = -2207872168451622130L;
 	private JPanel[][] labyrinthG;
 	private Labyrinth labyrinthD;
 	
@@ -51,9 +53,9 @@ public class LabyrinthGraphique extends JPanel{
 		setBackground(Color.GRAY);
 
 		try {
-			//permet de récupérer le fichier de l'image
+			//permet de récupérer les fichiers images
 			imageMur = ImageIO.read(new File("./src/ressources/images/mur.png"));
-			imageSol = ImageIO.read(new File("./src/ressources/images/sol5.png"));
+			imageSol = ImageIO.read(new File("./src/ressources/images/sol.png"));
 			clef = ImageIO.read(new File("./src/ressources/images/key.png"));
 		} catch (IOException e){
 			e.printStackTrace();

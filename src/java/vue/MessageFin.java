@@ -3,7 +3,6 @@ package vue;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -12,11 +11,12 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.Timer;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 public class MessageFin extends JDialog {
 
+	private static final long serialVersionUID = 136046461121052494L;
 	private final JPanel contentPanel = new JPanel();
 	private JButton okButton;
 
@@ -60,7 +60,7 @@ public class MessageFin extends JDialog {
 			}
 		}
 		
-		this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter() {
 		
 			public void windowClosing(WindowEvent arg0) {
