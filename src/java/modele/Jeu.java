@@ -1,5 +1,5 @@
 package modele;
-
+// ancienne version
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -34,7 +34,6 @@ public class Jeu {
 	public static LabyrinthGraphique labyrinth;
 	public static ListeDeJoueurs joueurs;
 	public static ListeDeJoueurs joueursencours;
-	public static ListeDeJoueurs joueursfinito;
 	public static CellJoueur courant;
 	public int etage;
 	public int taille = 5;
@@ -72,10 +71,8 @@ public class Jeu {
 		
 		labyrinth = new LabyrinthGraphique(taille, j);
 		clefs = new LinkedList<Cle>();
-		ListeDeJoueurs.print(j);
 		joueurs = ListeDeJoueurs.copier(j);
 		joueursencours = ListeDeJoueurs.copier(j);
-		joueursfinito = new ListeDeJoueurs();
 		etage = 0;
 		courant = joueursencours.getCourant();
 		
@@ -211,25 +208,19 @@ public class Jeu {
 		if (!current.getCle().getAttrape()) {
 			if (current.getCle().getxCle() == current.getX() && current.getCle().getyCle() == current.getY()) { // pour moi c'est foncdamental qu'un joueur ait sa clé // vérifier si le joueur attérit sur sa cléf 
 				current.getCle().setAttrape(true);
-				// System.out.println(current.getCle().getAttrape());
-		// 		// si oui, afficher une clef à coté de son pseudo (ALEC)	
+				ajouteclefJLabel();
 			}
 			courant = courant.getSuivant();
-			actualisationLabelJCourant();
-			return;			
 		}
 		else if (current.getX() == lab.getL() && current.getY()== lab.getL()) { 
-			// le mettre d'une couleur spéciale (ALEC) 
+			barreJLabel();
 			courant = courant.getSuivant();
-			actualisationLabelJCourant();
-			joueursfinito.add(courant.getPrecedent().getJoueur());
-			joueursencours.supprimer(courant.getPrecedent().getJoueur());	// le faire disparaitre
+			joueursencours.supprimer(courant.getPrecedent().getJoueur());
 		}
-
+		// actualisationLabelJCourant();
 		if (joueursencours.getTaille() == 0) {
 			etage();
 		}
-
 	}
 	
 	public JPanel getJbox() {

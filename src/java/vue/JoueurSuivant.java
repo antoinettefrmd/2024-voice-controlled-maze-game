@@ -42,7 +42,7 @@ public class JoueurSuivant extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		{
-			JLabel titreFin = new JLabel("Votre déplacement n'a pas été reconnu, c'est au joueur suivant.");
+			JLabel titreFin = new JLabel("Votre déplacement n'a pas été reconnu, joueur suivant.");
 			titreFin.setHorizontalAlignment(SwingConstants.CENTER);
 			getContentPane().add(titreFin, BorderLayout.CENTER);
 		}
