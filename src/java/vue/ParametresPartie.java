@@ -101,7 +101,6 @@ public class ParametresPartie extends JPanel {
 		centerCenterBox.setOpaque(false);
 		
 		Color checkBoxColor = Color.red; //new Color(250, 250, 175)
-
 		
 		JCheckBox j1 = new JCheckBox("Georges");
 		j1.setFont(DayDream);
@@ -265,7 +264,7 @@ public class ParametresPartie extends JPanel {
 			}
 			j.setEnabled(true);
 		} else {
-			j.setForeground(Color.GREEN);
+			j.setForeground(Color.RED);
 		}
 	}
 	

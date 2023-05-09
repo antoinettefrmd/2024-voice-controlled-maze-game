@@ -44,7 +44,7 @@ public class Scores extends JPanel {
 	 
 	 
 	private static LinkedList<JLabel> top10 = new LinkedList<JLabel>();
-	private static LinkedList<Integer> tempstop10 = new LinkedList<Integer>();
+	private static LinkedList<Long> tempstop10 = new LinkedList<Long>();
 
 	
 	/**
@@ -156,16 +156,16 @@ public class Scores extends JPanel {
 		scoreBox.add(num9);
 		scoreBox.add(num10);
 
-		tempstop10.add(-1);
-		tempstop10.add(-1);
-		tempstop10.add(-1);
-		tempstop10.add(-1);
-		tempstop10.add(-1);
-		tempstop10.add(-1);
-		tempstop10.add(-1);
-		tempstop10.add(-1);
-		tempstop10.add(-1);
-		tempstop10.add(-1);
+		tempstop10.add((long)-1);
+		tempstop10.add((long)-1);
+		tempstop10.add((long)-1);
+		tempstop10.add((long)-1);
+		tempstop10.add((long)-1);
+		tempstop10.add((long)-1);
+		tempstop10.add((long)-1);
+		tempstop10.add((long)-1);
+		tempstop10.add((long)-1);
+		tempstop10.add((long)-1);
 
 		
 		centerBox.add(titre, BorderLayout.NORTH);
@@ -187,7 +187,7 @@ public class Scores extends JPanel {
 		majScores();
 	}
 	
-	public boolean sauvegardeScores(int nouveauScore) {
+	public boolean sauvegardeScores(long nouveauScore) {
 		int i = 0;
 		int n = tempstop10.size();
 		while(i < n) {
@@ -223,7 +223,7 @@ public class Scores extends JPanel {
 				} else {
 					top10.get(i).setText((i + 1) + ". " + Integer.parseInt(ligne));
 				}
-				tempstop10.set(i, Integer.parseInt(ligne));
+				tempstop10.set(i,(long)Integer.parseInt(ligne));
 				i++;
 			}
 			fr.close();

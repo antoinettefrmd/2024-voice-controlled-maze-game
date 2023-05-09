@@ -11,7 +11,6 @@ import java.awt.font.TextAttribute;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Random;
@@ -29,6 +28,7 @@ import modele.Labyrinth.Cle;
 import vue.JoueurSuivant;
 import vue.LabyrinthGraphique;
 import vue.Menu;
+import vue.Scores;
 
 public class Jeu {
 	
@@ -336,7 +336,10 @@ public class Jeu {
 	{
 		fin = System.currentTimeMillis();
 		long duree = fin - depart;
-		
+		boolean majscores = ((Scores) m.getMeilleurScore()).sauvegardeScores(duree);
+		if(majscores) {
+			((Scores) m.getMeilleurScore()).majScores();
+		}
 	}
 	
 }

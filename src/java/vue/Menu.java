@@ -366,12 +366,6 @@ public class Menu extends JFrame {
 //			MessageFin dialog = new MessageFin(this , restemps);
 //			dialog.setVisible(true);
 //		}
-
-		
-		boolean majscores = ((Scores) meilleurScore).sauvegardeScores(Integer.parseInt(restemps));
-		if(majscores) {
-			((Scores) meilleurScore).majScores();
-		}
 	}
 	
 	public void MAJlabyrinthG(LabyrinthGraphique lg) {
@@ -433,5 +427,9 @@ public class Menu extends JFrame {
 		contentPane.updateUI();
 	}
 	
+	public JPanel getMeilleurScore() {
+		return meilleurScore;
+	}
+
 	
 }
