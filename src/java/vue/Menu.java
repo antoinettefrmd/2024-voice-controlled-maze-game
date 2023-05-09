@@ -359,8 +359,6 @@ public class Menu extends JFrame {
 		
 		jbox = jeu.getJbox();
 		
-		String restemps = jeu.getTemps();
-		
 //		Il faut faire un boolean pour savoir si le jeu est terminer
 //		si c'est le cas alors on affiche le message de fin
 //		PROBLEME dans Jeu comment on sait que le jeu est terminer ?
