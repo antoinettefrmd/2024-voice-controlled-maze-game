@@ -41,6 +41,8 @@ public class Jeu {
 	private BufferedImage clef;
 	private Icon clefvertical;
 	private BufferedImage escalier;
+	private Font font = new Font("Arial Black", Font.BOLD, 12);
+
 	
 	private String temps = "0";
 	private Menu m;
@@ -102,7 +104,6 @@ public class Jeu {
 		jbox = new JPanel(new GridLayout(0, 5, 10, 0));
 		jbox.setOpaque(false);
 		
-		Font font = new Font("Arial Black", Font.BOLD, 12);
 		@SuppressWarnings("rawtypes")
 		Map  attributes = font.getAttributes();
 		attributes.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
@@ -299,7 +300,13 @@ public class Jeu {
 	}
 	
 	public void reinitialisationToutJLabel() {
-		
+		for(int i = 0; i < nbrJ-1; i++) {
+			JLabel tmp = (JLabel) jbox.getComponent(JLabelCourantJPos);
+			tmp.setFont(font);
+			tmp.setBorder(Jborder);
+		}
+		JLabel tmp = (JLabel) jbox.getComponent(0);
+		tmp.setBorder(JActuBorder);
 	}
 	
 	private static BufferedImage rotateImage(BufferedImage buffImage, double angle) {
