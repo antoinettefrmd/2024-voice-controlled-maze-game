@@ -70,10 +70,10 @@ public class Jeu {
 		
 		this.m = m;
 		
-		labyrinth = new LabyrinthGraphique(taille, j);
 		clefs = new LinkedList<Cle>();
 		joueurs = ListeDeJoueurs.copier(j);
 		joueursencours = ListeDeJoueurs.copier(j);
+		labyrinth = new LabyrinthGraphique(taille, joueursencours);
 		etage = 0;
 		courant = joueursencours.getCourant();
 		
