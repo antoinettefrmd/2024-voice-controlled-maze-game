@@ -173,8 +173,8 @@ public class Jeu {
 		JLabelCourant.setBorder(JActuBorder);
 		
 		chrono = new JLabel("temps écoulé : 0");
-		chrono.setBackground(Color.cyan);
-		chrono.setBorder(Jborder);
+		chrono.setBackground(Color.CYAN);
+		//chrono.setBorder(Jborder);
 		startTime = System.currentTimeMillis();
 		Timer time = new Timer(1000, new ActionListener() {
 			
@@ -182,11 +182,12 @@ public class Jeu {
 			public void actionPerformed(ActionEvent e) {
 				long duration = (System.currentTimeMillis() - startTime) / 1000;
 				LocalTime lt = LocalTime.ofSecondOfDay(duration);
-				chrono.setText("temps écoulé : " + lt);
+				chrono.setText("temps écoulé : " + lt+"  ");
 			}
 		});
 		time.start();
 		jmb.add(jbox);
+		jmb.add(chrono);
 		
 		
 	}
