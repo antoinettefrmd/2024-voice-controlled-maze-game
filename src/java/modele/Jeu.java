@@ -82,7 +82,7 @@ public class Jeu {
 		clefs = new LinkedList<Cle>();
 		joueurs = ListeDeJoueurs.copier(j);
 		joueursencours = ListeDeJoueurs.copier(j);
-		labyrinth = new LabyrinthGraphique(taille, joueursencours);
+		labyrinth = new LabyrinthGraphique(taille, joueursencours, true);
 		etage = 0;
 		courant = joueursencours.getCourant();
 		
@@ -197,7 +197,7 @@ public class Jeu {
 		taille+=2;
 		joueursencours = ListeDeJoueurs.copier(joueurs);
 
-		labyrinth = new LabyrinthGraphique(taille, joueursencours);
+		labyrinth = new LabyrinthGraphique(taille, joueursencours, false);
 		labyrinth.getCase(taille, taille).setSortie(true);
 		labyrinth.getCase(taille, taille).setEscalier(escalier);
 		if(joueursencours.getTaille()==1) {
