@@ -36,9 +36,9 @@ public class LabyrinthGraphique extends JPanel{
 	/**
 	 * n represente la taille n*n du labyrinth
 	 */
-	public LabyrinthGraphique(int n, ListeDeJoueurs p) {
+	public LabyrinthGraphique(int n, ListeDeJoueurs p, boolean b) {
 		
-		this.labyrinthD = new Labyrinth(n, p);
+		this.labyrinthD = new Labyrinth(n, p, b);
 		this.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "right");
 		this.getActionMap().put("right", right);
 		this.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "left");
@@ -76,6 +76,7 @@ public class LabyrinthGraphique extends JPanel{
 		requestFocus();
 		
 	}
+	
 	
 	public void placerJoueurs(ListeDeJoueurs joueurs) {
 		

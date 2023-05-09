@@ -13,7 +13,7 @@ public class Labyrinth {
 	private int x; // utile seulement pour la génération
 	private int y; // idem
 	
-	public Labyrinth(int n, ListeDeJoueurs p) {
+	public Labyrinth(int n, ListeDeJoueurs p, boolean b) {
 		l = n;
 		labyrinth = new Case[2*l+1][2*l+1];
 		tab_val = new int[n][n];
@@ -26,14 +26,17 @@ public class Labyrinth {
 		x = 0;
 		y = 0;
 		
-		current = p.getCourant();
-		CellJoueur tmp = current;
-		do {
-			tmp.getJoueur().setX(l);
-			tmp.getJoueur().setY(l);
-			labyrinth[l][l].addJoueur(tmp.getJoueur());
-			tmp = tmp.getSuivant();
-		} while (tmp != current);
+		if (b)
+		{
+			current = p.getCourant();
+			CellJoueur tmp = current;
+			do {
+				tmp.getJoueur().setX(l);
+				tmp.getJoueur().setY(l);
+				labyrinth[l][l].addJoueur(tmp.getJoueur());
+				tmp = tmp.getSuivant();
+			} while (tmp != current);
+		}
 		tab_val[x][y] = -1;
 		generate();
 	}
