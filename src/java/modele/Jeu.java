@@ -7,10 +7,13 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.font.TextAttribute;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalTime;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Random;
@@ -22,7 +25,9 @@ import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.border.Border;
+import javax.swing.Timer;
 
 import modele.Labyrinth.Cle;
 import vue.JoueurSuivant;
@@ -37,6 +42,8 @@ public class Jeu {
 	public static ListeDeJoueurs joueursencours;
 	public static CellJoueur courant;
 	public int etage;
+	private JLabel chrono;
+	private long startTime;
 	public int taille = 5;
 	public static LinkedList<Cle> clefs;
 	private BufferedImage clef;
@@ -162,7 +169,23 @@ public class Jeu {
 		JLabelCourant = ((JLabel)jbox.getComponent(0));
 		JLabelCourant.setBorder(JActuBorder);
 		
+		JLabelCourant = ((JLabel)jbox.getComponent(0));
+		JLabelCourant.setBorder(JActuBorder);
 		
+		chrono = new JLabel("temps écoulé : 0");
+		chrono.setBackground(Color.cyan);
+		chrono.setBorder(Jborder);
+		startTime = System.currentTimeMillis();
+		Timer time = new Timer(1000, new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				long duration = (System.currentTimeMillis() - startTime) / 1000;
+				LocalTime lt = LocalTime.ofSecondOfDay(duration);
+				chrono.setText("temps écoulé : " + lt);
+			}
+		});
+		time.start();
 		jmb.add(jbox);
 		
 		
