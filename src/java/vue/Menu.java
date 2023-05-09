@@ -17,6 +17,16 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -261,13 +271,13 @@ public class Menu extends JFrame {
 		//etage.setBorder(BorderFactory.createCompoundBorder(Jborder, new EmptyBorder(5,5,5,5)));
 		etage.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
-		JLabel jactu = new JLabel("Joueur(s) / Joueuse(s) : ");
+		JLabel jactu = new JLabel("Joueurs/euses");
 		jactu.setBorder(new EmptyBorder(0, 10, 0, 0));
 		
 		//permet de lancer l'enregistrement de la voix
-		JButton recordMot = new JButton("RecordMot");
-
-		
+		JButton recordMot = new JButton("Jouer");
+		           
+		           
 		jmb.add(quitterjeu);
 		jmb.add(etage);
 		jmb.add(recordMot);
@@ -302,8 +312,10 @@ public class Menu extends JFrame {
 		});
 
 		recordMot.addActionListener((ActionEvent event) -> { 
-			ExecuteBash rm = new ExecuteBash("/src/java/controlleur/recordMot.sh");	
-			ExecuteBash tr = new ExecuteBash("/src/java/controlleur/whisper.sh");
+			//ExecuteBash rm = new ExecuteBash("/src/java/controlleur/recordMot.sh");	
+			//ExecuteBash tr = new ExecuteBash("/src/java/controlleur/whisper.sh");
+			ExecuteBash.cmd_system("./src/java/controlleur/recordMot.sh");
+			ExecuteBash.cmd_system("src/java/controlleur/whisper.sh");
 			
 			String mot = "";
 			File repertoire = new File("./src/ressources/WAV");
@@ -347,8 +359,6 @@ public class Menu extends JFrame {
 		
 		jbox = jeu.getJbox();
 		
-		String restemps = jeu.getTemps();
-		
 //		Il faut faire un boolean pour savoir si le jeu est terminer
 //		si c'est le cas alors on affiche le message de fin
 //		PROBLEME dans Jeu comment on sait que le jeu est terminer ?
@@ -356,12 +366,6 @@ public class Menu extends JFrame {
 //			MessageFin dialog = new MessageFin(this , restemps);
 //			dialog.setVisible(true);
 //		}
-
-		
-		boolean majscores = ((Scores) meilleurScore).sauvegardeScores(Integer.parseInt(restemps));
-		if(majscores) {
-			((Scores) meilleurScore).majScores();
-		}
 	}
 	
 	public void MAJlabyrinthG(LabyrinthGraphique lg) {
@@ -423,5 +427,9 @@ public class Menu extends JFrame {
 		contentPane.updateUI();
 	}
 	
+	public JPanel getMeilleurScore() {
+		return meilleurScore;
+	}
+
 	
 }

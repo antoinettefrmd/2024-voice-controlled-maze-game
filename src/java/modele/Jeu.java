@@ -7,10 +7,13 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.font.TextAttribute;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalTime;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Random;
@@ -22,12 +25,15 @@ import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.border.Border;
+import javax.swing.Timer;
 
 import modele.Labyrinth.Cle;
 import vue.JoueurSuivant;
 import vue.LabyrinthGraphique;
 import vue.Menu;
+import vue.Scores;
 
 public class Jeu {
 	
@@ -36,6 +42,8 @@ public class Jeu {
 	public static ListeDeJoueurs joueursencours;
 	public static CellJoueur courant;
 	public int etage;
+	private JLabel chrono;
+	private long startTime;
 	public int taille = 5;
 	public static LinkedList<Cle> clefs;
 	private BufferedImage clef;
@@ -44,7 +52,8 @@ public class Jeu {
 	private Font font = new Font("Arial Black", Font.BOLD, 12);
 
 	
-	private String temps = "0";
+	private long depart;
+	private long fin;
 	private Menu m;
 	
 	//permet de savoir qui est le joueur courant dans la liste de JLabel
@@ -72,15 +81,18 @@ public class Jeu {
 		
 		this.m = m;
 		
-		labyrinth = new LabyrinthGraphique(taille, j);
 		clefs = new LinkedList<Cle>();
 		joueurs = ListeDeJoueurs.copier(j);
 		joueursencours = ListeDeJoueurs.copier(j);
+		labyrinth = new LabyrinthGraphique(taille, joueursencours);
 		etage = 0;
 		courant = joueursencours.getCourant();
 		
 		int n = j.getTaille();
 		nbrJ = n;
+		
+		depart = System.currentTimeMillis();
+		
 		
 		try {
 			clef = ImageIO.read(new File("./src/ressources/images/key.png"));
@@ -158,8 +170,25 @@ public class Jeu {
 		JLabelCourant = ((JLabel)jbox.getComponent(0));
 		JLabelCourant.setBorder(JActuBorder);
 		
+		JLabelCourant = ((JLabel)jbox.getComponent(0));
+		JLabelCourant.setBorder(JActuBorder);
 		
+		chrono = new JLabel("temps écoulé : 0");
+		chrono.setBackground(Color.CYAN);
+		//chrono.setBorder(Jborder);
+		startTime = System.currentTimeMillis();
+		Timer time = new Timer(1000, new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				long duration = (System.currentTimeMillis() - startTime) / 1000;
+				LocalTime lt = LocalTime.ofSecondOfDay(duration);
+				chrono.setText("temps écoulé : " + lt+"  ");
+			}
+		});
+		time.start();
 		jmb.add(jbox);
+		jmb.add(chrono);
 		
 		
 	}
@@ -230,10 +259,6 @@ public class Jeu {
 		return jbox;
 	}
 	
-	public String getTemps() {
-		return temps;
-	}
-	
 	//permet de mettre le joueur actuel avec la borduer spécial
 	//normalement ça suit le joueur courant du jeu mais pas encore tester donc pas sur
 	public void actualisationLabelJCourant() {
@@ -255,7 +280,7 @@ public class Jeu {
 		do {
 			int xCle = 0;
 			int yCle = 0; 
-			while(!labyrinth.getLabyrinthD().surChemin(xCle,yCle) || !PasDejaDeClef(xCle,yCle)){
+			while(!labyrinth.getLabyrinthD().surChemin(xCle,yCle) || !PasDejaDeClef(xCle,yCle) || (xCle == l/2+1 && yCle == l/2+1)){
 				xCle = rand.nextInt(2*l)+1;
 				yCle = rand.nextInt(2*l)+1;
 			}
@@ -336,6 +361,16 @@ public class Jeu {
 	    graphics.dispose();
 
 	    return rotatedImage;
+	}
+	
+	public void finir()
+	{
+		fin = System.currentTimeMillis();
+		long duree = fin - depart;
+		boolean majscores = ((Scores) m.getMeilleurScore()).sauvegardeScores(duree);
+		if(majscores) {
+			((Scores) m.getMeilleurScore()).majScores();
+		}
 	}
 	
 }

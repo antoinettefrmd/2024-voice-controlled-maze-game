@@ -14,9 +14,11 @@ import java.awt.event.ActionEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -25,6 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import controlleur.ExecuteBash;
 import modele.Joueur;
 import modele.ListeDeJoueurs;
 
@@ -36,6 +39,7 @@ public class ParametresPartie extends JPanel {
 	private Font mincecarftcheckbox;
 	private Font DayDream;
 	private LinkedList<JCheckBox> jSuppJCheckBox;
+	private Scanner sc;
 
 	public ParametresPartie(Menu m, ListeDeJoueurs joueurSupp) {
 		
@@ -67,11 +71,16 @@ public class ParametresPartie extends JPanel {
 		retour.setHorizontalAlignment(SwingConstants.LEFT);
 
 		
-		JLabel titre = new JLabel("Choisir les participans :");
+		JLabel titre = new JLabel("Choisir les participants :");
 		titre.setBorder(new EmptyBorder(50, 0, 0, 0)); //on crée un espace au-dessus du titre
 		titre.setHorizontalAlignment(SwingConstants.CENTER); //permet de centrer le texte
 		titre.setForeground(new Color(250, 250, 175));
 		titre.setFont(DayDream);
+		
+		//JLabel phraseChoix = new JLabel("Pour jouer, cliquez sur votre nom puis parlez pendant 10 secondes pour vérifier votre identité");
+		//phraseChoix.setFont(DayDream);
+		//phraseChoix.setForeground(new Color(250, 250, 175));
+		
 		
 		topBox.add(retour, BorderLayout.WEST);
 		
@@ -83,6 +92,7 @@ public class ParametresPartie extends JPanel {
 		JPanel centerTopBox = new JPanel();
 		centerTopBox.setOpaque(false);
 		centerTopBox.add(titre, BorderLayout.CENTER);
+		//centerTopBox.add(phraseChoix, BorderLayout.SOUTH);
 		centerTopBox.setOpaque(false);
 		
 		
@@ -91,8 +101,6 @@ public class ParametresPartie extends JPanel {
 		centerCenterBox.setOpaque(false);
 		
 		Color checkBoxColor = Color.red; //new Color(250, 250, 175)
-		Color checkBoxColorV = Color.green;
-
 		
 		JCheckBox j1 = new JCheckBox("Georges");
 		j1.setFont(DayDream);
@@ -179,120 +187,23 @@ public class ParametresPartie extends JPanel {
 		});
 		
 		j1.addActionListener((ActionEvent event) -> {
-			if(j1.isSelected()) {
-				j1.setEnabled(false);
-				
-				//REMETTRE QUAND LES Instruction jsp sont ajouter
-//				ExecuteBash recordVoix = new ExecuteBash("/src/java/controlleur/recordVoix.sh");
-//				String fichierWav = recordVoix.getResultat();
-				
-				//Instruction jsp il faut verifier quoi a faire dans verificationJoueur
-				//VerificationJoueur vj = new VerificationJoueur();
-				//Il faut peut etres transmettre une information? pour verifier?
-				
-				
-				//mettre le resultat de Instruction jsp
-				boolean verifier = true;
-				//il faut remplacer par :
-				//boolean verifier = vj.getVerif();
-				
-				if(verifier) {
-					j1.setForeground(checkBoxColorV);
-				} else {
-					j1.setSelected(false);
-				}
-				j1.setEnabled(true);
-			} else {
-				j1.setForeground(checkBoxColor);
-			}
+			appelVerif(j1,"G", 0.80);
 		});
 		
 		j2.addActionListener((ActionEvent event) -> {
-			if(j2.isSelected()) {
-				j2.setEnabled(false);
-				
-				//REMETTRE QUAND LES Instruction jsp sont ajouter
-//				ExecuteBash recordVoix = new ExecuteBash("/src/java/controlleur/recordVoix.sh");
-//				String fichierWav = recordVoix.getResultat();
-				
-				//Instruction jsp il faut verifier quoi
-				
-				boolean verifier = true; //mettre le resultat de Instruction jsp
-				if(verifier) {
-					j2.setForeground(checkBoxColorV);
-				} else {
-					j2.setSelected(false);
-				}
-				j2.setEnabled(true);
-			} else {
-				j2.setForeground(checkBoxColor);
-			}
+			appelVerif(j2,"R", 0.80);
 		});
 		
 		j3.addActionListener((ActionEvent event) -> {
-			if(j3.isSelected()) {
-				j3.setEnabled(false);
-				
-				//REMETTRE QUAND LES Instruction jsp sont ajouter
-//				ExecuteBash recordVoix = new ExecuteBash("/src/java/controlleur/recordVoix.sh");
-//				String fichierWav = recordVoix.getResultat();
-				
-				//Instruction jsp il faut verifier quoi
-				
-				boolean verifier = true; //mettre le resultat de Instruction jsp
-				if(verifier) {
-					j3.setForeground(checkBoxColorV);
-				} else {
-					j3.setSelected(false);
-				}
-				j3.setEnabled(true);
-			} else {
-				j3.setForeground(checkBoxColor);
-			}
+			appelVerif(j3,"AN",0.30);
 		});
 		
 		j4.addActionListener((ActionEvent event) -> {
-			if(j4.isSelected()) {
-				j4.setEnabled(false);
-				
-				//REMETTRE QUAND LES Instruction jsp sont ajouter
-//				ExecuteBash recordVoix = new ExecuteBash("/src/java/controlleur/recordVoix.sh");
-//				String fichierWav = recordVoix.getResultat();
-				
-				//Instruction jsp il faut verifier quoi
-				
-				boolean verifier = true; //mettre le resultat de Instruction jsp
-				if(verifier) {
-					j4.setForeground(checkBoxColorV);
-				} else {
-					j4.setSelected(false);
-				}
-				j4.setEnabled(true);
-			} else {
-				j4.setForeground(checkBoxColor);
-			}
+			appelVerif(j4,"AL",0.60);
 		});
 		
 		j5.addActionListener((ActionEvent event) -> {
-			if(j5.isSelected()) {
-				j5.setEnabled(false);
-				
-				//REMETTRE QUAND LES Instruction jsp sont ajouter
-//				ExecuteBash recordVoix = new ExecuteBash("/src/java/controlleur/recordVoix.sh");
-//				String fichierWav = recordVoix.getResultat();
-				
-				//Instruction jsp il faut verifier quoi
-				
-				boolean verifier = true; //mettre le resultat de Instruction jsp
-				if(verifier) {
-					j5.setForeground(checkBoxColorV);
-				} else {
-					j5.setSelected(false);
-				}
-				j5.setEnabled(true);
-			} else {
-				j5.setForeground(checkBoxColor);
-			}
+			appelVerif(j5,"L",0.30);
 		});
 		
 		lancer.addActionListener((ActionEvent event) -> {
@@ -338,6 +249,42 @@ public class ParametresPartie extends JPanel {
 	
 	public void paintComponent(Graphics g) { //on redéfinit la méthode paintComponent de JPanel pour mettre une image en fond
 		g.drawImage(image, 0, 0, null); //permet de dessiner une image sur le fond de notre JPanel
+	}
+	
+	public void appelVerif(JCheckBox j,String n, double c) {
+		if(j.isSelected()) {
+			j.setEnabled(false);
+			
+			boolean verifier = verif(n,c);
+
+			if(verifier) {
+				j.setForeground(Color.GREEN);
+			} else {
+				j.setSelected(false);
+			}
+			j.setEnabled(true);
+		} else {
+			j.setForeground(Color.RED);
+		}
+	}
+	
+	public boolean verif(String n, double c) {
+		ExecuteBash.cmd_system("./src/java/controlleur/recordVoix.sh");
+		ExecuteBash.cmd_system("./src/java/controlleur/computeTest"+n+".sh");
+		try {
+			sc = new Scanner(new File("src/ressources/modele_voix/CFG/resultat.txt"));
+		}
+		catch(Exception e) {
+			System.out.println("Erreur lors d’ouverture fichier:");
+			e.printStackTrace();
+			System.exit(1);
+		}
+		String res = "";
+		while(sc.hasNext()) {
+			res = sc.next();
+		}
+		System.out.println(res);
+		return (Double.parseDouble(res)>c);
 	}
 
 	@SuppressWarnings("unused")
