@@ -5,6 +5,8 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -13,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import controlleur.ExecuteBash;
+
 public class VerificationJoueur extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
@@ -20,10 +24,10 @@ public class VerificationJoueur extends JDialog {
 	private JButton verifButton;
 	private JButton cancelButton;
 	private boolean verif;
+	private Scanner sc;
 
 	/**
 	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		try {
 			VerificationJoueur dialog = new VerificationJoueur();
@@ -33,13 +37,23 @@ public class VerificationJoueur extends JDialog {
 			e.printStackTrace();
 		}
 	}
+	*/
 
 	/**
 	 * Create the dialog.
 	 */
-	public VerificationJoueur() {
+	public VerificationJoueur(String n, double c) {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
+		
+		try {
+			sc = new Scanner(new File("src/ressources/modele_voix/CFG/resultat.txt"));
+		}
+		catch(Exception e) {
+			System.out.println("Erreur lors d’ouverture fichier:");
+			e.printStackTrace();
+			System.exit(1);
+		}
 		
 		this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter() {
@@ -72,8 +86,8 @@ public class VerificationJoueur extends JDialog {
 				getRootPane().setDefaultButton(verifButton);
 			}
 			{
-				cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
+				cancelButton = new JButton("Annuler");
+				cancelButton.setActionCommand("Annuler");
 				buttonPane.add(cancelButton);
 			}
 		}
@@ -82,8 +96,16 @@ public class VerificationJoueur extends JDialog {
 		//####################################################
 		
 		verifButton.addActionListener((ActionEvent event) -> {
-			//instruction de vérification (pour Léa)
-			//mettre verif = true si la personne est vérifier
+			//ExecuteBash recordVoix = new ExecuteBash("./src/java/controlleur/recordVoix.sh");
+			ExecuteBash.cmd_system("./src/java/controlleur/recordVoix.sh");
+			//ExecuteBash computeTest = new ExecuteBash("src/java.controlleur/computeTest"+n+".sh");
+			ExecuteBash.cmd_system("./src/java/controlleur/computeTest"+n+".sh");
+			String res = "";
+			while(sc.hasNext()) {
+				res = sc.next();
+			}
+			System.out.println(res);
+			verif = (Double.parseDouble(res)>c);
 		});
 		
 		cancelButton.addActionListener((ActionEvent event) -> {
@@ -91,6 +113,9 @@ public class VerificationJoueur extends JDialog {
 			this.dispose();
 		});
 		
+
+		this.setVisible(true);
+
 		//####################################################
 
 	}

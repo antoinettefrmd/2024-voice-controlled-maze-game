@@ -269,25 +269,17 @@ public class Menu extends JFrame {
 		//etage.setBorder(BorderFactory.createCompoundBorder(Jborder, new EmptyBorder(5,5,5,5)));
 		etage.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
-		JLabel jactu = new JLabel("Joueur(s) / Joueuse(s) : ");
+		JLabel jactu = new JLabel("Joueurs/euses");
 		jactu.setBorder(new EmptyBorder(0, 10, 0, 0));
 		
 		//permet de lancer l'enregistrement de la voix
-		JButton recordMot = new JButton("RecordMot");
-		
-		long tempsDepart = System.currentTimeMillis();
-		JLabel temps = new JLabel(""+(System.currentTimeMillis()-tempsDepart));
-		/*temps.setHorizontalAlignment(JLabel.CENTER);
-		temps.setText(
-		           DateFormat.getDateTimeInstance().format(new Date())
-		);*/
+		JButton recordMot = new JButton("Jouer");
 		           
 		           
 		jmb.add(quitterjeu);
 		jmb.add(etage);
 		jmb.add(recordMot);
 		jmb.add(jactu);
-		jmb.add(temps);
 
 		
 		//####################################################
@@ -318,8 +310,10 @@ public class Menu extends JFrame {
 		});
 
 		recordMot.addActionListener((ActionEvent event) -> { 
-			ExecuteBash rm = new ExecuteBash("/src/java/controlleur/recordMot.sh");	
-			ExecuteBash tr = new ExecuteBash("/src/java/controlleur/whisper.sh");
+			//ExecuteBash rm = new ExecuteBash("/src/java/controlleur/recordMot.sh");	
+			//ExecuteBash tr = new ExecuteBash("/src/java/controlleur/whisper.sh");
+			ExecuteBash.cmd_system("./src/java/controlleur/recordMot.sh");
+			ExecuteBash.cmd_system("src/java/controlleur/whisper.sh");
 			
 			String mot = "";
 			File repertoire = new File("./src/ressources/WAV");

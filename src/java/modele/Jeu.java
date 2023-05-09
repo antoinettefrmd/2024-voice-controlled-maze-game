@@ -11,6 +11,7 @@ import java.awt.font.TextAttribute;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Random;
@@ -42,7 +43,8 @@ public class Jeu {
 	private Icon clefvertical;
 	private BufferedImage escalier;
 	
-	private String temps = "0";
+	private long depart;
+	private long fin;
 	private Menu m;
 	
 	//permet de savoir qui est le joueur courant dans la liste de JLabel
@@ -78,6 +80,9 @@ public class Jeu {
 		
 		int n = j.getTaille();
 		nbrJ = n;
+		
+		depart = System.currentTimeMillis();
+		
 		
 		try {
 			clef = ImageIO.read(new File("./src/ressources/images/key.png"));
@@ -230,10 +235,6 @@ public class Jeu {
 		return jbox;
 	}
 	
-	public String getTemps() {
-		return temps;
-	}
-	
 	//permet de mettre le joueur actuel avec la borduer spécial
 	//normalement ça suit le joueur courant du jeu mais pas encore tester donc pas sur
 	public void actualisationLabelJCourant() {
@@ -324,6 +325,13 @@ public class Jeu {
 	    graphics.dispose();
 
 	    return rotatedImage;
+	}
+	
+	public void finir()
+	{
+		fin = System.currentTimeMillis();
+		long duree = fin - depart;
+		
 	}
 	
 }
