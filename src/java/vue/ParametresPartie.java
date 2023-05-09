@@ -9,8 +9,6 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.font.FontRenderContext;
@@ -22,8 +20,6 @@ import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -37,6 +33,7 @@ import modele.ListeDeJoueurs;
 
 public class ParametresPartie extends JPanel {
 	
+	private static final long serialVersionUID = -2766301827457600207L;
 	private BufferedImage image;
 	private Font minecraft;
 	private Font mincecarftcheckbox;
@@ -291,8 +288,10 @@ public class ParametresPartie extends JPanel {
 		return (Double.parseDouble(res)>c);
 	}
 
+	@SuppressWarnings("unused")
 	public class GenericRoundedButton extends JButton {
 		
+		private static final long serialVersionUID = -3826764148755708623L;
 		private Color color;
 		private Color colorOver;
 		private Color colorClick;

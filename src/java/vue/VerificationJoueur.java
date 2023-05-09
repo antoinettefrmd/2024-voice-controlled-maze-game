@@ -13,11 +13,14 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import controlleur.ExecuteBash;
 
 public class VerificationJoueur extends JDialog {
+
+	private static final long serialVersionUID = 8027053412805237113L;
 
 	private final JPanel contentPanel = new JPanel();
 	
@@ -46,20 +49,11 @@ public class VerificationJoueur extends JDialog {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		
-		try {
-			sc = new Scanner(new File("src/ressources/modele_voix/CFG/resultat.txt"));
-		}
-		catch(Exception e) {
-			System.out.println("Erreur lors d’ouverture fichier:");
-			e.printStackTrace();
-			System.exit(1);
-		}
-		
-		this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter() {
 		
 			public void windowClosing(WindowEvent arg0) {
-				//on fait les instruction pour remettre la couleurs verte
+				//on met a verif a false pour ensuite remettre la couleur en rouge
 				verif = false;
 				dispose();
 				System.exit(0);

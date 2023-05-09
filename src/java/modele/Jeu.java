@@ -1,5 +1,5 @@
 package modele;
-
+// ancienne version
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -34,7 +34,7 @@ public class Jeu {
 	
 	public static LabyrinthGraphique labyrinth;
 	public static ListeDeJoueurs joueurs;
-	public static ListeDeJoueurs joueursfinito;
+	public static ListeDeJoueurs joueursencours;
 	public static CellJoueur courant;
 	public int etage;
 	public int taille = 5;
@@ -67,16 +67,17 @@ public class Jeu {
 	private JPanel jbox; //permet de contenir tous les JLabel des joueurs et de les organiser dans la topbar
 
 	
+	@SuppressWarnings("unchecked")
 	public Jeu(Menu m, ListeDeJoueurs j) {
 		
 		this.m = m;
 		
-		labyrinth = new LabyrinthGraphique(taille, j);
 		clefs = new LinkedList<Cle>();
-		joueurs = j;
-		joueursfinito = new ListeDeJoueurs();
+		joueurs = ListeDeJoueurs.copier(j);
+		joueursencours = ListeDeJoueurs.copier(j);
+		labyrinth = new LabyrinthGraphique(taille, joueursencours);
 		etage = 0;
-		courant = joueurs.getCourant();
+		courant = joueursencours.getCourant();
 		
 		int n = j.getTaille();
 		nbrJ = n;
@@ -86,14 +87,14 @@ public class Jeu {
 		
 		try {
 			clef = ImageIO.read(new File("./src/ressources/images/key.png"));
-			escalier = ImageIO.read(new File("./src/ressources/images/escalier3.png"));
+			escalier = ImageIO.read(new File("./src/ressources/images/escalier.png"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		genererClefs();
 		
+		//permet de faire en sorte que la case du millieu soit un escalier
 		labyrinth.getCase(taille, taille).setSortie(true);
 		labyrinth.getCase(taille, taille).setEscalier(escalier);
 		
@@ -107,6 +108,7 @@ public class Jeu {
 		jbox.setOpaque(false);
 		
 		Font font = new Font("Arial Black", Font.BOLD, 12);
+		@SuppressWarnings("rawtypes")
 		Map  attributes = font.getAttributes();
 		attributes.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
 		Jfontwin = new Font(attributes); //on fait une police d'écriture barre pour les joueurs qui ont terminé
@@ -116,7 +118,6 @@ public class Jeu {
 			
 			@Override
 			public void paintIcon(Component c, Graphics g, int x, int y) {
-				// TODO Auto-generated method stub
 				Graphics2D surface = (Graphics2D) g;
 				surface.scale(0.4, 0.4);
 				surface.drawImage(rotatedclef, 0, 7, null);
@@ -158,8 +159,6 @@ public class Jeu {
 			j.suivant();
 		} //possible probleme a la fin de la boucle qui est le joueur courant?
 		
-		System.out.println(j.getCourant().getJoueur().getCouleur());
-		
 		JLabelCourant = ((JLabel)jbox.getComponent(0));
 		JLabelCourant.setBorder(JActuBorder);
 		
@@ -173,10 +172,12 @@ public class Jeu {
 		etage++;
 		m.changeEtage(etage);
 		taille+=2;
-		labyrinth = new LabyrinthGraphique(taille, joueurs);
+		joueursencours = ListeDeJoueurs.copier(joueurs);
+
+		labyrinth = new LabyrinthGraphique(taille, joueursencours);
 		labyrinth.getCase(taille, taille).setSortie(true);
 		labyrinth.getCase(taille, taille).setEscalier(escalier);
-		if(joueurs.getTaille()==1) {
+		if(joueursencours.getTaille()==1) {
 			labyrinth.getLabyrinthD().getLabyrinth()[taille][taille].addJoueur(courant.getJoueur());
 		}
 		CellJoueur tmp = courant;
@@ -196,39 +197,37 @@ public class Jeu {
 		Labyrinth lab = labyrinth.getLabyrinthD();
 		Joueur current = courant.getJoueur();
 		deplacement = deplacement.toLowerCase();
-		if (deplacement.equals("haut") || deplacement.equals("eau") || deplacement.equals("au") || deplacement.equals("o") || deplacement.equals("oh")) {
+		if (deplacement.equals("je vais en haut") || deplacement.equals("je vais en haut.")) {
 			lab.haut(current);
-		} else if (deplacement.equals("droite") || deplacement.equals("droit") || deplacement.equals("droit.")) {
+		} else if (deplacement.equals("je vais à droite") || deplacement.equals("je vais à droite.")) {
 			lab.droite(current);
-		} else if (deplacement.equals("gauche") || deplacement.equals("gâche") || deplacement.equals("gouche") || deplacement.equals("douche")) {
+		} else if (deplacement.equals("je vais à gauche") || deplacement.equals("je vais à gauche.")) {
 			lab.gauche(current);
-		} else if (deplacement.equals("bas") || deplacement.equals("bah") ||  deplacement.equals("baa") ||  deplacement.equals("ba") ||  deplacement.equals("da")) { 
+		} else if (deplacement.equals("je vais en bas.") || deplacement.equals("je vais en bas")) { 
 			lab.bas(current);
 		} else {
-			 //Alec message d'erreur
+			@SuppressWarnings("unused")
+			JoueurSuivant js = new JoueurSuivant();		
 		}	
 		m.MAJlabyrinthG(labyrinth);
-		courant = courant.getSuivant();
-		JoueurSuivant js = new JoueurSuivant(); //bizarre de recreer on pourrait faire en static ?
-												//OUI effectivement bonne idee mais jsp comment faire
-		// ça ne fais pas le carré blanc
 
-		// if (!current.getCle().getAttrape()) {
-		// 	if (current.getCle().getxCle() == current.getX() && current.getCle().getyCle() == current.getY()) { // pour moi c'est foncdamental qu'un joueur ait sa clé // vérifier si le joueur attérit sur sa cléf 
-		// 		current.getCle().setAttrape(true);
-		// 		// si oui, afficher une clef à coté de son pseudo (ALEC)	
-		// 	}
-		// }
-		// else if (current.getX() == lab.getL() && current.getY()== lab.getL()) { 
-		// 	// le mettre d'une couleur spéciale (ALEC)
-		// 	joueursfinito.add(current);
-		// 	joueurs.supprimer(current);	
-		// }
-
-		if (joueurs.getTaille() == 0) {
+		if (!current.getCle().getAttrape()) {
+			if (current.getCle().getxCle() == current.getX() && current.getCle().getyCle() == current.getY()) { // pour moi c'est foncdamental qu'un joueur ait sa clé // vérifier si le joueur attérit sur sa cléf 
+				current.getCle().setAttrape(true);
+				ajouteclefJLabel();
+				labyrinth.getCase(current.getX(), current.getY()).setClefprise(true);;
+			}
+			courant = courant.getSuivant();
+		}
+		else if (current.getX() == lab.getL() && current.getY()== lab.getL()) { 
+			barreJLabel();
+			courant = courant.getSuivant();
+			joueursencours.supprimer(courant.getPrecedent().getJoueur());
+		}
+		actualisationLabelJCourant();
+		if (joueursencours.getTaille() == 0) {
 			etage();
 		}
-
 	}
 	
 	public JPanel getJbox() {
@@ -238,9 +237,11 @@ public class Jeu {
 	//permet de mettre le joueur actuel avec la borduer spécial
 	//normalement ça suit le joueur courant du jeu mais pas encore tester donc pas sur
 	public void actualisationLabelJCourant() {
+		JLabelCourant.setBorder(Jborder);
 		if(JLabelCourantJPos == nbrJ-1) JLabelCourantJPos = 0;
 		else JLabelCourantJPos++;
-		
+		//JLabel tmp = JLabelCourant;
+		//tmp.setBorder(Jborder);
 		JLabelCourant = (JLabel) jbox.getComponent(JLabelCourantJPos); 
 		JLabelCourant.setBorder(JActuBorder);
 	}
@@ -296,6 +297,10 @@ public class Jeu {
 	
 	public void bordureGoldJLabel() {
 		JLabelCourant.setBorder(JWinBorder);
+	}
+	
+	public void reinitialisationToutJLabel() {
+		
 	}
 	
 	private static BufferedImage rotateImage(BufferedImage buffImage, double angle) {

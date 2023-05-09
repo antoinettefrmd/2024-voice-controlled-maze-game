@@ -14,6 +14,7 @@ import modele.Labyrinth.Cle;
 
 public class CaseGraphique extends JPanel {
 	
+	private static final long serialVersionUID = -4564164922755652086L;
 	private BufferedImage image;
 	private BufferedImage imageClef;
 	private Case c;
@@ -22,6 +23,7 @@ public class CaseGraphique extends JPanel {
 	private boolean sortie;
 	private BufferedImage escalier;
 	private Cle clej;
+	@SuppressWarnings("unused")
 	private BufferedImage imageclef;
 
 	/**
@@ -46,18 +48,10 @@ public class CaseGraphique extends JPanel {
 
 	@Override
 	public void paintComponent(Graphics g) {
-		//super.paintComponent(g);
+		super.paintComponent(g);
 		Graphics2D surface = (Graphics2D) g;
-		//g.drawImage(image, 0, 0, null);
 		
-		surface.drawImage(
-		        image, 
-		        0, 
-		        0, 
-		        this.getWidth(), 
-		        this.getHeight(), 
-		        null
-		);
+		surface.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), null);
 		
 		if(estclef && !clefprise) {
 			surface.scale(0.5,0.5);
@@ -97,6 +91,10 @@ public class CaseGraphique extends JPanel {
 	
 	public void setSortie(boolean sortie) {
 		this.sortie = sortie;
+	}
+	
+	public void setClefprise(boolean clefprise) {
+		this.clefprise = clefprise;
 	}
 	
 	public void setEscalier(BufferedImage escalier) {

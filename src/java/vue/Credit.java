@@ -15,6 +15,7 @@ import javax.swing.SwingConstants;
 
 public class Credit extends JPanel {
 	
+	private static final long serialVersionUID = -5144022736034026023L;
 	private BufferedImage image;
 	private Font minecraft;
 	private Font minecraftButton;

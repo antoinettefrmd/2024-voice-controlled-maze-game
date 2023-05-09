@@ -2,7 +2,6 @@ package vue;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
@@ -13,6 +12,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 public class JoueurSuivant extends JDialog {
+
+	private static final long serialVersionUID = 8499763274387868118L;
 
 	private final JPanel contentPanel = new JPanel();
 	
@@ -42,7 +43,7 @@ public class JoueurSuivant extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		{
-			JLabel titreFin = new JLabel("Plus de tentative restante, passage au joueur suivant");
+			JLabel titreFin = new JLabel("Votre déplacement n'a pas été reconnu, joueur suivant.");
 			titreFin.setHorizontalAlignment(SwingConstants.CENTER);
 			getContentPane().add(titreFin, BorderLayout.CENTER);
 		}
@@ -56,7 +57,7 @@ public class JoueurSuivant extends JDialog {
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
-			
+			setVisible(true);
 			setLocationRelativeTo(null);
 	 		
 			//Controller
@@ -95,7 +96,6 @@ public class JoueurSuivant extends JDialog {
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		this.dispose();

@@ -60,4 +60,24 @@ public class ListeDeJoueurs {
 	public int getTaille() {
 		return taille;
 	}
+
+	public static ListeDeJoueurs copier(ListeDeJoueurs l) {
+		ListeDeJoueurs res = new ListeDeJoueurs();
+		CellJoueur tmp = l.getCourant();
+		for (int i = 0 ; i < l.getTaille() ; i++) {
+			res.add(tmp.getJoueur());
+			tmp = tmp.getSuivant();
+		}
+		return res;
+	}
+
+	public static void print(ListeDeJoueurs l) {
+		CellJoueur c = l.getCourant();
+		for (int i = 0 ; i < l.getTaille() ; i++)
+		{
+			System.out.println(c.getJoueur().getCouleur());
+			c = c.getSuivant();
+		}
+		System.out.println();
+	}
 }
