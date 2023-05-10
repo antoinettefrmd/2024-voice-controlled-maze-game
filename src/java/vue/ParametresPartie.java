@@ -174,23 +174,23 @@ public class ParametresPartie extends JPanel {
 		});
 		
 		j1.addActionListener((ActionEvent event) -> {
-			appelVerif(j1,"G", 0.80);
+			// appelVerif(j1,"G", 0.80);
 		});
 		
 		j2.addActionListener((ActionEvent event) -> {
-			appelVerif(j2,"R", 0.60);
+			// appelVerif(j2,"R", 0.60);
 		});
 		
 		j3.addActionListener((ActionEvent event) -> {
-			appelVerif(j3,"AN",0.25);
+			// appelVerif(j3,"AN",0.25);
 		});
 		
 		j4.addActionListener((ActionEvent event) -> {
-			appelVerif(j4,"AL",0.25);
+			// appelVerif(j4,"AL",0.25);
 		});
 		
 		j5.addActionListener((ActionEvent event) -> {
-			appelVerif(j5,"L",0.10);
+			// appelVerif(j5,"L",0.10);
 		});
 		
 		lancer.addActionListener((ActionEvent event) -> {

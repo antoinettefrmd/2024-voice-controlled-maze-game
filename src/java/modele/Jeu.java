@@ -290,7 +290,7 @@ public class Jeu {
 		m.MAJlabyrinthG(labyrinth);
 
 		if (!current.getCle().getAttrape()) {
-			if (current.getCle().getxCle() == current.getX() && current.getCle().getyCle() == current.getY()) { // pour moi c'est foncdamental qu'un joueur ait sa clé // vérifier si le joueur attérit sur sa cléf 
+			if (current.getCle().getxCle() == current.getX() && current.getCle().getyCle() == current.getY()) {
 				current.getCle().setAttrape(true);
 				ajouteclefJLabel();
 				labyrinth.getCase(current.getX(), current.getY()).setClefprise(true);;
@@ -302,12 +302,19 @@ public class Jeu {
 			courant.getLabelJoueur().setBorder(Jborder);
 			courant = courant.getSuivant();
 			joueursencours.supprimer(courant.getPrecedent().getJoueur());
+			if (joueursencours.getTaille() == 0) {
+				System.out.print("bbbbbbbbb");
+				if(etage<5){
+					System.out.print("hehe c'est quoi ce bordel");
+					etage();
+				}	
+				else finir();
+			}
 		}
-		actualisationLabelJCourant();
-		if (joueursencours.getTaille() == 0) {
-			if(etage<5)	etage();
-			else finir();
+		else {
+			courant = courant.getSuivant();
 		}
+		actualisationLabelJCourant();		
 	}
 	
 	public JPanel getJbox() {
