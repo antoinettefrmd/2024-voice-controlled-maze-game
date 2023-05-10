@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.font.TextAttribute;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -19,11 +20,14 @@ import java.util.Map;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.border.Border;
@@ -77,11 +81,18 @@ public class Jeu {
 	public Jeu(Menu m, ListeDeJoueurs j) {
 		
 		this.m = m;
-		
 		clefs = new LinkedList<Cle>();
 		joueurs = ListeDeJoueurs.copier(j);
 		joueursencours = ListeDeJoueurs.copier(j);
 		labyrinth = new LabyrinthGraphique(taille, joueursencours, true);
+		labyrinth.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "right");
+		labyrinth.getActionMap().put("right", right);
+		labyrinth.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "left");
+		labyrinth.getActionMap().put("left", left);
+		labyrinth.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "up");
+		labyrinth.getActionMap().put("up", up);
+		labyrinth.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "down");
+		labyrinth.getActionMap().put("down", down);
 		etage = 0;
 		courant = joueursencours.getCourant();
 		
@@ -147,7 +158,7 @@ public class Jeu {
 			String nom = "";
 			
 			//on verifie la couleur du joueur pour lui donner son nom
-			if(c.equals(new Color(168, 70, 160))) nom = "Georges";
+			if(c.equals(new Color(183, 82, 174))) nom = "Georges";
 			if(c.equals(new Color(61, 163, 93))) nom = "Ronen";
 			if(c.equals(new Color(25,130,196))) nom = "Antoinette";
 			if(c.equals(new Color(106,76,147))) nom = "Alec";
@@ -188,12 +199,54 @@ public class Jeu {
 		
 	}
 	
+	private Action right = new AbstractAction() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			//LabyrinthGraphique.this.labyrinthD.droite(LabyrinthGraphique.this.labyrinthD.getCurrent().getJoueur());
+			//repaint();
+			tour("je vais à droite");
+		}
+	};
+
+	private Action left = new AbstractAction() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			//LabyrinthGraphique.this.labyrinthD.gauche(LabyrinthGraphique.this.labyrinthD.getCurrent().getJoueur());
+			//repaint();
+			tour("je vais à gauche");
+		}
+	};
+	
+	private Action up = new AbstractAction() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			//LabyrinthGraphique.this.labyrinthD.haut(LabyrinthGraphique.this.labyrinthD.getCurrent().getJoueur());
+			//repaint();
+			tour("je vais en haut");
+		}
+	};
+	
+	private Action down = new AbstractAction() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			//LabyrinthGraphique.this.labyrinthD.bas(LabyrinthGraphique.this.labyrinthD.getCurrent().getJoueur());
+			//repaint();
+			tour("je vais en bas");
+		}
+	};
+	
 	public void etage() { // set l'endroit des clé à chaque manche
 		etage++;
 		m.changeEtage(etage);
-		taille+=2;
+		taille+=6;
 		joueursencours = ListeDeJoueurs.copier(joueurs);
-
+		
+		courant = joueursencours.getCourant();
+		
 		labyrinth = new LabyrinthGraphique(taille, joueursencours, false);
 		labyrinth.getCase(taille, taille).setSortie(true);
 		labyrinth.getCase(taille, taille).setEscalier(escalier);
