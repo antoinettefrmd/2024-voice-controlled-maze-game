@@ -271,7 +271,7 @@ public class Menu extends JFrame {
 		//etage.setBorder(BorderFactory.createCompoundBorder(Jborder, new EmptyBorder(5,5,5,5)));
 		etage.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
-		JLabel jactu = new JLabel("Joueurs/euses");
+		JLabel jactu = new JLabel("Joueurs/euses : ");
 		jactu.setBorder(new EmptyBorder(0, 10, 0, 0));
 		
 		//permet de lancer l'enregistrement de la voix
@@ -307,6 +307,8 @@ public class Menu extends JFrame {
 		quitterjeu.addActionListener((ActionEvent event) -> {
 			resetJMenuBar(jbox);
 			jmb.setVisible(false);
+			jmb.remove(jeu.getChrono());
+			jeu.getTime().stop();
 			getContentPane().remove(contentPane);
 			getContentPane().add(menuPanel);
 		});

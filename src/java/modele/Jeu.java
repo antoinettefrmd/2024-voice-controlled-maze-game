@@ -27,7 +27,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.border.Border;
-import javax.swing.Timer;
 
 import modele.Labyrinth.Cle;
 import vue.JoueurSuivant;
@@ -44,14 +43,14 @@ public class Jeu {
 	public int etage;
 	private JLabel chrono;
 	private long startTime;
+	private long duration;
+	private Timer time;
 	public int taille = 5;
 	public static LinkedList<Cle> clefs;
 	private BufferedImage clef;
 	private Icon clefvertical;
 	private BufferedImage escalier;
 	
-	private long depart;
-	private long fin;
 	private Menu m;
 	
 	//permet de savoir qui est le joueur courant dans la liste de JLabel
@@ -87,10 +86,7 @@ public class Jeu {
 		courant = joueursencours.getCourant();
 		
 		int n = j.getTaille();
-		nbrJ = n;
-		
-		depart = System.currentTimeMillis();
-		
+		nbrJ = n;		
 		
 		try {
 			clef = ImageIO.read(new File("./src/ressources/images/key.png"));
@@ -151,11 +147,11 @@ public class Jeu {
 			String nom = "";
 			
 			//on verifie la couleur du joueur pour lui donner son nom
-			if(c.equals(Color.PINK)) nom = "Georges";
-			if(c.equals(Color.GREEN)) nom = "Ronen";
-			if(c.equals(Color.BLUE)) nom = "Antoinette";
-			if(c.equals(Color.MAGENTA)) nom = "Alec";
-			if(c.equals(Color.ORANGE)) nom = "Léa";
+			if(c.equals(new Color(168, 70, 160))) nom = "Georges";
+			if(c.equals(new Color(61, 163, 93))) nom = "Ronen";
+			if(c.equals(new Color(25,130,196))) nom = "Antoinette";
+			if(c.equals(new Color(106,76,147))) nom = "Alec";
+			if(c.equals(new Color(255,202,58))) nom = "Léa";
 
 			JLabel g = new JLabel(nom);
 			
@@ -176,11 +172,11 @@ public class Jeu {
 		chrono.setBackground(Color.CYAN);
 		//chrono.setBorder(Jborder);
 		startTime = System.currentTimeMillis();
-		Timer time = new Timer(1000, new ActionListener() {
+		time = new Timer(1000, new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				long duration = (System.currentTimeMillis() - startTime) / 1000;
+				duration = (System.currentTimeMillis() - startTime) / 1000;
 				LocalTime lt = LocalTime.ofSecondOfDay(duration);
 				chrono.setText("temps écoulé : " + lt+"  ");
 			}
@@ -250,7 +246,8 @@ public class Jeu {
 		}
 		actualisationLabelJCourant();
 		if (joueursencours.getTaille() == 0) {
-			etage();
+			if(etage<5)	etage();
+			else finir();
 		}
 	}
 	
@@ -279,7 +276,7 @@ public class Jeu {
 		do {
 			int xCle = 0;
 			int yCle = 0; 
-			while(!labyrinth.getLabyrinthD().surChemin(xCle,yCle) || !PasDejaDeClef(xCle,yCle) || (xCle == l/2+1 && yCle == l/2+1)){
+			while(!labyrinth.getLabyrinthD().surChemin(xCle,yCle) || !PasDejaDeClef(xCle,yCle) || (xCle == l && yCle == l)){
 				xCle = rand.nextInt(2*l)+1;
 				yCle = rand.nextInt(2*l)+1;
 			}
@@ -356,11 +353,18 @@ public class Jeu {
 	    return rotatedImage;
 	}
 	
+	public Timer getTime() {
+		return time;
+	}
+	
+	public JLabel getChrono() {
+		return chrono;
+	}
+	
 	public void finir()
 	{
-		fin = System.currentTimeMillis();
-		long duree = fin - depart;
-		boolean majscores = ((Scores) m.getMeilleurScore()).sauvegardeScores(duree);
+		time.stop();
+		boolean majscores = ((Scores) m.getMeilleurScore()).sauvegardeScores(duration);
 		if(majscores) {
 			((Scores) m.getMeilleurScore()).majScores();
 		}

@@ -100,7 +100,7 @@ public class ParametresPartie extends JPanel {
 		centerCenterBox.setBorder(new EmptyBorder(200, 0, 0, 0));
 		centerCenterBox.setOpaque(false);
 		
-		Color checkBoxColor = Color.red; //new Color(250, 250, 175)
+		Color checkBoxColor = new Color(205,83,52); //new Color(250, 250, 175)
 		
 		JCheckBox j1 = new JCheckBox("Georges");
 		j1.setFont(DayDream);
@@ -146,7 +146,7 @@ public class ParametresPartie extends JPanel {
 		for(int i = 0; i < n; i++) {
 			JCheckBox tmpJCheckBox = new JCheckBox("Il faut creer un attribut nom pour les joueurs");
 			tmpJCheckBox.setFont(DayDream);
-			tmpJCheckBox.setForeground(new Color(250, 250, 175));
+			tmpJCheckBox.setForeground(new Color(205,83,52));
 			tmpJCheckBox.setOpaque(false);
 			tmpJCheckBox.setFocusPainted(false);
 			centerCenterBox.add(tmpJCheckBox);
@@ -187,23 +187,23 @@ public class ParametresPartie extends JPanel {
 		});
 		
 		j1.addActionListener((ActionEvent event) -> {
-			appelVerif(j1,"G", 0.80);
+			//appelVerif(j1,"G", 0.80);
 		});
 		
 		j2.addActionListener((ActionEvent event) -> {
-			appelVerif(j2,"R", 0.80);
+			//appelVerif(j2,"R", 0.80);
 		});
 		
 		j3.addActionListener((ActionEvent event) -> {
-			appelVerif(j3,"AN",0.30);
+			//appelVerif(j3,"AN",0.30);
 		});
 		
 		j4.addActionListener((ActionEvent event) -> {
-			appelVerif(j4,"AL",0.60);
+			//appelVerif(j4,"AL",0.20);
 		});
 		
 		j5.addActionListener((ActionEvent event) -> {
-			appelVerif(j5,"L",0.30);
+			//appelVerif(j5,"L",0.30);
 		});
 		
 		lancer.addActionListener((ActionEvent event) -> {
@@ -213,23 +213,23 @@ public class ParametresPartie extends JPanel {
 	                ListeDeJoueurs ldj = new ListeDeJoueurs();
 	                
 	                if(j1.isSelected()) {
-	                    ldj.add(new Joueur(Color.PINK, 0, 0));//georges
+	                    ldj.add(new Joueur(new Color(168, 70, 160), 0, 0));//georges, rose
 	                }
 	                
 	                if(j2.isSelected()) {
-	                    ldj.add(new Joueur(Color.GREEN, 0, 0));//ronen
+	                    ldj.add(new Joueur(new Color(61, 163, 93), 0, 0));//ronen, vert
 	                }
 	                
 	                if(j3.isSelected()) {
-	                    ldj.add(new Joueur(Color.BLUE, 0, 0));//antoinette
+	                    ldj.add(new Joueur(new Color(25,130,196), 0, 0));//antoinette, bleu
 	                }
 	                
 	                if(j4.isSelected()) {
-	                    ldj.add(new Joueur(Color.MAGENTA, 0, 0));//alec
+	                    ldj.add(new Joueur(new Color(106,76,147), 0, 0));//alec, violet
 	                }
 	                
 	                if(j5.isSelected()) {
-	                    ldj.add(new Joueur(Color.ORANGE, 0, 0));//lea
+	                    ldj.add(new Joueur(new Color(255,202,58), 0, 0));//lea, orange
 	                }
 	                
 	                //permet d'ajouter les nouveaux joueurs a la liste de joueur
@@ -258,13 +258,13 @@ public class ParametresPartie extends JPanel {
 			boolean verifier = verif(n,c);
 
 			if(verifier) {
-				j.setForeground(Color.GREEN);
+				j.setForeground(new Color(161,207,107));
 			} else {
 				j.setSelected(false);
 			}
 			j.setEnabled(true);
 		} else {
-			j.setForeground(Color.RED);
+			j.setForeground(new Color(205,183,52));
 		}
 	}
 	
