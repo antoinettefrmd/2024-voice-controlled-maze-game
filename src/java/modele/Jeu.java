@@ -242,7 +242,7 @@ public class Jeu {
 	public void etage() { // set l'endroit des clé à chaque manche
 		etage++;
 		m.changeEtage(etage);
-		taille+=6;
+		taille+=2;
 		joueursencours = ListeDeJoueurs.copier(joueurs);
 		
 		courant = joueursencours.getCourant();

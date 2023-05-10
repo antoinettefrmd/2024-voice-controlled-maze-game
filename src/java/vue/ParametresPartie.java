@@ -77,11 +77,6 @@ public class ParametresPartie extends JPanel {
 		titre.setForeground(new Color(250, 250, 175));
 		titre.setFont(DayDream);
 		
-		//JLabel phraseChoix = new JLabel("Pour jouer, cliquez sur votre nom puis parlez pendant 10 secondes pour vérifier votre identité");
-		//phraseChoix.setFont(DayDream);
-		//phraseChoix.setForeground(new Color(250, 250, 175));
-		
-		
 		topBox.add(retour, BorderLayout.WEST);
 		
 		JPanel centerBox = new JPanel();
@@ -191,19 +186,19 @@ public class ParametresPartie extends JPanel {
 		});
 		
 		j2.addActionListener((ActionEvent event) -> {
-			//appelVerif(j2,"R", 0.80);
+			//appelVerif(j2,"R", 0.60);
 		});
 		
 		j3.addActionListener((ActionEvent event) -> {
-			//appelVerif(j3,"AN",0.30);
+			//appelVerif(j3,"AN",0.25);
 		});
 		
 		j4.addActionListener((ActionEvent event) -> {
-			//appelVerif(j4,"AL",0.20);
+			//appelVerif(j4,"AL",0.25);
 		});
 		
 		j5.addActionListener((ActionEvent event) -> {
-			//appelVerif(j5,"L",0.30);
+			appelVerif(j5,"L",0.10);
 		});
 		
 		lancer.addActionListener((ActionEvent event) -> {
@@ -213,7 +208,7 @@ public class ParametresPartie extends JPanel {
 	                ListeDeJoueurs ldj = new ListeDeJoueurs();
 	                
 	                if(j1.isSelected()) {
-	                    ldj.add(new Joueur(new Color(168, 70, 160), 0, 0));//georges, rose
+	                    ldj.add(new Joueur(new Color(183, 82, 174), 0, 0));//georges, rose
 	                }
 	                
 	                if(j2.isSelected()) {
@@ -264,7 +259,7 @@ public class ParametresPartie extends JPanel {
 			}
 			j.setEnabled(true);
 		} else {
-			j.setForeground(new Color(205,183,52));
+			j.setForeground(new Color(205,83,52));
 		}
 	}
 	
@@ -284,6 +279,7 @@ public class ParametresPartie extends JPanel {
 			res = sc.next();
 		}
 		System.out.println(res);
+		sc.close();
 		return (Double.parseDouble(res)>c);
 	}
 
