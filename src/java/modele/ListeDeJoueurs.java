@@ -82,7 +82,6 @@ public class ListeDeJoueurs {
 		ListeDeJoueurs res = new ListeDeJoueurs();
 		CellJoueur tmp = l.getCourant();
 		for (int i = 0 ; i < l.getTaille() ; i++) {
-			//System.out.println("Copier : nom j :" + tmp.getLabelJoueur().getText());
 			res.add(tmp.getJoueur(), tmp.getLabelJoueur());
 			tmp = tmp.getSuivant();
 		}

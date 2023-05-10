@@ -1,5 +1,5 @@
 package modele;
-// ancienne version
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -33,6 +33,7 @@ import modele.Labyrinth.Cle;
 import vue.JoueurSuivant;
 import vue.LabyrinthGraphique;
 import vue.Menu;
+import vue.MessageFin;
 import vue.Scores;
 
 public class Jeu {
@@ -44,6 +45,8 @@ public class Jeu {
 	public int etage;
 	private JLabel chrono;
 	private long startTime;
+	private long duration;
+	private Timer time;
 	public int taille = 5;
 	public static LinkedList<Cle> clefs;
 	private BufferedImage clef;
@@ -52,15 +55,7 @@ public class Jeu {
 	private Font font = new Font("Arial Black", Font.BOLD, 12);
 
 	
-	private long depart;
-	private long fin;
 	private Menu m;
-	
-	//permet de savoir qui est le joueur courant dans la liste de JLabel
-	private int JLabelCourantJPos = 0; 
-	
-	//JLabel qui represente le joueur courant
-	private JLabel JLabelCourant;
 	
 	//nombre de joueur max pour la partie
 	private int nbrJ;
@@ -68,7 +63,6 @@ public class Jeu {
 	private Color gold = new Color(255, 215, 0); //quand le joueur a une clef on met son pseudo en couleur gold
 	
 	private Border Jborder1 = BorderFactory.createLineBorder(Color.black, 2); //bordure pour entourer le nom d'un joueur
-
 	private Border Jborder = BorderFactory.createCompoundBorder(Jborder1, new EmptyBorder(0,9,0,6));
 	
 	private Border JActuBorder1 = BorderFactory.createLineBorder(Color.WHITE, 2); //bordure pour entourer le nom du joueur qui joue
@@ -89,10 +83,7 @@ public class Jeu {
 		etage = 0;
 		
 		int n = j.getTaille();
-		nbrJ = n;
-		
-		depart = System.currentTimeMillis();
-		
+		nbrJ = n;		
 		
 		try {
 			clef = ImageIO.read(new File("./src/ressources/images/key.png"));
@@ -142,28 +133,27 @@ public class Jeu {
 			String nom = "";
 			
 			//on verifie la couleur du joueur pour lui donner son nom
-			if(c.equals(Color.PINK)) nom = "Georges";
-			if(c.equals(Color.GREEN)) nom = "Ronen";
-			if(c.equals(Color.BLUE)) nom = "Antoinette";
-			if(c.equals(Color.MAGENTA)) nom = "Alec";
-			if(c.equals(Color.ORANGE)) nom = "Léa";
+			if(c.equals(new Color(168, 70, 160))) nom = "Georges";
+			if(c.equals(new Color(61, 163, 93))) nom = "Ronen";
+			if(c.equals(new Color(25,130,196))) nom = "Antoinette";
+			if(c.equals(new Color(106,76,147))) nom = "Alec";
+			if(c.equals(new Color(255,202,58))) nom = "Léa";
 
 			JLabel g = new JLabel(nom);
 			
 			g.setHorizontalAlignment(SwingConstants.CENTER);
 			g.setBorder(Jborder);
 			jbox.add(g);
-			//listj.add(g);
 			j.getCourant().setLabelJoueur(g);
 			j.suivant();
 		} //possible probleme a la fin de la boucle qui est le joueur courant?
 		
-		JLabelCourant = ((JLabel)jbox.getComponent(0));
-		JLabelCourant.setBorder(JActuBorder);
+		((JLabel)jbox.getComponent(0)).setBorder(JActuBorder);
 		
 		joueurs = ListeDeJoueurs.copier(j);
 		joueursencours = ListeDeJoueurs.copier(j);
-		labyrinth = new LabyrinthGraphique(taille, joueursencours);
+		labyrinth = new LabyrinthGraphique(taille, joueursencours, true);
+		
 		courant = joueursencours.getCourant();
 		
 		//permet de faire en sorte que la case du millieu soit un escalier
@@ -178,11 +168,11 @@ public class Jeu {
 		chrono.setBackground(Color.CYAN);
 		//chrono.setBorder(Jborder);
 		startTime = System.currentTimeMillis();
-		Timer time = new Timer(1000, new ActionListener() {
+		time = new Timer(1000, new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				long duration = (System.currentTimeMillis() - startTime) / 1000;
+				duration = (System.currentTimeMillis() - startTime) / 1000;
 				LocalTime lt = LocalTime.ofSecondOfDay(duration);
 				chrono.setText("temps : " + lt+"  ");
 			}
@@ -205,7 +195,7 @@ public class Jeu {
 
 		reinitialisationToutJLabel();
 		
-		labyrinth = new LabyrinthGraphique(taille, joueursencours);
+		labyrinth = new LabyrinthGraphique(taille, joueursencours, false);
 		labyrinth.getCase(taille, taille).setSortie(true);
 		labyrinth.getCase(taille, taille).setEscalier(escalier);
 		if(joueursencours.getTaille()==1) {
@@ -249,12 +239,14 @@ public class Jeu {
 		}
 		else if (current.getX() == lab.getL() && current.getY()== lab.getL()) { 
 			barreJLabel();
+			courant.getLabelJoueur().setBorder(Jborder);
 			courant = courant.getSuivant();
 			joueursencours.supprimer(courant.getPrecedent().getJoueur());
 		}
 		actualisationLabelJCourant();
 		if (joueursencours.getTaille() == 0) {
-			etage();
+			if(etage<5)	etage();
+			else finir();
 		}
 	}
 	
@@ -278,7 +270,7 @@ public class Jeu {
 		do {
 			int xCle = 0;
 			int yCle = 0; 
-			while(!labyrinth.getLabyrinthD().surChemin(xCle,yCle) || !PasDejaDeClef(xCle,yCle) || (xCle == l/2+1 && yCle == l/2+1)){
+			while(!labyrinth.getLabyrinthD().surChemin(xCle,yCle) || !PasDejaDeClef(xCle,yCle) || (xCle == l && yCle == l)){
 				xCle = rand.nextInt(2*l)+1;
 				yCle = rand.nextInt(2*l)+1;
 			}
@@ -324,7 +316,7 @@ public class Jeu {
 	
 	public void reinitialisationToutJLabel() {
 		for(int i = 0; i < nbrJ; i++) {
-			JLabel tmp = (JLabel) jbox.getComponent(JLabelCourantJPos);
+			JLabel tmp = (JLabel) jbox.getComponent(i);
 			tmp.setIcon(null);
 			tmp.setFont(font);
 			tmp.setBorder(Jborder);
@@ -361,14 +353,24 @@ public class Jeu {
 	    return rotatedImage;
 	}
 	
-	public void finir()
-	{
-		fin = System.currentTimeMillis();
-		long duree = fin - depart;
-		boolean majscores = ((Scores) m.getMeilleurScore()).sauvegardeScores(duree);
+	public Timer getTime() {
+		return time;
+	}
+	
+	public JLabel getChrono() {
+		return chrono;
+	}
+	
+	public void finir() {
+		m.getJMenuBar().remove(chrono);
+		time.stop();
+		boolean majscores = ((Scores) m.getMeilleurScore()).sauvegardeScores(duration);
 		if(majscores) {
 			((Scores) m.getMeilleurScore()).majScores();
 		}
+		
+		MessageFin dialog = new MessageFin(m , duration);
+		dialog.setVisible(true);
 	}
 	
 }

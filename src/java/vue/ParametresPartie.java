@@ -36,7 +36,6 @@ public class ParametresPartie extends JPanel {
 	private static final long serialVersionUID = -2766301827457600207L;
 	private BufferedImage image;
 	private Font minecraft;
-	private Font mincecarftcheckbox;
 	private Font DayDream;
 	private LinkedList<JCheckBox> jSuppJCheckBox;
 	private Scanner sc;
@@ -57,7 +56,6 @@ public class ParametresPartie extends JPanel {
 		setLayout(new BorderLayout(0, 0));
 		
 		image = m.getImage();
-		mincecarftcheckbox = m.getMinecraft();
 		jSuppJCheckBox = new LinkedList<JCheckBox>();
 		
 		JPanel topBox = new JPanel(new BorderLayout());
@@ -65,22 +63,16 @@ public class ParametresPartie extends JPanel {
 		
 		JButton retour = new JButton("retour");
 		retour.setFont(minecraft);
-//		retour.setBackground(new Color(176, 69, 25));
 		retour.setBackground(new Color(250, 250, 175));
 		retour.setFocusPainted(false);
 		retour.setHorizontalAlignment(SwingConstants.LEFT);
 
 		
-		JLabel titre = new JLabel("Choisir les participants :");
+		JLabel titre = new JLabel("Pour jouer, cliquez sur votre nom puis parlez pendant 10 secondes pour vérifier votre identité");
 		titre.setBorder(new EmptyBorder(50, 0, 0, 0)); //on crée un espace au-dessus du titre
 		titre.setHorizontalAlignment(SwingConstants.CENTER); //permet de centrer le texte
 		titre.setForeground(new Color(250, 250, 175));
-		titre.setFont(DayDream);
-		
-		//JLabel phraseChoix = new JLabel("Pour jouer, cliquez sur votre nom puis parlez pendant 10 secondes pour vérifier votre identité");
-		//phraseChoix.setFont(DayDream);
-		//phraseChoix.setForeground(new Color(250, 250, 175));
-		
+		titre.setFont(DayDream.deriveFont(11f));
 		
 		topBox.add(retour, BorderLayout.WEST);
 		
@@ -92,7 +84,6 @@ public class ParametresPartie extends JPanel {
 		JPanel centerTopBox = new JPanel();
 		centerTopBox.setOpaque(false);
 		centerTopBox.add(titre, BorderLayout.CENTER);
-		//centerTopBox.add(phraseChoix, BorderLayout.SOUTH);
 		centerTopBox.setOpaque(false);
 		
 		
@@ -100,7 +91,7 @@ public class ParametresPartie extends JPanel {
 		centerCenterBox.setBorder(new EmptyBorder(200, 0, 0, 0));
 		centerCenterBox.setOpaque(false);
 		
-		Color checkBoxColor = Color.red; //new Color(250, 250, 175)
+		Color checkBoxColor = new Color(205,83,52); //new Color(250, 250, 175)
 		
 		JCheckBox j1 = new JCheckBox("Georges");
 		j1.setFont(DayDream);
@@ -146,7 +137,7 @@ public class ParametresPartie extends JPanel {
 		for(int i = 0; i < n; i++) {
 			JCheckBox tmpJCheckBox = new JCheckBox("Il faut creer un attribut nom pour les joueurs");
 			tmpJCheckBox.setFont(DayDream);
-			tmpJCheckBox.setForeground(new Color(250, 250, 175));
+			tmpJCheckBox.setForeground(new Color(205,83,52));
 			tmpJCheckBox.setOpaque(false);
 			tmpJCheckBox.setFocusPainted(false);
 			centerCenterBox.add(tmpJCheckBox);
@@ -167,10 +158,6 @@ public class ParametresPartie extends JPanel {
 		lancer.setFocusPainted(false);
 		lancer.setFont(minecraft);
 		lancer.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		// lancer.setBorder(null);
-		// lancer.setOpaque(false);
-		// lancer.setContentAreaFilled(false);
-
 		lancer.setPreferredSize(new Dimension(200, 50));
 		
 		southBox.add(lancer);
@@ -213,23 +200,23 @@ public class ParametresPartie extends JPanel {
 	                ListeDeJoueurs ldj = new ListeDeJoueurs();
 	                
 	                if(j1.isSelected()) {
-	                    ldj.add(new Joueur(Color.PINK, 0, 0));//georges
+	                    ldj.add(new Joueur(new Color(168, 70, 160), 0, 0));//georges, rose
 	                }
 	                
 	                if(j2.isSelected()) {
-	                    ldj.add(new Joueur(Color.GREEN, 0, 0));//ronen
+	                    ldj.add(new Joueur(new Color(61, 163, 93), 0, 0));//ronen, vert
 	                }
 	                
 	                if(j3.isSelected()) {
-	                    ldj.add(new Joueur(Color.BLUE, 0, 0));//antoinette
+	                    ldj.add(new Joueur(new Color(25,130,196), 0, 0));//antoinette, bleu
 	                }
 	                
 	                if(j4.isSelected()) {
-	                    ldj.add(new Joueur(Color.MAGENTA, 0, 0));//alec
+	                    ldj.add(new Joueur(new Color(106,76,147), 0, 0));//alec, violet
 	                }
 	                
 	                if(j5.isSelected()) {
-	                    ldj.add(new Joueur(Color.ORANGE, 0, 0));//lea
+	                    ldj.add(new Joueur(new Color(255,202,58), 0, 0));//lea, orange
 	                }
 	                
 	                //permet d'ajouter les nouveaux joueurs a la liste de joueur
@@ -258,20 +245,20 @@ public class ParametresPartie extends JPanel {
 			boolean verifier = verif(n,c);
 
 			if(verifier) {
-				j.setForeground(Color.GREEN);
+				j.setForeground(new Color(161,207,107));
 			} else {
 				j.setSelected(false);
 			}
 			j.setEnabled(true);
 		} else {
-			j.setForeground(Color.RED);
+			j.setForeground(new Color(205,183,52));
 		}
 	}
 	
 	public boolean verif(String n, double c) {
 		return true;
 //		ExecuteBash.cmd_system("./src/java/controlleur/recordVoix.sh");
-//		ExecuteBash.cmd_system("./src/java/controlleur/computeTest"+n+".sh");
+//        ExecuteBash.cmd_system("./src/java/controlleur/computeTest"+n+".sh");
 //		try {
 //			sc = new Scanner(new File("src/ressources/modele_voix/CFG/resultat.txt"));
 //		}
@@ -285,6 +272,7 @@ public class ParametresPartie extends JPanel {
 //			res = sc.next();
 //		}
 //		System.out.println(res);
+//		//sc.close();
 //		return (Double.parseDouble(res)>c);
 	}
 

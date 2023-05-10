@@ -9,7 +9,6 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -17,16 +16,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -51,15 +40,19 @@ public class Menu extends JFrame {
 	private JPanel menuPanel;
 	private JPanel creditPanel;
 	private JPanel meilleurScore;
-	private JMenuBar jmb; //permet de créer une barre en haut dans le jeu
 	private JPanel jbox; //contient tous les labels pour les joueurs
+
+	private JMenuBar jmb; //permet de créer une barre en haut dans le jeu
 	private JLabel etage;
 	
+	private BufferedImage image; //image pour le fond de l'interface graphique
+	
 	private Dimension dimMenu; //donne la dimension de notre interface graphique sur l'écran
+	
 	private Font DayDream; //police d'écriture pour le titre
 	private Font minecraft; //police d'écriture pour le texte en général
 	private Font minecraftButton;
-	private BufferedImage image; //image pour le fond de l'interface graphique
+	
 	private Border Jborder = BorderFactory.createLineBorder(Color.black, 2);
 	
 	private ListeDeJoueurs joueurSupp; //permet d'ajouter des joueurs supplémentaire a la liste de joueur de base
@@ -115,7 +108,6 @@ public class Menu extends JFrame {
 			buttonBox.setOpaque(false);
 			
 			Dimension dimButton = new Dimension(150, 50);
-			Font fontButton = new Font("Arial Black", ABORT, 20);
 					
 			//bouton qui permet d'accéder à ParametresPartie
 			JButton jouer = new JButton("Jouer");
@@ -238,9 +230,6 @@ public class Menu extends JFrame {
 			e.printStackTrace();
 		}
 		
-		//recupere la taille de l'écran
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		
 		joueurSupp = new ListeDeJoueurs();
 		
 		dimMenu = new Dimension(1000,800);
@@ -250,7 +239,6 @@ public class Menu extends JFrame {
 		meilleurScore = new Scores(this);
 		
 		creditPanel = new Credit(this);
-
 		
 		
 		//JMenuBar
@@ -271,7 +259,7 @@ public class Menu extends JFrame {
 		//etage.setBorder(BorderFactory.createCompoundBorder(Jborder, new EmptyBorder(5,5,5,5)));
 		etage.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
-		JLabel jactu = new JLabel("Joueurs/euses");
+		JLabel jactu = new JLabel("Joueurs/euses : ");
 		jactu.setBorder(new EmptyBorder(0, 10, 0, 0));
 		
 		//permet de lancer l'enregistrement de la voix
@@ -289,7 +277,6 @@ public class Menu extends JFrame {
 
 		
 		ImageIcon logo = new ImageIcon(getClass().getResource("/images/logo.png")); //On va chercher l'image pour le logo du jeu
-		//ImageIcon logo = new ImageIcon("../../images/logo.png");
 		
 		setJMenuBar(jmb);
 		jmb.setVisible(false); //On set le JMenuBar a false car on en aura besoin seulement quand la partie a commencé
@@ -308,13 +295,13 @@ public class Menu extends JFrame {
 		quitterjeu.addActionListener((ActionEvent event) -> {
 			resetJMenuBar(jbox);
 			jmb.setVisible(false);
+			jmb.remove(jeu.getChrono());
+			jeu.getTime().stop();
 			getContentPane().remove(contentPane);
 			getContentPane().add(menuPanel);
 		});
 
 		recordMot.addActionListener((ActionEvent event) -> { 
-			//ExecuteBash rm = new ExecuteBash("/src/java/controlleur/recordMot.sh");	
-			//ExecuteBash tr = new ExecuteBash("/src/java/controlleur/whisper.sh");
 			ExecuteBash.cmd_system("./src/java/controlleur/recordMot.sh");
 			ExecuteBash.cmd_system("src/java/controlleur/whisper.sh");
 			
@@ -329,7 +316,7 @@ public class Menu extends JFrame {
 						mot = reader.readLine();
 					} catch (IOException e) {
 						e.printStackTrace();
-					} 
+					}
 				}
 			}
 			System.out.println(mot);
@@ -355,18 +342,8 @@ public class Menu extends JFrame {
 	
 	//permet de lancer le jeu depuis parametresPartie
 	public void lancerjeu(ListeDeJoueurs ldj) {
-		
 		jeu = new Jeu(this, ldj);
-		
 		jbox = jeu.getJbox();
-		
-//		Il faut faire un boolean pour savoir si le jeu est terminer
-//		si c'est le cas alors on affiche le message de fin
-//		PROBLEME dans Jeu comment on sait que le jeu est terminer ?
-//		if(jeu.getfin()) {
-//			MessageFin dialog = new MessageFin(this , restemps);
-//			dialog.setVisible(true);
-//		}
 	}
 	
 	public void MAJlabyrinthG(LabyrinthGraphique lg) {
