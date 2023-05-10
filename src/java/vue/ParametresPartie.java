@@ -178,19 +178,19 @@ public class ParametresPartie extends JPanel {
 		});
 		
 		j2.addActionListener((ActionEvent event) -> {
-			appelVerif(j2,"R", 0.80);
+			appelVerif(j2,"R", 0.60);
 		});
 		
 		j3.addActionListener((ActionEvent event) -> {
-			appelVerif(j3,"AN",0.30);
+			appelVerif(j3,"AN",0.25);
 		});
 		
 		j4.addActionListener((ActionEvent event) -> {
-			appelVerif(j4,"AL",0.20);
+			appelVerif(j4,"AL",0.25);
 		});
 		
 		j5.addActionListener((ActionEvent event) -> {
-			appelVerif(j5,"L",0.30);
+			appelVerif(j5,"L",0.10);
 		});
 		
 		lancer.addActionListener((ActionEvent event) -> {
@@ -200,7 +200,7 @@ public class ParametresPartie extends JPanel {
 	                ListeDeJoueurs ldj = new ListeDeJoueurs();
 	                
 	                if(j1.isSelected()) {
-	                    ldj.add(new Joueur(new Color(168, 70, 160), 0, 0));//georges, rose
+	                    ldj.add(new Joueur(new Color(183, 82, 174), 0, 0));//georges, rose
 	                }
 	                
 	                if(j2.isSelected()) {
@@ -251,29 +251,28 @@ public class ParametresPartie extends JPanel {
 			}
 			j.setEnabled(true);
 		} else {
-			j.setForeground(new Color(205,183,52));
+			j.setForeground(new Color(205,83,52));
 		}
 	}
 	
 	public boolean verif(String n, double c) {
-		return true;
-//		ExecuteBash.cmd_system("./src/java/controlleur/recordVoix.sh");
-//        ExecuteBash.cmd_system("./src/java/controlleur/computeTest"+n+".sh");
-//		try {
-//			sc = new Scanner(new File("src/ressources/modele_voix/CFG/resultat.txt"));
-//		}
-//		catch(Exception e) {
-//			System.out.println("Erreur lors d’ouverture fichier:");
-//			e.printStackTrace();
-//			System.exit(1);
-//		}
-//		String res = "";
-//		while(sc.hasNext()) {
-//			res = sc.next();
-//		}
-//		System.out.println(res);
-//		//sc.close();
-//		return (Double.parseDouble(res)>c);
+		ExecuteBash.cmd_system("./src/java/controlleur/recordVoix.sh");
+		ExecuteBash.cmd_system("./src/java/controlleur/computeTest"+n+".sh");
+		try {
+			sc = new Scanner(new File("src/ressources/modele_voix/CFG/resultat.txt"));
+		}
+		catch(Exception e) {
+			System.out.println("Erreur lors d’ouverture fichier:");
+			e.printStackTrace();
+			System.exit(1);
+		}
+		String res = "";
+		while(sc.hasNext()) {
+			res = sc.next();
+		}
+		System.out.println(res);
+		sc.close();
+		return (Double.parseDouble(res)>c);
 	}
 
 	@SuppressWarnings("unused")
