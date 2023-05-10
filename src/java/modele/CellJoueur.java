@@ -1,8 +1,11 @@
 package modele;
 
+import javax.swing.JLabel;
+
 public class CellJoueur {
 
 	private Joueur joueur;
+	private JLabel labelJoueur;
 	private CellJoueur suivant;
 	private CellJoueur precedent;
 	
@@ -51,5 +54,13 @@ public class CellJoueur {
 			return suivant.supprimer(p, courant);
 		}
 		return false;
+	}
+	
+	public JLabel getLabelJoueur() {
+		return labelJoueur;
+	}
+	
+	public void setLabelJoueur(JLabel labelJoueur) {
+		this.labelJoueur = labelJoueur;
 	}
 }

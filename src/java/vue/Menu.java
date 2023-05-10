@@ -276,6 +276,7 @@ public class Menu extends JFrame {
 		
 		//permet de lancer l'enregistrement de la voix
 		JButton recordMot = new JButton("Jouer");
+		recordMot.setFocusPainted(false);
 		           
 		           
 		jmb.add(quitterjeu);

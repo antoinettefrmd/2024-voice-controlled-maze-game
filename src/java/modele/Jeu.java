@@ -27,7 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.border.Border;
-import javax.swing.Timer;
+import javax.swing.border.EmptyBorder;
 
 import modele.Labyrinth.Cle;
 import vue.JoueurSuivant;
@@ -67,12 +67,16 @@ public class Jeu {
 	
 	private Color gold = new Color(255, 215, 0); //quand le joueur a une clef on met son pseudo en couleur gold
 	
-	private Border Jborder = BorderFactory.createLineBorder(Color.black, 2); //bordure pour entourer le nom d'un joueur
-	private Border JActuBorder = BorderFactory.createLineBorder(Color.WHITE, 2); //bordure pour entourer le nom du joueur qui joue
+	private Border Jborder1 = BorderFactory.createLineBorder(Color.black, 2); //bordure pour entourer le nom d'un joueur
+
+	private Border Jborder = BorderFactory.createCompoundBorder(Jborder1, new EmptyBorder(0,9,0,6));
+	
+	private Border JActuBorder1 = BorderFactory.createLineBorder(Color.WHITE, 2); //bordure pour entourer le nom du joueur qui joue
+	private Border JActuBorder = BorderFactory.createCompoundBorder(JActuBorder1, new EmptyBorder(0,9,0,6));
+
 	private Border JWinBorder = BorderFactory.createLineBorder(gold, 2); //bordure pour les joueurs qui ont terminé
 	private Font Jfontwin; //texte pour les joueurs qui ont terminé
 	
-	private LinkedList<JLabel> listj; //permet d'avoir la liste des JLabel représentant les joueurs
 	private JPanel jbox; //permet de contenir tous les JLabel des joueurs et de les organiser dans la topbar
 
 	
@@ -82,11 +86,7 @@ public class Jeu {
 		this.m = m;
 		
 		clefs = new LinkedList<Cle>();
-		joueurs = ListeDeJoueurs.copier(j);
-		joueursencours = ListeDeJoueurs.copier(j);
-		labyrinth = new LabyrinthGraphique(taille, joueursencours);
 		etage = 0;
-		courant = joueursencours.getCourant();
 		
 		int n = j.getTaille();
 		nbrJ = n;
@@ -101,17 +101,7 @@ public class Jeu {
 			e.printStackTrace();
 		}
 		
-		genererClefs();
-		
-		//permet de faire en sorte que la case du millieu soit un escalier
-		labyrinth.getCase(taille, taille).setSortie(true);
-		labyrinth.getCase(taille, taille).setEscalier(escalier);
-		
-		m.MAJlabyrinthG(labyrinth); //met à jour l'interface graphique et donc le labyrinth
-
 		JMenuBar jmb = m.getJMenuBar();
-		
-		listj = new LinkedList<JLabel>();
 		
 		jbox = new JPanel(new GridLayout(0, 5, 10, 0));
 		jbox.setOpaque(false);
@@ -163,15 +153,26 @@ public class Jeu {
 			g.setHorizontalAlignment(SwingConstants.CENTER);
 			g.setBorder(Jborder);
 			jbox.add(g);
-			listj.add(g);
+			//listj.add(g);
+			j.getCourant().setLabelJoueur(g);
 			j.suivant();
 		} //possible probleme a la fin de la boucle qui est le joueur courant?
 		
 		JLabelCourant = ((JLabel)jbox.getComponent(0));
 		JLabelCourant.setBorder(JActuBorder);
 		
-		JLabelCourant = ((JLabel)jbox.getComponent(0));
-		JLabelCourant.setBorder(JActuBorder);
+		joueurs = ListeDeJoueurs.copier(j);
+		joueursencours = ListeDeJoueurs.copier(j);
+		labyrinth = new LabyrinthGraphique(taille, joueursencours);
+		courant = joueursencours.getCourant();
+		
+		//permet de faire en sorte que la case du millieu soit un escalier
+		labyrinth.getCase(taille, taille).setSortie(true);
+		labyrinth.getCase(taille, taille).setEscalier(escalier);
+				
+		m.MAJlabyrinthG(labyrinth); //met à jour l'interface graphique et donc le labyrinth
+		
+		genererClefs();
 		
 		chrono = new JLabel("temps écoulé : 0");
 		chrono.setBackground(Color.CYAN);
@@ -183,7 +184,7 @@ public class Jeu {
 			public void actionPerformed(ActionEvent e) {
 				long duration = (System.currentTimeMillis() - startTime) / 1000;
 				LocalTime lt = LocalTime.ofSecondOfDay(duration);
-				chrono.setText("temps écoulé : " + lt+"  ");
+				chrono.setText("temps : " + lt+"  ");
 			}
 		});
 		time.start();
@@ -198,7 +199,12 @@ public class Jeu {
 		m.changeEtage(etage);
 		taille+=2;
 		joueursencours = ListeDeJoueurs.copier(joueurs);
+		
+		//il faut bien ajouter cette ligne pour que ça fonctionne nn?
+		courant = joueursencours.getCourant();
 
+		reinitialisationToutJLabel();
+		
 		labyrinth = new LabyrinthGraphique(taille, joueursencours);
 		labyrinth.getCase(taille, taille).setSortie(true);
 		labyrinth.getCase(taille, taille).setEscalier(escalier);
@@ -214,9 +220,6 @@ public class Jeu {
 
 	}
 	
-	//pour l'utilisation de script bash il faut utiliser la class ExecuteBash et donner en argument du constructeur le
-	//chemin vers le script depuis src ex : "/src/java/controlleur/record.sh"
-
 	public void tour(String deplacement) {
 
 		Labyrinth lab = labyrinth.getLabyrinthD();
@@ -262,13 +265,8 @@ public class Jeu {
 	//permet de mettre le joueur actuel avec la borduer spécial
 	//normalement ça suit le joueur courant du jeu mais pas encore tester donc pas sur
 	public void actualisationLabelJCourant() {
-		JLabelCourant.setBorder(Jborder);
-		if(JLabelCourantJPos == nbrJ-1) JLabelCourantJPos = 0;
-		else JLabelCourantJPos++;
-		//JLabel tmp = JLabelCourant;
-		//tmp.setBorder(Jborder);
-		JLabelCourant = (JLabel) jbox.getComponent(JLabelCourantJPos); 
-		JLabelCourant.setBorder(JActuBorder);
+		courant.getPrecedent().getLabelJoueur().setBorder(Jborder);
+		courant.getLabelJoueur().setBorder(JActuBorder);;
 	}
 
 	public void genererClefs(){
@@ -313,25 +311,25 @@ public class Jeu {
 	}
 	
 	public void ajouteclefJLabel() {
-		JLabelCourant.setIcon(clefvertical);
+		courant.getLabelJoueur().setIcon(clefvertical);
 	}
 	
 	public void barreJLabel() {
-		JLabelCourant.setFont(Jfontwin);
+		courant.getLabelJoueur().setFont(Jfontwin);
 	}
 	
 	public void bordureGoldJLabel() {
-		JLabelCourant.setBorder(JWinBorder);
+		courant.getLabelJoueur().setBorder(JWinBorder);
 	}
 	
 	public void reinitialisationToutJLabel() {
-		for(int i = 0; i < nbrJ-1; i++) {
+		for(int i = 0; i < nbrJ; i++) {
 			JLabel tmp = (JLabel) jbox.getComponent(JLabelCourantJPos);
+			tmp.setIcon(null);
 			tmp.setFont(font);
 			tmp.setBorder(Jborder);
 		}
-		JLabel tmp = (JLabel) jbox.getComponent(0);
-		tmp.setBorder(JActuBorder);
+		courant.getLabelJoueur().setBorder(JActuBorder);
 	}
 	
 	private static BufferedImage rotateImage(BufferedImage buffImage, double angle) {

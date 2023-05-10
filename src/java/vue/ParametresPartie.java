@@ -199,7 +199,7 @@ public class ParametresPartie extends JPanel {
 		});
 		
 		j4.addActionListener((ActionEvent event) -> {
-			appelVerif(j4,"AL",0.60);
+			appelVerif(j4,"AL",0.20);
 		});
 		
 		j5.addActionListener((ActionEvent event) -> {
@@ -269,22 +269,23 @@ public class ParametresPartie extends JPanel {
 	}
 	
 	public boolean verif(String n, double c) {
-		ExecuteBash.cmd_system("./src/java/controlleur/recordVoix.sh");
-		ExecuteBash.cmd_system("./src/java/controlleur/computeTest"+n+".sh");
-		try {
-			sc = new Scanner(new File("src/ressources/modele_voix/CFG/resultat.txt"));
-		}
-		catch(Exception e) {
-			System.out.println("Erreur lors d’ouverture fichier:");
-			e.printStackTrace();
-			System.exit(1);
-		}
-		String res = "";
-		while(sc.hasNext()) {
-			res = sc.next();
-		}
-		System.out.println(res);
-		return (Double.parseDouble(res)>c);
+		return true;
+//		ExecuteBash.cmd_system("./src/java/controlleur/recordVoix.sh");
+//		ExecuteBash.cmd_system("./src/java/controlleur/computeTest"+n+".sh");
+//		try {
+//			sc = new Scanner(new File("src/ressources/modele_voix/CFG/resultat.txt"));
+//		}
+//		catch(Exception e) {
+//			System.out.println("Erreur lors d’ouverture fichier:");
+//			e.printStackTrace();
+//			System.exit(1);
+//		}
+//		String res = "";
+//		while(sc.hasNext()) {
+//			res = sc.next();
+//		}
+//		System.out.println(res);
+//		return (Double.parseDouble(res)>c);
 	}
 
 	@SuppressWarnings("unused")
