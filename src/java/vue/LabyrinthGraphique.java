@@ -2,22 +2,16 @@ package vue;
 
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
 import javax.swing.JPanel;
-import javax.swing.KeyStroke;
 
 import modele.Labyrinth;
 import modele.ListeDeJoueurs;
 
-@SuppressWarnings("serial")
 public class LabyrinthGraphique extends JPanel{
 	
 	private static final long serialVersionUID = -2207872168451622130L;
@@ -39,14 +33,7 @@ public class LabyrinthGraphique extends JPanel{
 	public LabyrinthGraphique(int n, ListeDeJoueurs p, boolean b) {
 		
 		this.labyrinthD = new Labyrinth(n, p, b);
-		this.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "right");
-		this.getActionMap().put("right", right);
-		this.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "left");
-		this.getActionMap().put("left", left);
-		this.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "up");
-		this.getActionMap().put("up", up);
-		this.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "down");
-		this.getActionMap().put("down", down);
+		
 		setLayout(new GridLayout(2*n+1, 2*n+1));
 		labyrinthG = new JPanel[2*n +1][2*n +1];
 		
@@ -76,46 +63,7 @@ public class LabyrinthGraphique extends JPanel{
 		requestFocus();
 		
 	}
-	
-	
-	public void placerJoueurs(ListeDeJoueurs joueurs) {
-		
-	}
-	private Action right = new AbstractAction() {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			LabyrinthGraphique.this.labyrinthD.droite(LabyrinthGraphique.this.labyrinthD.getCurrent().getJoueur());
-			repaint();
-		}
-	};
 
-	private Action left = new AbstractAction() {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			LabyrinthGraphique.this.labyrinthD.gauche(LabyrinthGraphique.this.labyrinthD.getCurrent().getJoueur());
-			repaint();
-		}
-	};
-	
-	private Action up = new AbstractAction() {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			LabyrinthGraphique.this.labyrinthD.haut(LabyrinthGraphique.this.labyrinthD.getCurrent().getJoueur());
-			repaint();
-		}
-	};
-	
-	private Action down = new AbstractAction() {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			LabyrinthGraphique.this.labyrinthD.bas(LabyrinthGraphique.this.labyrinthD.getCurrent().getJoueur());
-			repaint();
-		}
-	};
 	public Labyrinth getLabyrinthD() {
 		return labyrinthD;
 	}
