@@ -87,10 +87,7 @@ public class Scores extends JPanel {
 		titre.setOpaque(false);
 		titre.setFont(minecraft);
 		titre.setForeground(new Color(250, 250, 175));
-		//titre.setFont(new Font("Arial Black", ABORT, 20));
 		
-		
-		//JPanel scoreBox = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 0));
 		JPanel scoreBox = new JPanel(new GridLayout(10, 1, 0, 10));
 		scoreBox.setBorder(new EmptyBorder(new Insets(50, 0, 50, 0)));
 		scoreBox.setOpaque(false);

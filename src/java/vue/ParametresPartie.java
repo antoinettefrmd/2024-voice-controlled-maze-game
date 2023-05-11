@@ -68,7 +68,7 @@ public class ParametresPartie extends JPanel {
 		retour.setHorizontalAlignment(SwingConstants.LEFT);
 
 		
-		JLabel titre = new JLabel("Cliquez sur votre nom puis prononcer le mot de passe : ");
+		JLabel titre = new JLabel("Cliquez sur votre nom puis prononcez le mot de passe suivant : ");
 		titre.setBorder(new EmptyBorder(50, 0, 0, 0)); //on crée un espace au-dessus du titre
 		titre.setHorizontalAlignment(SwingConstants.CENTER); //permet de centrer le texte
 		titre.setForeground(new Color(250, 250, 175));
