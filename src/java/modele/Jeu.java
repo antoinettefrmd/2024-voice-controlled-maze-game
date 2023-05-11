@@ -51,7 +51,7 @@ public class Jeu {
 	private long startTime;
 	private long duration;
 	private Timer time;
-	public int taille = 5;
+	public int taille = 3;
 	public static LinkedList<Cle> clefs;
 	private BufferedImage clef;
 	private Icon clefvertical;
@@ -256,9 +256,10 @@ public class Jeu {
 	};
 	
 	public void etage() { // set l'endroit des clé à chaque manche
+		System.out.println("étage");
 		etage++;
 		m.changeEtage(etage);
-		taille+=2;
+		//taille+=2;
 		joueursencours = ListeDeJoueurs.copier(joueurs);
 		
 		//il faut bien ajouter cette ligne pour que ça fonctionne nn?
@@ -267,20 +268,21 @@ public class Jeu {
 		reinitialisationToutJLabel();
 		
 		labyrinth = new LabyrinthGraphique(taille, joueursencours);
+		m.MAJlabyrinthG(labyrinth); //afficher le nouveau labyrinth avec les joueurs (ALEC)
 		labyrinth.getCase(taille, taille).setSortie(true);
 		labyrinth.getCase(taille, taille).setEscalier(escalier);
 		if(joueursencours.getTaille()==1) {
-			//labyrinth.getLabyrinthD().getLabyrinth()[taille][taille].addJoueur(courant.getJoueur());
 			courant.getJoueur().setX(taille);
 			courant.getJoueur().setY(taille);
+			labyrinth.getLabyrinthD().getLabyrinth()[taille][taille].addJoueur(courant.getJoueur());
+		}else {
+			CellJoueur tmp = courant;
+			while((tmp=tmp.getSuivant())!=courant) {
+				tmp.getJoueur().setX(taille);
+				tmp.getJoueur().setY(taille);
+				labyrinth.getLabyrinthD().getLabyrinth()[taille][taille].addJoueur(tmp.getJoueur());
+			}
 		}
-		CellJoueur tmp = courant;
-		while((tmp=tmp.getSuivant())!=courant) {
-			//labyrinth.getLabyrinthD().getLabyrinth()[taille][taille].addJoueur(courant.getJoueur());
-			tmp.getJoueur().setX(taille);
-			tmp.getJoueur().setY(taille);
-		}
-		m.MAJlabyrinthG(labyrinth); //afficher le nouveau labyrinth avec les joueurs (ALEC)
 		genererClefs();
 
 	}
@@ -318,9 +320,7 @@ public class Jeu {
 			courant = courant.getSuivant();
 			joueursencours.supprimer(courant.getPrecedent().getJoueur());
 			if (joueursencours.getTaille() == 0) {
-				System.out.print("bbbbbbbbb");
-				if(etage<5){
-					System.out.print("hehe c'est quoi ce bordel");
+				if(etage<3){
 					etage();
 				}	
 				else finir();
