@@ -86,7 +86,7 @@ public class Jeu {
 
 		joueurs = ListeDeJoueurs.copier(j);
 		joueursencours = ListeDeJoueurs.copier(j);
-		labyrinth = new LabyrinthGraphique(taille, joueursencours, true);
+		labyrinth = new LabyrinthGraphique(taille, joueursencours);
 		labyrinth.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "right");
 		labyrinth.getActionMap().put("right", right);
 		labyrinth.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "left");
@@ -168,13 +168,24 @@ public class Jeu {
 		
 		joueurs = ListeDeJoueurs.copier(j);
 		joueursencours = ListeDeJoueurs.copier(j);
-		labyrinth = new LabyrinthGraphique(taille, joueursencours, true);
+		labyrinth = new LabyrinthGraphique(taille, joueursencours);
 		
 		courant = joueursencours.getCourant();
 		
 		//permet de faire en sorte que la case du millieu soit un escalier
 		labyrinth.getCase(taille, taille).setSortie(true);
 		labyrinth.getCase(taille, taille).setEscalier(escalier);
+		
+		CellJoueur current = joueurs.getCourant();
+		CellJoueur tmp = current;
+		do {
+			int l = labyrinth.getLabyrinthD().getL();
+			tmp.getJoueur().setX(l);
+			tmp.getJoueur().setY(labyrinth.getLabyrinthD().getL());
+			labyrinth.getLabyrinthD().getLabyrinth()[l][l].addJoueur(tmp.getJoueur());
+			tmp = tmp.getSuivant();
+		} while (tmp != current);
+
 				
 		m.MAJlabyrinthG(labyrinth); //met à jour l'interface graphique et donc le labyrinth
 		
@@ -255,15 +266,19 @@ public class Jeu {
 
 		reinitialisationToutJLabel();
 		
-		labyrinth = new LabyrinthGraphique(taille, joueursencours, false);
+		labyrinth = new LabyrinthGraphique(taille, joueursencours);
 		labyrinth.getCase(taille, taille).setSortie(true);
 		labyrinth.getCase(taille, taille).setEscalier(escalier);
 		if(joueursencours.getTaille()==1) {
-			labyrinth.getLabyrinthD().getLabyrinth()[taille][taille].addJoueur(courant.getJoueur());
+			//labyrinth.getLabyrinthD().getLabyrinth()[taille][taille].addJoueur(courant.getJoueur());
+			courant.getJoueur().setX(taille);
+			courant.getJoueur().setY(taille);
 		}
 		CellJoueur tmp = courant;
 		while((tmp=tmp.getSuivant())!=courant) {
-			labyrinth.getLabyrinthD().getLabyrinth()[taille][taille].addJoueur(courant.getJoueur());
+			//labyrinth.getLabyrinthD().getLabyrinth()[taille][taille].addJoueur(courant.getJoueur());
+			tmp.getJoueur().setX(taille);
+			tmp.getJoueur().setY(taille);
 		}
 		m.MAJlabyrinthG(labyrinth); //afficher le nouveau labyrinth avec les joueurs (ALEC)
 		genererClefs();

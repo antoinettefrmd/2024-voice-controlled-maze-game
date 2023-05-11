@@ -30,9 +30,9 @@ public class LabyrinthGraphique extends JPanel{
 	/**
 	 * n represente la taille n*n du labyrinth
 	 */
-	public LabyrinthGraphique(int n, ListeDeJoueurs p, boolean b) {
+	public LabyrinthGraphique(int n, ListeDeJoueurs p) {
 		
-		this.labyrinthD = new Labyrinth(n, p, b);
+		this.labyrinthD = new Labyrinth(n, p);
 		
 		setLayout(new GridLayout(2*n+1, 2*n+1));
 		labyrinthG = new JPanel[2*n +1][2*n +1];

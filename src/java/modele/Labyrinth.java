@@ -6,14 +6,13 @@ import java.util.Random;
 
 public class Labyrinth {
 	protected Case[][] labyrinth;
-	private CellJoueur current;
 	private int[][]tab_val;//entier entre -1 et 4, -1 représentant la première case, 0 les cases non visitées 1-4 représentent d'ou vient l'ancienne case visitée
 	//1 = gauche, 2 = bas, 3 = droite, 4 = haut
 	protected int l; // taille du labyrinth
 	private int x; // utile seulement pour la génération
 	private int y; // idem
 	
-	public Labyrinth(int n, ListeDeJoueurs p, boolean b) {
+	public Labyrinth(int n, ListeDeJoueurs p) {
 		l = n;
 		labyrinth = new Case[2*l+1][2*l+1];
 		tab_val = new int[n][n];
@@ -26,17 +25,6 @@ public class Labyrinth {
 		x = 0;
 		y = 0;
 		
-		if (b)
-		{
-			current = p.getCourant();
-			CellJoueur tmp = current;
-			do {
-				tmp.getJoueur().setX(l);
-				tmp.getJoueur().setY(l);
-				labyrinth[l][l].addJoueur(tmp.getJoueur());
-				tmp = tmp.getSuivant();
-			} while (tmp != current);
-		}
 		tab_val[x][y] = -1;
 		generate();
 	}
@@ -157,9 +145,6 @@ public class Labyrinth {
 			res+="\n";
 		}
 		return res;
-	}
-	public CellJoueur getCurrent() {
-		return current;
 	}
 	
 	public class Case {
