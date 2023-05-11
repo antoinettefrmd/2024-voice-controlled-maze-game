@@ -36,7 +36,7 @@ public class MessageFin extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public MessageFin(Menu m, String temps) {
+	public MessageFin(Menu m, long temps) {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());

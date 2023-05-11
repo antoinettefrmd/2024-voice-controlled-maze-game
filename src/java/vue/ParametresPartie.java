@@ -36,7 +36,6 @@ public class ParametresPartie extends JPanel {
 	private static final long serialVersionUID = -2766301827457600207L;
 	private BufferedImage image;
 	private Font minecraft;
-	private Font mincecarftcheckbox;
 	private Font DayDream;
 	private LinkedList<JCheckBox> jSuppJCheckBox;
 	private Scanner sc;
@@ -57,7 +56,6 @@ public class ParametresPartie extends JPanel {
 		setLayout(new BorderLayout(0, 0));
 		
 		image = m.getImage();
-		mincecarftcheckbox = m.getMinecraft();
 		jSuppJCheckBox = new LinkedList<JCheckBox>();
 		
 		JPanel topBox = new JPanel(new BorderLayout());
@@ -65,17 +63,16 @@ public class ParametresPartie extends JPanel {
 		
 		JButton retour = new JButton("retour");
 		retour.setFont(minecraft);
-//		retour.setBackground(new Color(176, 69, 25));
 		retour.setBackground(new Color(250, 250, 175));
 		retour.setFocusPainted(false);
 		retour.setHorizontalAlignment(SwingConstants.LEFT);
 
 		
-		JLabel titre = new JLabel("Choisir les participants :");
+		JLabel titre = new JLabel("Pour jouer, cliquez sur votre nom puis parlez pendant 10 secondes pour vérifier votre identité");
 		titre.setBorder(new EmptyBorder(50, 0, 0, 0)); //on crée un espace au-dessus du titre
 		titre.setHorizontalAlignment(SwingConstants.CENTER); //permet de centrer le texte
 		titre.setForeground(new Color(250, 250, 175));
-		titre.setFont(DayDream);
+		titre.setFont(DayDream.deriveFont(11f));
 		
 		topBox.add(retour, BorderLayout.WEST);
 		
@@ -87,7 +84,6 @@ public class ParametresPartie extends JPanel {
 		JPanel centerTopBox = new JPanel();
 		centerTopBox.setOpaque(false);
 		centerTopBox.add(titre, BorderLayout.CENTER);
-		//centerTopBox.add(phraseChoix, BorderLayout.SOUTH);
 		centerTopBox.setOpaque(false);
 		
 		
@@ -162,10 +158,6 @@ public class ParametresPartie extends JPanel {
 		lancer.setFocusPainted(false);
 		lancer.setFont(minecraft);
 		lancer.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		// lancer.setBorder(null);
-		// lancer.setOpaque(false);
-		// lancer.setContentAreaFilled(false);
-
 		lancer.setPreferredSize(new Dimension(200, 50));
 		
 		southBox.add(lancer);
@@ -182,19 +174,19 @@ public class ParametresPartie extends JPanel {
 		});
 		
 		j1.addActionListener((ActionEvent event) -> {
-			//appelVerif(j1,"G", 0.80);
+			appelVerif(j1,"G", 0.80);
 		});
 		
 		j2.addActionListener((ActionEvent event) -> {
-			//appelVerif(j2,"R", 0.60);
+			appelVerif(j2,"R", 0.60);
 		});
 		
 		j3.addActionListener((ActionEvent event) -> {
-			//appelVerif(j3,"AN",0.25);
+			appelVerif(j3,"AN",0.25);
 		});
 		
 		j4.addActionListener((ActionEvent event) -> {
-			//appelVerif(j4,"AL",0.25);
+			appelVerif(j4,"AL",0.25);
 		});
 		
 		j5.addActionListener((ActionEvent event) -> {

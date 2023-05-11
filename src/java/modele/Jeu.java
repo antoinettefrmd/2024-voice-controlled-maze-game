@@ -1,5 +1,5 @@
 package modele;
-// ancienne version
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -31,11 +31,13 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
 import modele.Labyrinth.Cle;
 import vue.JoueurSuivant;
 import vue.LabyrinthGraphique;
 import vue.Menu;
+import vue.MessageFin;
 import vue.Scores;
 
 public class Jeu {
@@ -54,26 +56,25 @@ public class Jeu {
 	private BufferedImage clef;
 	private Icon clefvertical;
 	private BufferedImage escalier;
+	private Font font = new Font("Arial Black", Font.BOLD, 12);
+
 	
 	private Menu m;
-	
-	//permet de savoir qui est le joueur courant dans la liste de JLabel
-	private int JLabelCourantJPos = 0; 
-	
-	//JLabel qui represente le joueur courant
-	private JLabel JLabelCourant;
 	
 	//nombre de joueur max pour la partie
 	private int nbrJ;
 	
 	private Color gold = new Color(255, 215, 0); //quand le joueur a une clef on met son pseudo en couleur gold
 	
-	private Border Jborder = BorderFactory.createLineBorder(Color.black, 2); //bordure pour entourer le nom d'un joueur
-	private Border JActuBorder = BorderFactory.createLineBorder(Color.WHITE, 2); //bordure pour entourer le nom du joueur qui joue
+	private Border Jborder1 = BorderFactory.createLineBorder(Color.black, 2); //bordure pour entourer le nom d'un joueur
+	private Border Jborder = BorderFactory.createCompoundBorder(Jborder1, new EmptyBorder(0,9,0,6));
+	
+	private Border JActuBorder1 = BorderFactory.createLineBorder(Color.WHITE, 2); //bordure pour entourer le nom du joueur qui joue
+	private Border JActuBorder = BorderFactory.createCompoundBorder(JActuBorder1, new EmptyBorder(0,9,0,6));
+
 	private Border JWinBorder = BorderFactory.createLineBorder(gold, 2); //bordure pour les joueurs qui ont terminé
 	private Font Jfontwin; //texte pour les joueurs qui ont terminé
 	
-	private LinkedList<JLabel> listj; //permet d'avoir la liste des JLabel représentant les joueurs
 	private JPanel jbox; //permet de contenir tous les JLabel des joueurs et de les organiser dans la topbar
 
 	
@@ -82,6 +83,7 @@ public class Jeu {
 		
 		this.m = m;
 		clefs = new LinkedList<Cle>();
+
 		joueurs = ListeDeJoueurs.copier(j);
 		joueursencours = ListeDeJoueurs.copier(j);
 		labyrinth = new LabyrinthGraphique(taille, joueursencours, true);
@@ -93,8 +95,8 @@ public class Jeu {
 		labyrinth.getActionMap().put("up", up);
 		labyrinth.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "down");
 		labyrinth.getActionMap().put("down", down);
+
 		etage = 0;
-		courant = joueursencours.getCourant();
 		
 		int n = j.getTaille();
 		nbrJ = n;		
@@ -106,22 +108,11 @@ public class Jeu {
 			e.printStackTrace();
 		}
 		
-		genererClefs();
-		
-		//permet de faire en sorte que la case du millieu soit un escalier
-		labyrinth.getCase(taille, taille).setSortie(true);
-		labyrinth.getCase(taille, taille).setEscalier(escalier);
-		
-		m.MAJlabyrinthG(labyrinth); //met à jour l'interface graphique et donc le labyrinth
-
 		JMenuBar jmb = m.getJMenuBar();
-		
-		listj = new LinkedList<JLabel>();
 		
 		jbox = new JPanel(new GridLayout(0, 5, 10, 0));
 		jbox.setOpaque(false);
 		
-		Font font = new Font("Arial Black", Font.BOLD, 12);
 		@SuppressWarnings("rawtypes")
 		Map  attributes = font.getAttributes();
 		attributes.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
@@ -169,15 +160,25 @@ public class Jeu {
 			g.setHorizontalAlignment(SwingConstants.CENTER);
 			g.setBorder(Jborder);
 			jbox.add(g);
-			listj.add(g);
+			j.getCourant().setLabelJoueur(g);
 			j.suivant();
 		} //possible probleme a la fin de la boucle qui est le joueur courant?
 		
-		JLabelCourant = ((JLabel)jbox.getComponent(0));
-		JLabelCourant.setBorder(JActuBorder);
+		((JLabel)jbox.getComponent(0)).setBorder(JActuBorder);
 		
-		JLabelCourant = ((JLabel)jbox.getComponent(0));
-		JLabelCourant.setBorder(JActuBorder);
+		joueurs = ListeDeJoueurs.copier(j);
+		joueursencours = ListeDeJoueurs.copier(j);
+		labyrinth = new LabyrinthGraphique(taille, joueursencours, true);
+		
+		courant = joueursencours.getCourant();
+		
+		//permet de faire en sorte que la case du millieu soit un escalier
+		labyrinth.getCase(taille, taille).setSortie(true);
+		labyrinth.getCase(taille, taille).setEscalier(escalier);
+				
+		m.MAJlabyrinthG(labyrinth); //met à jour l'interface graphique et donc le labyrinth
+		
+		genererClefs();
 		
 		chrono = new JLabel("temps écoulé : 0");
 		chrono.setBackground(Color.CYAN);
@@ -189,7 +190,7 @@ public class Jeu {
 			public void actionPerformed(ActionEvent e) {
 				duration = (System.currentTimeMillis() - startTime) / 1000;
 				LocalTime lt = LocalTime.ofSecondOfDay(duration);
-				chrono.setText("temps écoulé : " + lt+"  ");
+				chrono.setText("temps : " + lt+"  ");
 			}
 		});
 		time.start();
@@ -199,6 +200,7 @@ public class Jeu {
 		
 	}
 	
+	@SuppressWarnings("serial")
 	private Action right = new AbstractAction() {
 		
 		@Override
@@ -209,6 +211,7 @@ public class Jeu {
 		}
 	};
 
+	@SuppressWarnings("serial")
 	private Action left = new AbstractAction() {
 		
 		@Override
@@ -219,6 +222,7 @@ public class Jeu {
 		}
 	};
 	
+	@SuppressWarnings("serial")
 	private Action up = new AbstractAction() {
 		
 		@Override
@@ -229,6 +233,7 @@ public class Jeu {
 		}
 	};
 	
+	@SuppressWarnings("serial")
 	private Action down = new AbstractAction() {
 		
 		@Override
@@ -245,7 +250,10 @@ public class Jeu {
 		taille+=2;
 		joueursencours = ListeDeJoueurs.copier(joueurs);
 		
+		//il faut bien ajouter cette ligne pour que ça fonctionne nn?
 		courant = joueursencours.getCourant();
+
+		reinitialisationToutJLabel();
 		
 		labyrinth = new LabyrinthGraphique(taille, joueursencours, false);
 		labyrinth.getCase(taille, taille).setSortie(true);
@@ -262,9 +270,6 @@ public class Jeu {
 
 	}
 	
-	//pour l'utilisation de script bash il faut utiliser la class ExecuteBash et donner en argument du constructeur le
-	//chemin vers le script depuis src ex : "/src/java/controlleur/record.sh"
-
 	public void tour(String deplacement) {
 
 		Labyrinth lab = labyrinth.getLabyrinthD();
@@ -294,6 +299,7 @@ public class Jeu {
 		}
 		else if (current.getX() == lab.getL() && current.getY()== lab.getL()) { 
 			barreJLabel();
+			courant.getLabelJoueur().setBorder(Jborder);
 			courant = courant.getSuivant();
 			joueursencours.supprimer(courant.getPrecedent().getJoueur());
 		}
@@ -311,13 +317,8 @@ public class Jeu {
 	//permet de mettre le joueur actuel avec la borduer spécial
 	//normalement ça suit le joueur courant du jeu mais pas encore tester donc pas sur
 	public void actualisationLabelJCourant() {
-		JLabelCourant.setBorder(Jborder);
-		if(JLabelCourantJPos == nbrJ-1) JLabelCourantJPos = 0;
-		else JLabelCourantJPos++;
-		//JLabel tmp = JLabelCourant;
-		//tmp.setBorder(Jborder);
-		JLabelCourant = (JLabel) jbox.getComponent(JLabelCourantJPos); 
-		JLabelCourant.setBorder(JActuBorder);
+		courant.getPrecedent().getLabelJoueur().setBorder(Jborder);
+		courant.getLabelJoueur().setBorder(JActuBorder);;
 	}
 
 	public void genererClefs(){
@@ -362,19 +363,25 @@ public class Jeu {
 	}
 	
 	public void ajouteclefJLabel() {
-		JLabelCourant.setIcon(clefvertical);
+		courant.getLabelJoueur().setIcon(clefvertical);
 	}
 	
 	public void barreJLabel() {
-		JLabelCourant.setFont(Jfontwin);
+		courant.getLabelJoueur().setFont(Jfontwin);
 	}
 	
 	public void bordureGoldJLabel() {
-		JLabelCourant.setBorder(JWinBorder);
+		courant.getLabelJoueur().setBorder(JWinBorder);
 	}
 	
 	public void reinitialisationToutJLabel() {
-		
+		for(int i = 0; i < nbrJ; i++) {
+			JLabel tmp = (JLabel) jbox.getComponent(i);
+			tmp.setIcon(null);
+			tmp.setFont(font);
+			tmp.setBorder(Jborder);
+		}
+		courant.getLabelJoueur().setBorder(JActuBorder);
 	}
 	
 	private static BufferedImage rotateImage(BufferedImage buffImage, double angle) {
@@ -414,13 +421,16 @@ public class Jeu {
 		return chrono;
 	}
 	
-	public void finir()
-	{
+	public void finir() {
+		m.getJMenuBar().remove(chrono);
 		time.stop();
 		boolean majscores = ((Scores) m.getMeilleurScore()).sauvegardeScores(duration);
 		if(majscores) {
 			((Scores) m.getMeilleurScore()).majScores();
 		}
+		
+		MessageFin dialog = new MessageFin(m , duration);
+		dialog.setVisible(true);
 	}
 	
 }

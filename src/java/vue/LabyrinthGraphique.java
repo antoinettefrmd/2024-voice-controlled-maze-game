@@ -2,22 +2,16 @@ package vue;
 
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
 import javax.swing.JPanel;
-import javax.swing.KeyStroke;
 
 import modele.Labyrinth;
 import modele.ListeDeJoueurs;
 
-@SuppressWarnings("serial")
 public class LabyrinthGraphique extends JPanel{
 	
 	private static final long serialVersionUID = -2207872168451622130L;

@@ -1,5 +1,6 @@
 package modele;
 
+import javax.swing.JLabel;
 
 public class ListeDeJoueurs {
 
@@ -37,6 +38,22 @@ public class ListeDeJoueurs {
 		taille++;
 	}
 	
+	public void add(Joueur p, JLabel j){
+		if(courant!=null) {
+			CellJoueur res = new CellJoueur(p, courant, courant.getPrecedent());
+			res.setLabelJoueur(j);
+			courant.getPrecedent().setSuivant(res);
+			courant.setPrecedent(res);
+		}
+		else {
+			courant = new CellJoueur(p);
+			courant.setLabelJoueur(j);
+			courant.setPrecedent(courant);
+			courant.setSuivant(courant);
+		}
+		taille++;
+	}
+	
 	public boolean supprimer(Joueur p) {
 		if(courant==null) return false;
 		if(courant.getSuivant().getJoueur().equals(courant.getJoueur()) && courant.getPrecedent().getJoueur().equals(courant.getJoueur())) {
@@ -65,7 +82,7 @@ public class ListeDeJoueurs {
 		ListeDeJoueurs res = new ListeDeJoueurs();
 		CellJoueur tmp = l.getCourant();
 		for (int i = 0 ; i < l.getTaille() ; i++) {
-			res.add(tmp.getJoueur());
+			res.add(tmp.getJoueur(), tmp.getLabelJoueur());
 			tmp = tmp.getSuivant();
 		}
 		return res;
