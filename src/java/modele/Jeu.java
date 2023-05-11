@@ -254,6 +254,11 @@ public class Jeu {
 			tour("je vais en bas");
 		}
 	};
+
+	public void setEtage(int etage) {
+		this.etage = etage;
+		m.changeEtage(etage);
+	}
 	
 	public void etage() { // set l'endroit des clé à chaque manche
 		System.out.println("étage");
@@ -261,9 +266,14 @@ public class Jeu {
 		m.changeEtage(etage);
 		//taille+=2;
 		joueursencours = ListeDeJoueurs.copier(joueurs);
-		
-		//il faut bien ajouter cette ligne pour que ça fonctionne nn?
 		courant = joueursencours.getCourant();
+		for (int i = 0 ; i < joueursencours.getTaille() ; i++){
+			joueursencours.getCourant().getJoueur().setX(taille);
+			joueursencours.getCourant().getJoueur().setY(taille);
+			courant = courant.getSuivant();
+		}
+		
+		
 
 		reinitialisationToutJLabel();
 		
@@ -357,6 +367,7 @@ public class Jeu {
 				yCle = rand.nextInt(2*l)+1;
 			}
 			Cle c = labyrinth.getLabyrinthD().new Cle(tmp.getJoueur().getCouleur(),xCle,yCle);
+			clefs.add(c);
 			
 			BufferedImage btmp = new BufferedImage(clef.getWidth(), clef.getHeight(), BufferedImage.TYPE_INT_ARGB);
 			
@@ -446,6 +457,8 @@ public class Jeu {
 	public void finir() {
 		m.getJMenuBar().remove(chrono);
 		time.stop();
+		etage = 0;
+		m.changeEtage(etage);
 		boolean majscores = ((Scores) m.getMeilleurScore()).sauvegardeScores(duration);
 		if(majscores) {
 			((Scores) m.getMeilleurScore()).majScores();
