@@ -51,7 +51,7 @@ public class Jeu {
 	private long startTime;
 	private long duration;
 	private Timer time;
-	public int taille = 5;
+	public int taille = 3;
 	public static LinkedList<Cle> clefs;
 	private BufferedImage clef;
 	private Icon clefvertical;
@@ -254,15 +254,25 @@ public class Jeu {
 			tour("je vais en bas");
 		}
 	};
+
+	public void setEtage(int etage) {
+		this.etage = etage;
+		m.changeEtage(etage);
+	}
 	
 	public void etage() { // set l'endroit des clé à chaque manche
 		etage++;
 		m.changeEtage(etage);
 		taille+=2;
 		joueursencours = ListeDeJoueurs.copier(joueurs);
-		
-		//il faut bien ajouter cette ligne pour que ça fonctionne nn?
 		courant = joueursencours.getCourant();
+		for (int i = 0 ; i < joueursencours.getTaille() ; i++){
+			joueursencours.getCourant().getJoueur().setX(taille);
+			joueursencours.getCourant().getJoueur().setY(taille);
+			courant = courant.getSuivant();
+		}
+		
+		
 
 		reinitialisationToutJLabel();
 		
@@ -318,9 +328,7 @@ public class Jeu {
 			courant = courant.getSuivant();
 			joueursencours.supprimer(courant.getPrecedent().getJoueur());
 			if (joueursencours.getTaille() == 0) {
-				System.out.print("bbbbbbbbb");
 				if(etage<5){
-					System.out.print("hehe c'est quoi ce bordel");
 					etage();
 				}	
 				else finir();
@@ -446,6 +454,8 @@ public class Jeu {
 	public void finir() {
 		m.getJMenuBar().remove(chrono);
 		time.stop();
+		etage = 0;
+		m.changeEtage(etage);
 		boolean majscores = ((Scores) m.getMeilleurScore()).sauvegardeScores(duration);
 		if(majscores) {
 			((Scores) m.getMeilleurScore()).majScores();

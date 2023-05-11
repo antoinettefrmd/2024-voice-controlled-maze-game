@@ -297,6 +297,7 @@ public class Menu extends JFrame {
 			jmb.setVisible(false);
 			jmb.remove(jeu.getChrono());
 			jeu.getTime().stop();
+			jeu.setEtage(0);
 			getContentPane().remove(contentPane);
 			getContentPane().add(menuPanel);
 		});
