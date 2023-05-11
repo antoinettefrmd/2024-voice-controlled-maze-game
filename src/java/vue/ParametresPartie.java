@@ -68,7 +68,7 @@ public class ParametresPartie extends JPanel {
 		retour.setHorizontalAlignment(SwingConstants.LEFT);
 
 		
-		JLabel titre = new JLabel("Pour jouer, cliquez sur votre nom puis parlez pendant 10 secondes pour vérifier votre identité");
+		JLabel titre = new JLabel("Cliquez sur votre nom puis prononcer le mot de passe : ");
 		titre.setBorder(new EmptyBorder(50, 0, 0, 0)); //on crée un espace au-dessus du titre
 		titre.setHorizontalAlignment(SwingConstants.CENTER); //permet de centrer le texte
 		titre.setForeground(new Color(250, 250, 175));
@@ -91,7 +91,7 @@ public class ParametresPartie extends JPanel {
 		centerCenterBox.setBorder(new EmptyBorder(200, 0, 0, 0));
 		centerCenterBox.setOpaque(false);
 		
-		Color checkBoxColor = new Color(205,83,52); //new Color(250, 250, 175)
+		Color checkBoxColor = new Color(205,83,52);
 		
 		JCheckBox j1 = new JCheckBox("Georges");
 		j1.setFont(DayDream);
@@ -174,23 +174,23 @@ public class ParametresPartie extends JPanel {
 		});
 		
 		j1.addActionListener((ActionEvent event) -> {
-			// appelVerif(j1,"G", 0.80);
+			appelVerif(j1,"G", 0.80);
 		});
 		
 		j2.addActionListener((ActionEvent event) -> {
-			// appelVerif(j2,"R", 0.60);
+			appelVerif(j2,"R", 0.60);
 		});
 		
 		j3.addActionListener((ActionEvent event) -> {
-			// appelVerif(j3,"AN",0.25);
+			appelVerif(j3,"AN",0.25);
 		});
 		
 		j4.addActionListener((ActionEvent event) -> {
-			// appelVerif(j4,"AL",0.25);
+			appelVerif(j4,"AL",0.25);
 		});
 		
 		j5.addActionListener((ActionEvent event) -> {
-			// appelVerif(j5,"L",0.10);
+			appelVerif(j5,"L",0.10);
 		});
 		
 		lancer.addActionListener((ActionEvent event) -> {
@@ -296,7 +296,6 @@ public class ParametresPartie extends JPanel {
 		 }
 
 		 private void init() {
-		   //setBackground(Color.white);
 		   setBorder(null);
 		   setFocusable(false);
 		   color = new Color(0x47,0xB0,0x19,0xFF);
@@ -304,12 +303,6 @@ public class ParametresPartie extends JPanel {
 		 }
 
 		 public void paint(Graphics g) {
-		   // Don't need to set these to get transparent button --
-		   // we'll simply not draw it!
-//		        setBackground(getParent().getBackground());
-//		        setBorder(Styles.BORDER_NONE);
-
-		   // Don't draw the button or border
 		   this.setContentAreaFilled(false);
 		   this.setBorderPainted(false);
 
@@ -322,27 +315,20 @@ public class ParametresPartie extends JPanel {
 		   g2d.setRenderingHint(
 		        RenderingHints.KEY_TEXT_ANTIALIASING,
 		        RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-		    
-		   // This is needed on non-Mac so text
-		   // is repainted correctly!
+		
 		   super.paint(g);
 
-		   // Make it grey #DDDDDD, and make it round with 1px
-		   // black border
-		   //g2d.setColor(new Color(0x47,0xB0,0x19,0xFF));
 		   g2d.setColor(new Color(250, 250, 175));
 		   g2d.fillRoundRect(0,0,getWidth(),getHeight(),18,18);
 		   g2d.setColor(Color.BLACK);
 		   g2d.drawRoundRect(0,0,getWidth()-1,getHeight()-1,18,18);
 
-		   // Determine the label size so can center it
 		   FontRenderContext frc = new FontRenderContext(null, false, false);
 		   Rectangle2D r = getFont().getStringBounds(getText(), frc);
 
 		   float xMargin = (float)(getWidth()-r.getWidth())/2;
 		   float yMargin = (float)(getHeight()-getFont().getSize())/2;
 
-		   // Draw the text in the center
 		   g2d.drawString(getText(),xMargin,
 		     (float)getFont().getSize()+yMargin);
 		 }

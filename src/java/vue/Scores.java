@@ -70,7 +70,7 @@ public class Scores extends JPanel {
 		
 		JButton retour = new JButton("retour");
 		retour.setFont(minecraftButton);
-		retour.setBackground(new Color(176, 69, 25));
+		retour.setBackground(new Color(250, 250, 175));
 		retour.setFocusPainted(false);
 		retour.setHorizontalAlignment(SwingConstants.LEFT);
 		
@@ -86,7 +86,7 @@ public class Scores extends JPanel {
 		titre.setHorizontalAlignment(SwingConstants.CENTER);
 		titre.setOpaque(false);
 		titre.setFont(minecraft);
-		titre.setForeground(Color.white);
+		titre.setForeground(new Color(250, 250, 175));
 		//titre.setFont(new Font("Arial Black", ABORT, 20));
 		
 		
@@ -98,52 +98,52 @@ public class Scores extends JPanel {
 		top10.add(num1);
 		num1.setHorizontalAlignment(SwingConstants.CENTER);
 		num1.setFont(minecraft);
-		num1.setForeground(Color.white);
+		num1.setForeground(new Color(250, 250, 175));
 		
 		top10.add(num2);
 		num2.setHorizontalAlignment(SwingConstants.CENTER);
 		num2.setFont(minecraft);
-		num2.setForeground(Color.white);
+		num2.setForeground(new Color(250, 250, 175));
 
 		top10.add(num3);
 		num3.setHorizontalAlignment(SwingConstants.CENTER);
 		num3.setFont(minecraft);
-		num3.setForeground(Color.white);
+		num3.setForeground(new Color(250, 250, 175));
 		
 		top10.add(num4);
 		num4.setHorizontalAlignment(SwingConstants.CENTER);
 		num4.setFont(minecraft);
-		num4.setForeground(Color.white);
+		num4.setForeground(new Color(250, 250, 175));
 		
 		top10.add(num5);
 		num5.setHorizontalAlignment(SwingConstants.CENTER);
 		num5.setFont(minecraft);
-		num5.setForeground(Color.white);
+		num5.setForeground(new Color(250, 250, 175));
 		
 		top10.add(num6);
 		num6.setHorizontalAlignment(SwingConstants.CENTER);
 		num6.setFont(minecraft);
-		num6.setForeground(Color.white);
+		num6.setForeground(new Color(250, 250, 175));
 		
 		top10.add(num7);
 		num7.setHorizontalAlignment(SwingConstants.CENTER);
 		num7.setFont(minecraft);
-		num7.setForeground(Color.white);
+		num7.setForeground(new Color(250, 250, 175));
 		
 		top10.add(num8);
 		num8.setHorizontalAlignment(SwingConstants.CENTER);
 		num8.setFont(minecraft);
-		num8.setForeground(Color.white);
+		num8.setForeground(new Color(250, 250, 175));
 		
 		top10.add(num9);
 		num9.setHorizontalAlignment(SwingConstants.CENTER);
 		num9.setFont(minecraft);
-		num9.setForeground(Color.white);
+		num9.setForeground(new Color(250, 250, 175));
 		
 		top10.add(num10);
 		num10.setHorizontalAlignment(SwingConstants.CENTER);
 		num10.setFont(minecraft);
-		num10.setForeground(Color.white);
+		num10.setForeground(new Color(250, 250, 175));
 		
 		scoreBox.add(num1);
 		scoreBox.add(num2);

@@ -97,8 +97,6 @@ public class Menu extends JFrame {
 			JLabel titre = new JLabel("Trouve la voie");
 			titre.setHorizontalAlignment(SwingConstants.CENTER);
 			titre.setBorder(new EmptyBorder(150, 0, 0, 0));
-			//titre.setForeground(new Color(220, 226, 195));
-			//titre.setForeground(new Color(34, 120, 15));
 			titre.setForeground(new Color(250, 250, 175));
 			titre.setFont(DayDream);
 			
@@ -113,7 +111,7 @@ public class Menu extends JFrame {
 			JButton jouer = new JButton("Jouer");
 			jouer.setPreferredSize(dimButton); //permet d'appliquer la taille voulue au bouton
 			jouer.setFont(minecraft); //permet d'appliquer une police d'écriture pour le texte du bouton
-			jouer.setForeground(Color.white); //permet d'appliquer la couleur au texte du bouton
+			jouer.setForeground(new Color(250, 250, 175)); //permet d'appliquer la couleur au texte du bouton
 			jouer.setBorder(null); //fonction qui rend invisible les bordures du bouton
 			jouer.setOpaque(false); //permet de rendre le background du bouton transparent
 			//jouer.setBorderPainted(false);
@@ -125,7 +123,7 @@ public class Menu extends JFrame {
 			JButton scoreJoueur = new JButton("Scores");
 			scoreJoueur.setPreferredSize(new Dimension(200, 50));
 			scoreJoueur.setFont(minecraft);
-			scoreJoueur.setForeground(Color.white);
+			scoreJoueur.setForeground(new Color(250, 250, 175));
 			scoreJoueur.setBorder(null);
 			scoreJoueur.setOpaque(false);
 			scoreJoueur.setFocusPainted(false);
@@ -137,7 +135,7 @@ public class Menu extends JFrame {
 
 			credit.setPreferredSize(dimButton);
 			credit.setFont(minecraft);
-			credit.setForeground(Color.white);
+			credit.setForeground(new Color(250, 250, 175));
 			credit.setBorder(null);
 			credit.setOpaque(false);
 			credit.setFocusPainted(false);
@@ -148,7 +146,7 @@ public class Menu extends JFrame {
 			JButton quitter = new JButton("Quitter");
 			quitter.setPreferredSize(dimButton);
 			quitter.setFont(minecraft);
-			quitter.setForeground(Color.white);
+			quitter.setForeground(new Color(250, 250, 175));
 			quitter.setBorder(null);
 			quitter.setOpaque(false);
 			quitter.setFocusPainted(false);
@@ -253,7 +251,7 @@ public class Menu extends JFrame {
 		quitterjeu.setFocusPainted(false);
 		quitterjeu.setBorderPainted(false);
 		//quitterjeu.setFont(minecraftButton);
-		quitterjeu.setBackground(new Color(176, 69, 25));
+		quitterjeu.setBackground(Color.gray);
 
 		etage = new JLabel("Etage : 0");
 		//etage.setBorder(BorderFactory.createCompoundBorder(Jborder, new EmptyBorder(5,5,5,5)));

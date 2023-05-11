@@ -73,23 +73,6 @@ public class JoueurSuivant extends JDialog {
 	}
 	
 	public void ferme() {
-//		new Thread(new Runnable() {
-//			
-//			@Override
-//			public void run() {
-//				// TODO Auto-generated method stub
-//				try {
-//					Thread.sleep(5000);
-//					
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//
-//			}
-//		}).start();
-		
-//		Thread t = new Thread();
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 

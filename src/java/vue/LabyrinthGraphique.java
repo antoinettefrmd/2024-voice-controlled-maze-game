@@ -22,11 +22,6 @@ public class LabyrinthGraphique extends JPanel{
 	private BufferedImage imageSol;
 	private BufferedImage clef;
 	
-	//private Border Jborder = BorderFactory.createLineBorder(Color.black, 2); //bordure pour entourer le nom d'un joueur
-	//private Border JActuBorder = BorderFactory.createLineBorder(Color.gray, 2); //bordure pour entourer le nom du joueur qui joue
-	
-	//private LinkedList<JLabel> listj; //permet d'avoir la liste des JLabel représentant les joueurs
-
 	/**
 	 * n represente la taille n*n du labyrinth
 	 */

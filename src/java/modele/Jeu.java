@@ -51,7 +51,7 @@ public class Jeu {
 	private long startTime;
 	private long duration;
 	private Timer time;
-	public int taille = 3;
+	public int taille = 5;
 	public static LinkedList<Cle> clefs;
 	private BufferedImage clef;
 	private Icon clefvertical;
@@ -162,7 +162,7 @@ public class Jeu {
 			jbox.add(g);
 			j.getCourant().setLabelJoueur(g);
 			j.suivant();
-		} //possible probleme a la fin de la boucle qui est le joueur courant?
+		}
 		
 		((JLabel)jbox.getComponent(0)).setBorder(JActuBorder);
 		
@@ -193,7 +193,6 @@ public class Jeu {
 		
 		chrono = new JLabel("temps écoulé : 0");
 		chrono.setBackground(Color.CYAN);
-		//chrono.setBorder(Jborder);
 		startTime = System.currentTimeMillis();
 		time = new Timer(1000, new ActionListener() {
 			
@@ -216,8 +215,6 @@ public class Jeu {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//LabyrinthGraphique.this.labyrinthD.droite(LabyrinthGraphique.this.labyrinthD.getCurrent().getJoueur());
-			//repaint();
 			tour("je vais à droite");
 		}
 	};
@@ -227,8 +224,6 @@ public class Jeu {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//LabyrinthGraphique.this.labyrinthD.gauche(LabyrinthGraphique.this.labyrinthD.getCurrent().getJoueur());
-			//repaint();
 			tour("je vais à gauche");
 		}
 	};
@@ -238,8 +233,6 @@ public class Jeu {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//LabyrinthGraphique.this.labyrinthD.haut(LabyrinthGraphique.this.labyrinthD.getCurrent().getJoueur());
-			//repaint();
 			tour("je vais en haut");
 		}
 	};
@@ -249,8 +242,6 @@ public class Jeu {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//LabyrinthGraphique.this.labyrinthD.bas(LabyrinthGraphique.this.labyrinthD.getCurrent().getJoueur());
-			//repaint();
 			tour("je vais en bas");
 		}
 	};
@@ -260,11 +251,11 @@ public class Jeu {
 		m.changeEtage(etage);
 	}
 	
-	public void etage() { // set l'endroit des clé à chaque manche
+	public void etage() {
 		System.out.println("étage");
 		etage++;
 		m.changeEtage(etage);
-		//taille+=2;
+		taille+=2;
 		joueursencours = ListeDeJoueurs.copier(joueurs);
 		courant = joueursencours.getCourant();
 		for (int i = 0 ; i < joueursencours.getTaille() ; i++){
@@ -278,7 +269,7 @@ public class Jeu {
 		reinitialisationToutJLabel();
 		
 		labyrinth = new LabyrinthGraphique(taille, joueursencours);
-		m.MAJlabyrinthG(labyrinth); //afficher le nouveau labyrinth avec les joueurs (ALEC)
+		m.MAJlabyrinthG(labyrinth); //afficher le nouveau labyrinth avec les joueurs 
 		labyrinth.getCase(taille, taille).setSortie(true);
 		labyrinth.getCase(taille, taille).setEscalier(escalier);
 		if(joueursencours.getTaille()==1) {
@@ -330,7 +321,7 @@ public class Jeu {
 			courant = courant.getSuivant();
 			joueursencours.supprimer(courant.getPrecedent().getJoueur());
 			if (joueursencours.getTaille() == 0) {
-				if(etage<3){
+				if(etage<1){
 					etage();
 				}	
 				else finir();
@@ -347,7 +338,6 @@ public class Jeu {
 	}
 	
 	//permet de mettre le joueur actuel avec la borduer spécial
-	//normalement ça suit le joueur courant du jeu mais pas encore tester donc pas sur
 	public void actualisationLabelJCourant() {
 		courant.getPrecedent().getLabelJoueur().setBorder(Jborder);
 		courant.getLabelJoueur().setBorder(JActuBorder);;

@@ -43,7 +43,7 @@ public class MessageFin extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		{
-			JLabel titreFin = new JLabel("Bravo ! vous avez terminer le jeu en " + temps);
+			JLabel titreFin = new JLabel("Bravo, vous êtes parvenu à trouver le trésor en " + temps);
 			titreFin.setHorizontalAlignment(SwingConstants.CENTER);
 			getContentPane().add(titreFin, BorderLayout.CENTER);
 		}

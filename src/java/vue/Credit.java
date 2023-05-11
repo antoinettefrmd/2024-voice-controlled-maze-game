@@ -26,7 +26,7 @@ public class Credit extends JPanel {
 	 */
 	public Credit(Menu m) {
 		
-		c = new Color(14, 189, 6);
+		c = new Color(250, 250, 175);
 
 		image = m.getImage();
 		minecraft = m.getMinecraft();
@@ -40,7 +40,7 @@ public class Credit extends JPanel {
 		
 		JButton retour = new JButton("retour");
 		retour.setFont(minecraftButton);
-		retour.setBackground(new Color(176, 69, 25));
+		retour.setBackground(new Color(250, 250, 175));
 		retour.setFocusPainted(false);
 		retour.setHorizontalAlignment(SwingConstants.LEFT);
 		

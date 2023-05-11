@@ -34,7 +34,7 @@ public class Labyrinth {
 	}
 	
 	
-	public Case[][] getLabyrinth(){ //On aura besoin d'avoir accès au labyrinthe
+	public Case[][] getLabyrinth(){
 		return this.labyrinth;
 	}
 	public void droite(Joueur p) {
@@ -68,9 +68,6 @@ public class Labyrinth {
 			p.setX(p.getX() + 1);
 		}
 	}
-	
-
-	//Ajouter une classe interne coordonnées ? Ou autre part ?
 	
 	public void generate() {
 		boolean state = false;
@@ -154,10 +151,6 @@ public class Labyrinth {
 			mur = true;
 			joueurs = new ArrayList<Joueur>();
 		}
-
-		// public Case getCase() {
-		// 	return this;
-		// }
 		
 		public Case(boolean i) {  
 			mur = i;
@@ -201,7 +194,7 @@ public class Labyrinth {
         
         private int xCle;
         private int yCle; 
-		private boolean attrape; // mettre à false à chaque debut de manche
+		private boolean attrape;
 		@SuppressWarnings("unused")
 		private Color couleur;
 
