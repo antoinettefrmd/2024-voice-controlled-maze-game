@@ -51,7 +51,7 @@ public class Jeu {
 	private long startTime;
 	private long duration;
 	private Timer time;
-	public int taille = 3;
+	public int taille = 5;
 	public static LinkedList<Cle> clefs;
 	private BufferedImage clef;
 	private Icon clefvertical;
@@ -365,6 +365,7 @@ public class Jeu {
 				yCle = rand.nextInt(2*l)+1;
 			}
 			Cle c = labyrinth.getLabyrinthD().new Cle(tmp.getJoueur().getCouleur(),xCle,yCle);
+			clefs.add(c);
 			
 			BufferedImage btmp = new BufferedImage(clef.getWidth(), clef.getHeight(), BufferedImage.TYPE_INT_ARGB);
 			
