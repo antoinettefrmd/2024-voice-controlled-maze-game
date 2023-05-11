@@ -2,13 +2,15 @@
 
 groupe SB1-B : Georges Lecomte, Ronen Shay, Alec Martinez, Antoinette Fourmond, Lea Benoiton
 
-1. [Lancement du logiciel]
-2. [Présentation du logiciel]
-3. [Utilisation du logiciel]
+### Sommaire
+
+1. Lancement du logiciel
+2. Présentation du logiciel
+3. Présentation du jeu
 
 ## Lancement du logiciel :
 
-On fera juste un .jar à exécuter ? Je vous laisse voir...
+Exécuter le fichier jar
 
 ## Présentation du logiciel :
 
@@ -16,11 +18,15 @@ Notre logiciel est un jeu de labyrinthe dans lequel les joueurs doivent être re
 
 Seuls les joueurs enregistrés dans le logiciels peuvent donc participer.
 
-Le but du jeu est d'arrivé au bout du labyrinthe, composé de trois étages, chacun plus grand que le précédent. À chaque étage, tout les joueurs commencent au centre du labyrinthe, et doivent aller chercher la clef de leur couleur afin d'ouvrir la sortie, avant de revenir au centre du labyrinthe pour prendre l'escalier et accéder à l'étage suivant.
+Le but du jeu est d'arriver au bout du labyrinthe, composé de trois étages, chacun plus grand que le précédent. À chaque étage, tout les joueurs commencent au centre du labyrinthe, et doivent aller chercher la clef de leur couleur afin d'ouvrir la sortie, avant de revenir au centre du labyrinthe pour prendre l'escalier et accéder à l'étage suivant.
 
 Chaque partie est chronométrée afin que les joueurs puissent connaître le temps qu'ils ont mis à finir le jeu et essayer de battre leur record.
 
-## Utilisation du logiciel :
+## Présentation du jeu :
+
+### Histoire
+
+À la recherche du trésor légendaire du Dieu de la voix Voximilien, vous décidez de vous aventurer dans son temple. Après avoir prononcé chacun le mot de passe secret (qui était écrit sur la porte du temple), la porte s'ouvre et votre aventure commence. Mais à peine avez vous posé un pied dans le temple que vous vous retrouvez paralysés par la malédiction de Voximilien. Tout semble perdu, mais peut être votre voix pourra vous guider...
 
 ### Ecran titre
 
@@ -28,17 +34,17 @@ En lançant le logiciel, l'utilisateur se retrouve sur un menu d'écran titre av
 
 Ecran titre : 
 
-![image ecran titre](./src/ressources/images/ecranTitre.png "Ecran Titre")
+![image ecran titre](./src/ressources/images/Menu.png "Ecran Titre")
 
 ### Selection des joueurs
 
-En cliquant sur jouer, on arrive sur la page de sélection des joueurs. On peut alors cocher / décocher les joueurs qui participeront, mais notre logiciel a une petite particularité : lorque l'on essaye de cocher un joueur, un enregistrement de 10 secondes pendant lequel le joueur devra parler va se lancer. À la fin des 10 secondes, le logiciel cochera le joueur uniquement si sa voix a été reconnue. Une fois que tous les participants ont été cochés, on peut appuyer sur le bouton "le nom du bouton qui lance la partie lorsque tous les joueurs ont été cochés" pour lancer la partie.
+En cliquant sur jouer, on arrive sur la page de sélection des joueurs. On peut alors cocher / décocher les joueurs qui participeront, mais notre logiciel a une petite particularité : lorque l'on essaye de cocher un joueur, un enregistrement de 10 secondes pendant lequel le joueur devra parler va se lancer. À la fin des 10 secondes, le logiciel cochera le joueur uniquement si sa voix a été reconnue. Une fois que tous les participants ont été cochés, on peut appuyer sur le bouton "Lancer" pour lancer la partie.
 
 Sélection des joueurs :
 
+![image selection joueurs](./src/ressources/images/Selection.png "Selection des joueurs")
 
-
-### Ecran du jeu
+### Fonctionnement du jeu
 
 Le jeu se lance et on arrive enfin dans le labyrinthe. Chaque joueur est représenté par une pastille de couleur, et il y a également une clé de chaque couleur que chaque joueur doit aller chercher. En haut de la fenêtre de jeu, on retrouve plusieurs boutons et informations. En partant de la gauche il y a : le bouton "Quitter", pour mettre fin à la partie et revenir à l'écran titre, l'étage actuel du labyrinthe dans lequel on est, le bouton "Jouer", qui lance un enregistrement, la liste des joueurs, et le timer.
 
